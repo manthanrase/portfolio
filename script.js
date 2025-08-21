@@ -93,3 +93,10 @@ personaNext.addEventListener("click", () => {
 
 // Initialize on load
 updatePersonaPosition();
+
+function scrollToTop() {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth",
+  });
+}

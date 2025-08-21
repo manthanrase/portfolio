@@ -445,7 +445,7 @@
 
 .context-section {
   text-align: center;
-  padding: 80px 20px 60px;
+  padding: 50px 0px 0px;
   font-family: "Inter", sans-serif;
 }
 
@@ -553,3 +553,5 @@
 .experience-card:hover .experience-photo {
   transform: scale(1.05);
 }
+
+/* back to top button  */
