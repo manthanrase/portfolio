@@ -39,5 +39,13 @@ body {
 }
 
 .section {
-  padding: 40px 0px;
+  padding: 20px 0px;
+}
+
+.sub-head {
+  width: 49%;
+  margin: auto;
+  line-height: 1.6;
+  text-align: left;
+  padding-bottom: 30px;
 }
