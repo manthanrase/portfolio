@@ -64,6 +64,7 @@ body {
   margin: 0;
   padding: 0;
 }
+
 .hero-details .detail-item {
   display: flex;
   gap: 0.5rem;
@@ -131,6 +132,13 @@ body {
   border-radius: 48px;
 }
 
+@media only screen and (max-width: 768px) {
+  .hero-with-arrow video {
+    height: 23vh;
+    border-radius: 24px;
+  }
+}
+
 .down-arrow {
   position: absolute;
   bottom: -121px;
@@ -144,6 +152,12 @@ body {
   text-align: center;
   border-radius: 60px;
   padding-top: 5px;
+}
+
+@media only screen and (max-width: 768px) {
+  .down-arrow {
+    bottom: 280px;
+  }
 }
 
 /* Optional bounce animation */
@@ -168,6 +182,12 @@ body {
   background: #fff;
   padding: 40px 20px 40px;
   text-align: center;
+}
+
+@media only screen and (max-width: 768px) {
+  .principles-section {
+    padding: 40px 0px 40px;
+  }
 }
 
 .principles-label {
@@ -244,8 +264,13 @@ body {
 .news-section {
   text-align: center;
   padding: 80px 20px 60px;
-
   position: relative;
+}
+
+@media only screen and (max-width: 768px) {
+  .news-section {
+    padding: 80px 0px 60px;
+  }
 }
 
 .news-label {
@@ -280,6 +305,13 @@ body {
   height: 600px;
 }
 
+@media only screen and (max-width: 768px) {
+  .news-collage {
+    width: 100%;
+    height: 220px;
+  }
+}
+
 .photo {
   position: absolute;
   width: 200px;
@@ -288,6 +320,12 @@ body {
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
   border-radius: 6px;
   transition: transform 0.3s ease;
+}
+
+@media only screen and (max-width: 768px) {
+  .photo {
+    border: 3px solid #fafafa;
+  }
 }
 
 /* Rotations and positions to scatter the images */
@@ -324,11 +362,24 @@ body {
   z-index: 10;
 }
 
+@media only screen and (max-width: 768px) {
+  .photo:hover {
+    max-width: 65%;
+    transition: transform 0.5s ease;
+  }
+}
+
 /* interview photos -------------------- */
 
 .interview-section {
   text-align: center;
   padding: 30px 20px;
+}
+
+@media only screen and (max-width: 768px) {
+  .interview-section {
+    padding: 30px 0px !important;
+  }
 }
 
 .interview-label {
@@ -439,6 +490,11 @@ body {
   padding: 50px 20px;
   text-align: center;
 }
+@media only screen and (max-width: 768px) {
+  .empathy-map-section {
+    padding: 50px 0px;
+  }
+}
 
 .section-label {
   font-size: 0.85rem;
@@ -473,6 +529,12 @@ body {
   gap: 20px;
   max-width: 1000px;
   margin: 0 auto;
+}
+
+@media only screen and (max-width: 768px) {
+  .empathy-map-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 .quadrant {
@@ -613,6 +675,17 @@ body {
   display: block;
 }
 
+@media only screen and (max-width: 768px) {
+  .thumbnail {
+    border-radius: 24px !important;
+  }
+}
+@media only screen and (max-width: 768px) {
+  .carousel-slide img {
+    border-radius: 24px !important;
+  }
+}
+
 .carousel-button {
   position: absolute;
   top: 50%;
@@ -684,6 +757,12 @@ body {
   text-align: center;
 }
 
+@media only screen and (max-width: 768px) {
+  .journey-section {
+    padding: 50px 0px;
+  }
+}
+
 .section-label {
   font-size: 0.85rem;
   letter-spacing: 2px;
@@ -695,7 +774,6 @@ body {
 .journey-image-wrapper {
   max-width: 1000px;
   margin: 0 auto;
-  padding: 20px;
   border-radius: 62px;
   background: #fff;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
@@ -705,6 +783,12 @@ body {
   width: 100%;
   height: auto;
   border-radius: 48px;
+}
+
+@media only screen and (max-width: 768px) {
+  .journey-image {
+    border-radius: 24px;
+  }
 }
 
 /* problem statement ----  */
@@ -763,7 +847,12 @@ body {
   background: #fdfdfd;
   padding: 20px 20px;
   text-align: center;
-  font-family: "Helvetica Neue", sans-serif;
+}
+
+@media only screen and (max-width: 768px) {
+  .problem-statement {
+    padding: 20px 0px;
+  }
 }
 
 .problem-statement h2 {
@@ -792,6 +881,7 @@ body {
   padding: 2px 16px;
   background-color: #f5f2ff;
   border-radius: 4px;
+  margin-bottom: 10px;
 }
 
 /* goal statement secction ----  */
@@ -852,6 +942,11 @@ body {
   color: #333;
   text-align: center; /* Center align text */
 }
+@media only screen and (max-width: 768px) {
+  .goal-highlighted {
+    padding: 0px;
+  }
+}
 
 .goal-line {
   display: flex;
@@ -871,15 +966,15 @@ body {
 }
 
 .pill.wide {
-  min-width: 300px;
+  width: auto;
 }
 
 .pill.wider {
-  min-width: 400px;
+  width: auto;
 }
 
 .pill.widest {
-  min-width: 520px;
+  width: auto;
 }
 
 /* ROI section --------  */
@@ -888,6 +983,11 @@ body {
   padding: 32px 20px;
   background: #fdfdfd;
   color: #333;
+}
+@media only screen and (max-width: 768px) {
+  .section-roi {
+    padding: 32px 0px;
+  }
 }
 
 .roi-subheading {
@@ -936,6 +1036,11 @@ body {
   object-fit: cover;
 }
 
+@media only screen and (max-width: 768px) {
+  .roi-image {
+    border-radius: 24px;
+  }
+}
 /* wireframe section  */
 
 .section-wireframe {
@@ -943,6 +1048,12 @@ body {
   padding: 32px 20px;
   background: #fdfdfd;
   color: #333;
+}
+
+@media only screen and (max-width: 768px) {
+  .section-wireframe {
+    padding: 32px 0px;
+  }
 }
 
 .wireframe-subheading {
@@ -998,6 +1109,12 @@ body {
   text-align: center;
 }
 
+@media only screen and (max-width: 768px) {
+  .wireframe-gallery {
+    padding: 0px 0px 50px;
+  }
+}
+
 .wireframe-heading {
   font-family: serif;
   font-size: 2.2rem;
@@ -1042,6 +1159,12 @@ body {
   padding: 32px 20px;
   background: #fdfdfd;
   color: #333;
+}
+
+@media only screen and (max-width: 768px) {
+  .section-iteration-one {
+    padding: 32px 0px;
+  }
 }
 
 .iteration-subheading {
@@ -1094,6 +1217,12 @@ body {
   border-radius: 20px;
   object-fit: cover;
 }
+
+@media only screen and (max-width: 768px) {
+  .iteration-video {
+    width: 100% !important;
+  }
+}
 /* user testing section  */
 
 .single-image-container {
@@ -1110,6 +1239,12 @@ body {
   object-fit: cover;
 }
 
+@media only screen and (max-width: 768px) {
+  .single-image-container img {
+    border-radius: 24px;
+  }
+}
+
 /* iteration - 2 section  */
 
 .section-iteration-two {
@@ -1117,6 +1252,12 @@ body {
   padding: 32px 20px;
   background: #fdfdfd;
   color: #333;
+}
+
+@media only screen and (max-width: 768px) {
+  .section-iteration-two {
+    padding: 32px 0px !important;
+  }
 }
 
 .iteration-subheading {
@@ -1157,11 +1298,23 @@ body {
   margin: 0 auto;
 }
 
+@media only screen and (max-width: 768px) {
+  .iteration-image-container {
+    padding: 0;
+  }
+}
+
 .iteration-image {
   width: 100%;
   max-width: 960px;
   border-radius: 48px;
   object-fit: cover;
+}
+
+@media only screen and (max-width: 768px) {
+  .iteration-image {
+    border-radius: 24px;
+  }
 }
 
 /* iteration 2 prototype section */
@@ -1225,6 +1378,12 @@ body {
   padding: 32px 0px 0px;
   background: #fdfdfd;
   color: #333;
+}
+
+@media only screen and (max-width: 768px) {
+  .section-mockup {
+    margin: 0 -10px;
+  }
 }
 
 .mockup-subheading {
@@ -1332,6 +1491,13 @@ body {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s ease, background 0.3s ease;
   z-index: 999;
+}
+
+@media only screen and (max-width: 768px) {
+  .back-to-top {
+    margin: 36px 15px;
+    right: 10px;
+  }
 }
 
 .back-to-top:hover {
