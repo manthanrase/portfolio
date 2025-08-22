@@ -6,6 +6,12 @@ body {
   color: #333;
 }
 
+@media only screen and (max-width: 768px) {
+  * {
+    margin: auto;
+  }
+}
+
 .home-button {
   position: fixed;
   top: 24px;
@@ -156,7 +162,8 @@ body {
 
 @media only screen and (max-width: 768px) {
   .down-arrow {
-    bottom: 280px;
+    bottom: 60px;
+    position: relative;
   }
 }
 
