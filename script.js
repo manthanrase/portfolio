@@ -100,3 +100,23 @@ function scrollToTop() {
     behavior: "smooth",
   });
 }
+
+// skill section
+
+function animateSkillsOnScroll() {
+  const skillsSection = document.getElementById("skills");
+  const skillsTop = skillsSection.getBoundingClientRect().top;
+  const screenHeight = window.innerHeight;
+
+  if (skillsTop < screenHeight * 0.8) {
+    document.querySelectorAll(".skill-bar").forEach((bar) => {
+      bar.style.width = bar.getAttribute("data-percent") + "%";
+    });
+
+    // Only trigger once
+    window.removeEventListener("scroll", animateSkillsOnScroll);
+  }
+}
+
+window.addEventListener("scroll", animateSkillsOnScroll);
+
