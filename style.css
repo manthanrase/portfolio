@@ -989,6 +989,14 @@
   font-family: 'Inter', sans-serif;
 }
 
+
+@media only screen and (max-width: 768px) {
+  .sketch-gallery {
+    padding: 0;
+  }
+}
+
+
 .sketch-heading {
   font-size: 2.5rem;
   font-weight: bold;
