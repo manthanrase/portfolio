@@ -565,6 +565,7 @@
   transform: scale(1.05);
   z-index: 10;
 
+<<<<<<< Updated upstream
 }
 <<<<<<< Updated upstream
 =======
@@ -580,6 +581,21 @@
   font-family: 'Inter', sans-serif;
 }
 
+=======
+}
+
+/* certification section  */
+
+
+
+.certification-section {
+  text-align: center;
+  padding: 20px 20px 60px;
+  background: #fdfdfd;
+  font-family: 'Inter', sans-serif;
+}
+
+>>>>>>> Stashed changes
 .cert-label {
   font-size: 0.8rem;
   letter-spacing: 2px;
@@ -973,4 +989,7 @@
 }
 
 
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes

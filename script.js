@@ -121,4 +121,7 @@ function animateSkillsOnScroll() {
 }
 
 window.addEventListener("scroll", animateSkillsOnScroll);
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
