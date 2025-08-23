@@ -140,7 +140,7 @@ body {
 
 @media only screen and (max-width: 768px) {
   .hero-with-arrow video {
-    height: 23vh;
+    height: 25vh;
     border-radius: 24px;
   }
 }
@@ -193,7 +193,7 @@ body {
 
 @media only screen and (max-width: 768px) {
   .principles-section {
-    padding: 40px 0px 40px;
+    padding: 50px 0px 40px;
   }
 }
 
@@ -276,7 +276,7 @@ body {
 
 @media only screen and (max-width: 768px) {
   .news-section {
-    padding: 80px 0px 60px;
+    padding: 30px 0px 60px;
   }
 }
 
@@ -499,7 +499,7 @@ body {
 }
 @media only screen and (max-width: 768px) {
   .empathy-map-section {
-    padding: 50px 0px;
+    padding: 30px 0px;
   }
 }
 
@@ -579,52 +579,6 @@ body {
   margin-bottom: 8px;
 }
 
-/* persona section ------  */
-/* 
-.personas-section {
-  text-align: center;
-}
-
-.section-label {
-  font-size: 0.85rem;
-  letter-spacing: 2px;
-  color: #c691ea;
-  text-transform: uppercase;
-  margin-bottom: 12px;
-}
-
-.personas-grid {
-  display: flex;
-  gap: 20px;
-  justify-content: center;
-  flex-wrap: wrap;
-  max-width: 1000px;
-  margin: 0 auto;
-}
-
-.persona-card {
-  flex: 1 1 300px;
-  max-width: 400px;
-  background-color: #fafafa;
-  border: 1px solid #eee;
-  border-radius: 12px;
-  padding: 10px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-  text-align: center;
-  cursor: pointer;
-  transition: transform 0.3s ease;
-}
-
-.persona-card:hover {
-  transform: scale(1.05);
-}
-
-.persona-photo {
-  width: 100%;
-  height: auto;
-  border-radius: 8px;
-} */
-
 .interview-section {
   text-align: center;
   padding: 30px 20px;
@@ -687,6 +641,7 @@ body {
     border-radius: 24px !important;
   }
 }
+
 @media only screen and (max-width: 768px) {
   .carousel-slide img {
     border-radius: 24px !important;
@@ -795,6 +750,7 @@ body {
 @media only screen and (max-width: 768px) {
   .journey-image {
     border-radius: 24px;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 5px 8px;
   }
 }
 
@@ -1046,6 +1002,7 @@ body {
 @media only screen and (max-width: 768px) {
   .roi-image {
     border-radius: 24px;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 5px 8px;
   }
 }
 /* wireframe section  */
@@ -1118,7 +1075,7 @@ body {
 
 @media only screen and (max-width: 768px) {
   .wireframe-gallery {
-    padding: 0px 0px 50px;
+    padding: 0px 0px 30px;
   }
 }
 
@@ -1249,6 +1206,7 @@ body {
 @media only screen and (max-width: 768px) {
   .single-image-container img {
     border-radius: 24px;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 5px 8px;
   }
 }
 
@@ -1385,6 +1343,7 @@ body {
   padding: 32px 0px 0px;
   background: #fdfdfd;
   color: #333;
+  margin: 0 -10px;
 }
 
 @media only screen and (max-width: 768px) {
@@ -1419,6 +1378,12 @@ body {
   color: #555;
 }
 
+@media only screen and (max-width: 768px) {
+  .mockup-description {
+    padding: 0px 10px;
+  }
+}
+
 .mockup-image-container {
   /* display: flex;
   justify-content: center;
@@ -1434,9 +1399,8 @@ body {
 
 .mockup-image {
   width: 100%;
-  /* max-width: 960px;
-  border-radius: 48px; */
   object-fit: cover;
+  margin: 0 -10px;
 }
 
 /* thank you section  */
@@ -1447,6 +1411,12 @@ body {
   background: #f7f3ff;
   color: #4b2a60;
   font-family: "Inter", sans-serif;
+}
+
+@media only screen and (max-width: 768px) {
+  .section-thank-you {
+    margin: 0 -10px;
+  }
 }
 
 .thank-you-subheading {
