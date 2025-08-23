@@ -106,23 +106,100 @@ body {
     cover;
   height: 75vh;
   background-size: contain;
+<<<<<<< Updated upstream
+=======
+  display: flex;
+  border-radius: 48px;
 }
+
+@media only screen and (max-width: 768px) {
+  .hero-with-arrow video {
+    height: 28vh;
+    border-radius: 24px;
+  }
+>>>>>>> Stashed changes
+}
+
+/* @media only screen and (max-width: 820px) {
+  .hero-with-arrow video {
+    height: 40vh;
+    border-radius: 24px;
+  }
+} */
+/* @media only screen and (max-width: 1024px) {
+  .hero-with-arrow video {
+    height: 40vh;
+    border-radius: 24px;
+  }
+} */
 
 .down-arrow {
   position: absolute;
-  bottom: -121px;
+  bottom: -152px;
   left: 50%;
-  font-size: 23px;
+  font-size: 33px;
   color: white;
   animation: bounce 2s infinite;
   background-color: #754988;
-  width: 30px;
-  height: 42px;
+  width: 40px;
+  height: 62px;
   text-align: center;
   border-radius: 60px;
   padding-top: 5px;
 }
 
+<<<<<<< Updated upstream
+=======
+@media only screen and (max-width: 768px) {
+  .down-arrow {
+    bottom: 60px;
+    position: relative;
+    left: 50%;
+    font-size: 17px;
+    color: white;
+    animation: bounce 2s infinite;
+    background-color: #754988;
+    width: 21px;
+    height: 33px;
+    text-align: center;
+    border-radius: 60px;
+    padding-top: 5px;
+  }
+}
+/* @media only screen and (max-width: 820px) {
+  .down-arrow {
+    position: absolute;
+    bottom: 309px;
+    left: 50%;
+    font-size: 33px;
+    color: white;
+    animation: bounce 2s infinite;
+    background-color: #754988;
+    width: 50px;
+    height: 72px;
+    text-align: center;
+    border-radius: 60px;
+    padding-top: 5px;
+  }
+}
+@media only screen and (max-width: 1024px) {
+  .down-arrow {
+    position: absolute;
+    bottom: 549px;
+    left: 50%;
+    font-size: 53px;
+    color: white;
+    animation: bounce 2s infinite;
+    background-color: #754988;
+    width: 70px;
+    height: 102px;
+    text-align: center;
+    border-radius: 60px;
+    padding-top: 5px;
+  }
+} */
+
+>>>>>>> Stashed changes
 /* Optional bounce animation */
 @keyframes bounce {
   0%,
@@ -176,7 +253,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  max-width: 800px;
+  max-width: 1000px;
   margin: 0 auto;
 }
 
