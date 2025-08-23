@@ -1,0 +1,51 @@
+@font-face {
+  font-family: font-accent;
+  src: url(fonts/quincycf-textitalic.otf);
+}
+@font-face {
+  font-family: font-primary;
+  src: url(fonts/Karla-Regular.ttf);
+}
+
+:root {
+  --neutral-60: #fff;
+  --complementary-30: #a37eff;
+  --accent-10: #fea900;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: font-primary;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #ffffff;
+  color: #333;
+}
+
+.context-description {
+  width: 670px;
+  margin: auto;
+  text-align: left;
+}
+
+.bold-text1 {
+  font-weight: 600;
+  color: #3d3d3d;
+}
+
+.section {
+  padding: 20px 0px;
+}
+
+.sub-head {
+  width: 49%;
+  margin: auto;
+  line-height: 1.6;
+  text-align: left;
+  padding-bottom: 30px;
+}

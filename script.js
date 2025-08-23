@@ -119,3 +119,4 @@ function animateSkillsOnScroll() {
 }
 
 window.addEventListener("scroll", animateSkillsOnScroll);
+
