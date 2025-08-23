@@ -93,8 +93,6 @@ personaNext.addEventListener("click", () => {
 
 // Initialize on load
 updatePersonaPosition();
-<<<<<<< Updated upstream
-=======
 
 function scrollToTop() {
   window.scrollTo({
@@ -121,7 +119,3 @@ function animateSkillsOnScroll() {
 }
 
 window.addEventListener("scroll", animateSkillsOnScroll);
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
