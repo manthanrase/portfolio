@@ -1381,19 +1381,6 @@ body {
   }
 }
 
-.mockup-image-container {
-  /* display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 30px;
-  overflow: hidden;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
-  background: white;
-  padding: 20px;
-  max-width: 1000px;
-  margin: 0 auto; */
-}
-
 .mockup-image {
   width: 100%;
   object-fit: cover;
