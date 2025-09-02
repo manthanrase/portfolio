@@ -153,6 +153,12 @@
   /* filter: grayscale(100%); */
 }
 
+@media only screen and (max-width: 768px) {
+  .thumbnail {
+    margin: 36px 15px;
+    border-radius: 24px;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 5px 8px;
+  }
 }
 
 .thumbnail:hover {
@@ -558,6 +564,7 @@
 
 .experience-card {
   flex: 1 1 300px;
+  max-width: 400px;
 
   background: linear-gradient(
     181deg,
@@ -713,6 +720,7 @@
   font-weight: 600;
   color: white;
 }
+
 .border {
   display: block;
   height: 10px;
@@ -731,7 +739,6 @@
   text-align: left !important;
   padding: 16px;
 }
-
 
 .row-2 ul li {
   list-style: none !important;
@@ -778,6 +785,30 @@
 }
 .row-2 ul li.Fusion-360 div span {
   background: #b394ff;
+  background: #e13c4c;
+  width: 90%;
+}
+.row-2 ul li.Adobe-XD div span {
+  background: #ffdb43;
+  width: 90%;
+}
+.row-2 ul li.Adobe-Illustrator div span {
+  background: #9d2027;
+  width: 70%;
+}
+.row-2 ul li.Adobe-Photoshop div span {
+  background: #3498db;
+  width: 65%;
+}
+.row-2 ul li.After-Effects div span {
+  background: #2ecc71;
+  width: 50%;
+}
+.row-2 ul li.Blender-3D div span {
+  background: #a94034;
+}
+.row-2 ul li.Fusion-360 div span {
+  background: #ff8137;
   width: 50%;
 }
 .row-2 ul li.Unity-Engine div span {
@@ -824,6 +855,48 @@
 }
 .row-2 ul li.C-sharp div span {
   background: #b394ff;
+  background: #0cbfb3;
+}
+
+.row-2 ul li.html div span {
+  background: #e13c4c;
+  width: 90%;
+}
+.row-2 ul li.css div span {
+  background: #ffdb43;
+  width: 90%;
+}
+.row-2 ul li.Bootstrap div span {
+  background: #9d2027;
+  width: 65%;
+}
+.row-2 ul li.Javascript div span {
+  background: #3498db;
+  width: 65%;
+}
+.row-2 ul li.C-sharp div span {
+  background: #2ecc71;
+  width: 50%;
+}
+
+.row-2 ul li.html div span {
+  background: #e13c4c;
+  width: 90%;
+}
+.row-2 ul li.css div span {
+  background: #ffdb43;
+  width: 90%;
+}
+.row-2 ul li.Bootstrap div span {
+  background: #9d2027;
+  width: 65%;
+}
+.row-2 ul li.Javascript div span {
+  background: #3498db;
+  width: 65%;
+}
+.row-2 ul li.C-sharp div span {
+  background: #2ecc71;
   width: 50%;
 }
 
@@ -873,7 +946,6 @@
   max-width: 1180px;
   margin: auto;
 }
-
 
 .technical-tags-section {
   text-align: center;
@@ -952,6 +1024,12 @@
   padding: 20px 20px;
   text-align: center;
   font-family: "Inter", sans-serif;
+}
+
+@media only screen and (max-width: 768px) {
+  .sketch-gallery {
+    padding: 0;
+  }
 }
 
 .sketch-heading {
@@ -1212,9 +1290,4 @@
 .experience-card {
   border-radius: 15px;
 }
-}
-
-
-
-/* image pan  */
 
