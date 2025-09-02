@@ -120,3 +120,4 @@ function animateSkillsOnScroll() {
 
 window.addEventListener("scroll", animateSkillsOnScroll);
 
+// scroll on aimation
