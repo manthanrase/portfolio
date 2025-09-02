@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Guess the Number!</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="backcover">
+      <h5 class="between">(between 1 and 20)</h5>
+      <h1>Guess My Number !</h1>
+      <div class="cloud" id="image">
+        <img src="svg-img/cloud.svg" alt="" />
+      </div>
+      <div class="secretnumber">?</div>
+      <br />
+      <div class="flex">
+        <div>
+          <p>
+            HIGHSCORE:
+            <span
+              ><p
+                class="highscore"
+                style="
+                  color: #41dadf;
+                  color: transparent;
+                  background: #ffffff;
+                  -webkit-background-clip: text;
+                  text-shadow: 0px 3px 2px rgb(65 218 233 / 100%);
+                "
+              >
+                20
+              </p></span
+            >
+          </p>
+        </div>
+        <div>
+          <input class="guess" type="number" name="" id="" placeholder="here" />
+        </div>
+        <div>
+          <p>
+            SCORE:
+            <span
+              ><p
+                class="score"
+                style="
+                  color: #41dadf;
+                  color: transparent;
+                  background: #ffffff;
+                  -webkit-background-clip: text;
+                  text-shadow: 0px 3px 2px rgb(65 218 233 / 100%);
+                "
+              >
+                20
+              </p></span
+            >
+          </p>
+        </div>
+      </div>
+      <div class="flex">
+        <button class="btn check"><a href="#">CHECK</a></button>
+      </div>
+      <div class="flex darkbg">
+        <h1 class="message">START GUESSING...</h1>
+      </div>
+
+      <div class="flex">
+        <button class="btn reset"><a href="#">RESET</a></button>
+      </div>
+      <p class="copyright flex">©manthanrase</p>
+    </div>
+    <script src="function.js"></script>
+  </body>
+</html>
