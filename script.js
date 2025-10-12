@@ -121,3 +121,40 @@ function animateSkillsOnScroll() {
 window.addEventListener("scroll", animateSkillsOnScroll);
 
 // scroll on aimation
+document.addEventListener("DOMContentLoaded", () => {
+  const video = document.getElementById("heroVideo");
+  const muteBtn = document.getElementById("muteBtn");
+
+  // Video starts muted automatically (HTML 'muted' ensures autoplay)
+  video.muted = true;
+
+  // Try to autoplay muted
+  video.play().catch(() => {
+    console.warn("Autoplay might be blocked — waiting for user interaction.");
+  });
+
+  // Toggle mute/unmute on button click
+  muteBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+
+    // Toggle sound
+    video.muted = !video.muted;
+
+    // Update button text/icon
+    muteBtn.textContent = video.muted ? "🔇 Unmute" : "🔊 Mute";
+
+    // If user unmutes, make sure playback continues
+    if (!video.muted) {
+      video.play().catch(() => {});
+    }
+  });
+
+  // Optional: click the video to pause/resume
+  video.addEventListener("click", () => {
+    if (video.paused) {
+      video.play();
+    } else {
+      video.pause();
+    }
+  });
+});
