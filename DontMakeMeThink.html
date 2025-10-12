@@ -1,111 +1,275 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Don't Make Me Think </title>
-    <link rel="stylesheet" href="Moodly-style.css" />
-    <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="book.css" />
-</head>
-<body>
-    <section class="context-section">
-      <div class="context-label">Book Summary</div>
-      <h2 class="context-title" style="padding-bottom: 30px;">
-        Don’t Make Me Think
-      </h2>
-      <div class="sub-head">
-        Steve Krug’s Don’t Make Me Think is a guide to web usability. The core message: Websites should be obvious, self-explanatory, and effortless to use. If users have to stop and think about how something works, the design has failed.
-      </div>
-      <p >
-            <div class="context-description ">
+    <title>Don't make me think – Summary by Manthan Rase</title>
+    <style>
+      :root {
+        --bg: #fafafa;
+        --card: #fff;
+        --accent: #ff6b00;
+        --text: #222;
+        --muted: #666;
+        --radius: 14px;
+        --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        --max: 1024px;
+      }
 
-                <div class="section">
-                    <h3  class="bold-text1">Core Ideas</h3> <br>
+      body {
+        font-family: "Inter", "Segoe UI", sans-serif;
+        color: var(--text);
+        margin: 0;
+        line-height: 1.75;
+      }
 
-                    <span class="bold-text1" >1. Don’t Make Me Think</span>
-                        <ul>
-                            <li>Users shouldn’t wonder “How do I…?”<br></li>
-                            <li>Navigation, links, and buttons must be clear and intuitive.<br></li>
-                        </ul>
-                    <br>
+      header {
+        position: relative;
+        background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)),
+          url("images/Dont-make-me-think.png") center/cover;
+        text-align: center;
+        padding: 30rem 0rem 0rem;
+      }
 
-                    <span class="bold-text1" >2. Users Scan, They Don’t Read</span>
-                        <ul>
-                            <li>People glance through pages instead of reading word-for-word.<br></li>
-                            <li>Design for scanning: headings, bullet points, visual hierarchy.<br></li>
-                        </ul>
-                    <br>
+      header h1 {
+        font-size: 2.4rem;
+        margin-bottom: 0.3rem;
+      }
 
-                    <span class="bold-text1" >3. Clicking Is Cheap</span>
-                        <ul>
-                            <li>Users don’t mind clicking as long as they feel confident each click takes them closer to their goal.<br></li>
-                        </ul>
-                    <br>
+      header p {
+        font-size: 1.2rem;
+        opacity: 0.9;
+      }
 
-                    <span class="bold-text1" >4. Design for the Way People Actually Use Sites</span>
-                        <ul>
-                            <li>Most users muddle through rather than figure things out logically.<br></li>
-                            <li>Good design tolerates mistakes and still helps users succeed.<br></li>
-                        </ul>
-                    <br>
+      .container {
+        max-width: var(--max);
+        padding: 0.5rem 8rem 8rem;
+        z-index: 100;
+        position: relative;
+        margin: -70px 0px;
+      }
 
-                    <span class="bold-text1" >4. Navigation & Structure</span>
-                        <ul>
-                            <li>Clear menus, visible hierarchy, and logical grouping are essential.<br></li>
-                            <li>A consistent “You are here” indicator prevents confusion.<br></li>
-                        </ul>
-                    <br>
+      h2 {
+        font-size: 1.25rem;
+        margin-top: 2.2rem;
+        color: var(--accent);
+        text-transform: uppercase;
+        letter-spacing: 0.4px;
+      }
 
-                    <span class="bold-text1" >4. Usability Testing</span>
-                        <ul>
-                            <li>Small, quick, and frequent tests are more valuable than big, expensive studies.<br></li>
-                            <li>Watching real people use your site reveals issues you can’t predict.<br></li>
-                        </ul>
-                    <br>
-                   
-                </div>
+      p,
+      li {
+        font-size: 1.05rem;
+      }
 
-                <div class="section">
-                    <h3  class="bold-text1">Key Takeaways</h3> <br>
-                    <ul>
-                         
-                        <li><span class="bold-text1" >Clarity beats cleverness:</span> Fancy wording or design is useless if people don’t “get it.”<br></li>
-                        <li><span class="bold-text1" >Less is more:</span> Remove unnecessary words, clutter, and distractions.<br></li>
-                        <li><span class="bold-text1" >Conventions are your friend:</span> Follow familiar design patterns (e.g., shopping cart icon, underlined links).<br></li>
-                        <li><span class="bold-text1" >Fix the obvious problems:</span> Usability doesn’t need perfection, just enough to let people succeed easily.<br></li>
+      ul {
+        padding-left: 1.2rem;
+      }
 
-                    </ul>
-                </div>
+      li {
+        margin-bottom: 0.5rem;
+      }
 
-                <div class="section">
-                    <h3  class="bold-text1">Why It Matters for Designers</h3> <br>
-                    <ul>
-                         
-                        <li><span class="bold-text1" >Reduces cognitive load →</span> makes sites faster to use and less frustrating.<br></li>
-                        <li><span class="bold-text1" >Builds trust:</span> A simple, reliable site keeps users coming back.<br></li>
-                        <li>Saves time and money by preventing user drop-offs and repeated fixes.<br></li>
-                        <li><span class="bold-text1" >Reinforces that usability is not optional—it’s the foundation of good design.</span>.<br></li>
+      blockquote {
+        border-left: 4px solid var(--accent);
+        background: #fff7f1;
+        margin: 1rem 0;
+        padding: 0.75rem 1rem;
+        border-radius: 6px;
+        font-style: italic;
+        color: #444;
+      }
 
-                    </ul>
-                </div>
+      footer {
+        text-align: center;
+        color: var(--muted);
+      }
 
-                <div class="section">
-                    <h3  class="bold-text1">In Short</h3> <br>
-                    <ul>
-                         
-                        <li>People don’t read websites, they scan them.<br></li>
-                        <li>They won’t figure things out, they expect things to just work.<br></li>
-                        <li>So, the golden rule: Make everything obvious, intuitive, and effortless.<br></li>
-                        When design requires no thinking, users are happy, engaged, and loyal.
-                       
+      /* Progress Bar */
+      #progress {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 5px;
+        background: #007bff;
+        width: 0%;
+        z-index: 9999;
+        transition: width 0.2s ease;
+        border-radius: 0px 42px 42px 0px;
+      }
 
-                    </ul>
-                </div>
-               
-                
+      .read-time {
+        font-size: 14px;
+        color: var(--muted);
+        text-align: left;
+        margin-top: -1rem;
+      }
 
-            </div>
+      @media (max-width: 650px) {
+        .container {
+          padding: 4.5rem 1.5rem 1.5rem;
+        }
+        header {
+          padding: 74px 1rem;
+        }
+        footer {
+          padding: 74px 1rem 30px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="progress"></div>
+
+    <header></header>
+
+    <div class="container">
+      <p class="read-time">Estimated read time: 5 min</p>
+
+      <h2>🌱 Why I Read This Book</h2>
+      <p>
+        As did a course called Usability Testing, I noticed how many users get
+        lost or give up after one wrong click. <em>Don’t Make Me Think</em> kept
+        coming up in UX circles as the ultimate usability guide. I read it to
+        sharpen my ability to create interfaces that “just work” without
+        explanation, confusion, or overthinking.
       </p>
-</body>
+
+      <h2>⚡ My Quick Take</h2>
+      <p>
+        Simplicity isn’t minimalism, it’s clarity. Krug argues that great web
+        design removes cognitive friction, users should never stop to wonder,
+        “What does this do?” It’s a crash course in making digital experiences
+        effortless and self-evident.
+      </p>
+
+      <h2>🎨 First Impressions</h2>
+      <p>
+        The tone is refreshingly simple, conversational, and witty. Krug uses
+        humor and real examples from websites we’ve all seen and struggled with.
+        It’s a quick read but packed with sharp insights that changed how I
+        approach wireframes and prototypes.
+      </p>
+
+      <h2>👥 Who’ll Enjoy This Book</h2>
+      <ul>
+        <li>
+          UX/UI designers who want to understand intuitive navigation and
+          usability testing.
+        </li>
+        <li>Product designers and developers aiming to simplify interfaces.</li>
+        <li>
+          Anyone managing a website or app who wants to boost engagement through
+          clarity, not complexity.
+        </li>
+      </ul>
+
+      <h2>🌿 What I Took Away</h2>
+      <p>
+        Every extra click, unclear label, or hidden button costs attention. I
+        learned that users don’t read, they scan. They don’t figure things out,
+        they guess. Designing for how users <em>actually</em> behave (not how we
+        wish they did) is the key to usability. I’ve since applied Krug’s “Don’t
+        make me think” test to every interface I design.
+      </p>
+
+      <h2>💬 Lines That Stuck With Me</h2>
+      <blockquote>
+        “If your website can’t be used easily, it doesn’t matter how great it
+        looks.”
+      </blockquote>
+      <blockquote>
+        “Get rid of half the words on each page, then get rid of half of what’s
+        left.”
+      </blockquote>
+      <blockquote>
+        “Usability is about making sure that something works well: that a person
+        of average ability and experience can use it for its intended purpose
+        without getting hopelessly frustrated.”
+      </blockquote>
+
+      <h2>📚 My Notes & Key Ideas</h2>
+
+      <h3>🔹 Chapter 1: Don’t Make Me Think</h3>
+      <p>
+        The core principle: every web page should be self-explanatory. Users
+        should instantly know what’s clickable, where they are, and what to do
+        next. The less they think, the better the design.
+      </p>
+
+      <h3>🔹 Chapter 2: How We Really Use the Web</h3>
+      <p>
+        People don’t read, they scan. They satisfice (pick the first reasonable
+        option) rather than optimize. Design for scanning behavior with clear
+        headings, visual hierarchy, and obvious CTAs.
+      </p>
+
+      <h3>🔹 Chapter 3: Billboard Design 101</h3>
+      <p>
+        Web pages should be like billboards on a highway: fast to grasp,
+        visually clear, and focused on one message. Avoid clutter and fancy
+        jargon.
+      </p>
+
+      <h3>🔹 Chapter 4: Animal, Vegetable, or Mineral?</h3>
+      <p>
+        Users should always know where they are within the site. Clear
+        navigation and visual consistency make orientation effortless.
+      </p>
+
+      <h3>🔹 Chapter 5: Omit Needless Words</h3>
+      <p>
+        The most practical advice in the book: cut unnecessary text. Users won’t
+        read long intros or “marketing fluff.” Write, then simplify — twice.
+      </p>
+
+      <h3>🔹 Chapter 6: Street Signs and Breadcrumbs</h3>
+      <p>
+        Navigation works best when it’s predictable. Keep menu names consistent,
+        highlight active states, and always show users where they came from.
+      </p>
+
+      <h3>🔹 Chapter 7: The Big Bang Theory of Usability Testing</h3>
+      <p>
+        You don’t need a full UX lab. Test with 3–5 real users regularly. Small,
+        iterative tests reveal most usability issues early and cheaply.
+      </p>
+
+      <h3>🔹 Chapter 8: “The Farmer and the Cowman Should Be Friends”</h3>
+      <p>
+        Designers, developers, and business teams must collaborate, not compete.
+        Everyone shares the same goal: making the experience easy.
+      </p>
+
+      <h2>🧭 Reflection</h2>
+      <p>
+        This book became a personal design filter. Whether reviewing websites or
+        designing mobile flows, I now instinctively ask “Would this make a user
+        stop and think?” If yes, it needs rework. Krug’s voice stays in my head
+        whenever I overcomplicate a layout or add unnecessary text. A must-read
+        for anyone shaping digital experiences.
+      </p>
+    </div>
+
+    <footer>
+      <p class="footer">
+        Design Reading Notes | Compiled & Reflected by
+        <strong>Manthan Rase</strong><br />
+        © 2025
+      </p>
+    </footer>
+
+    <script>
+      // Progress bar
+      window.onscroll = function () {
+        const winScroll =
+          document.body.scrollTop || document.documentElement.scrollTop;
+        const height =
+          document.documentElement.scrollHeight -
+          document.documentElement.clientHeight;
+        const scrolled = (winScroll / height) * 100;
+        document.getElementById("progress").style.width = scrolled + "%";
+      };
+    </script>
+  </body>
 </html>

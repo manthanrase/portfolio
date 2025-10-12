@@ -1,93 +1,269 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>The Design of Everyday Things</title>
-    <link rel="stylesheet" href="Moodly-style.css" />
-    <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="book.css" />
-</head>
-<body>
-    <section class="context-section">
-      <div class="context-label">Book Summary</div>
-      <h2 class="context-title" style="padding-bottom: 30px;">
-        The Design of Everyday Things
-      </h2>
-      <div class="sub-head">
-        Donald Norman’s The Design of Everyday Things explains how good design isn’t just about aesthetics, but about making products usable, understandable, and human-centered. It explores how people interact with objects and why poor design leads to frustration.
-      </div>
-      <p >
-            <div class="context-description ">
+    <title>The Design of Everyday Things – Summary by Manthan Rase</title>
+    <style>
+      :root {
+        --bg: #fafafa;
+        --card: #fff;
+        --accent: #ff6b00;
+        --text: #222;
+        --muted: #666;
+        --radius: 14px;
+        --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        --max: 1024px;
+      }
 
-                <div class="section">
-                    <h3  class="bold-text1">Core Ideas</h3> <br>
+      body {
+        font-family: "Inter", "Segoe UI", sans-serif;
+        color: var(--text);
+        margin: 0;
+        line-height: 1.75;
+      }
 
-                    <span class="bold-text1" >1. Affordances & Signifiers</span> <br>
-                    Affordance = what actions are possible (e.g., a button can be pushed). <br>
-                    Signifier = signals that show what to do (e.g., “Push” label on a door).<br>
-                    Good design makes actions obvious.<br>
-                    <br>
+      header {
+        position: relative;
+        background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)),
+          url("images/The-Design-of-Everyday-Things.png") center/cover;
+        text-align: center;
+        padding: 30rem 0rem 0rem;
+      }
 
-                    <span class="bold-text1" >2. Feedback</span> <br>
-                    Users need immediate, clear feedback after an action. <br>
-                    Example: Elevator buttons that light up when pressed.<br>
-                    <br>
+      header h1 {
+        font-size: 2.4rem;
+        margin-bottom: 0.3rem;
+      }
 
-                    <span class="bold-text1" >3. Mapping</span> <br>
-                    Controls should match the outcome naturally. <br>
-                    Example: Stove knobs arranged in the same layout as burners reduce confusion.<br>
-                    <br>
+      header p {
+        font-size: 1.2rem;
+        opacity: 0.9;
+      }
 
-                    <span class="bold-text1" >4. Conceptual Models</span> <br>
-                    People form mental models of how things work. If design aligns with these models, usage feels intuitive.<br>
-                    Example: File “folders” on computers mirror real-life folders.<br>
-                    <br>
+      .container {
+        max-width: var(--max);
+        padding: 0.5rem 8rem 8rem;
+        z-index: 100;
+        position: relative;
+        margin: -70px 0px;
+      }
 
-                    <span class="bold-text1" >5. Constraints</span> <br>
-                    Good design limits possible actions to reduce mistakes. <br>
-                    Example: A USB plug fits only one way (though Norman jokes about how often we still get it wrong!).<br>
-                    <br>
-                </div>
+      h2 {
+        font-size: 1.25rem;
+        margin-top: 2.2rem;
+        color: var(--accent);
+        text-transform: uppercase;
+        letter-spacing: 0.4px;
+      }
 
-                <div class="section">
-                    <h3  class="bold-text1">Key Takeaways</h3> <br>
+      p,
+      li {
+        font-size: 1.05rem;
+      }
 
-                    <span class="bold-text1" >1. Affordances & Signifiers</span> <br>
-                    <span class="bold-text1" >Design is about humans, not machines:</span>
-                        Failures usually come from poor design, not “user error.”<br>
-                        <span class="bold-text1" >Iterative design matters:</span>
-                         Products should be tested, redesigned, and improved with real user feedback.<br>
-                        <span class="bold-text1" >Simplicity wins:</span>
-                         Clear, minimal, and intuitive interfaces make products enjoyable.<br>
-                        Human-centered design balances what is technologically possible with what people actually need.
-                    <br>
-                </div>
+      ul {
+        padding-left: 1.2rem;
+      }
 
-                <div class="section">
-                    <h3  class="bold-text1">Why It Matters for Designers</h3> <br>
-                        Empowers designers to shift blame from “clumsy users” to “bad design.”<br>
-                        Encourages testing with real users to uncover hidden pain points.<br>
-                        Helps create everyday products that delight instead of frustrate.<br>
-                        Builds empathy designers must step into the user’s shoes.
-                    <br>
-                </div>
+      li {
+        margin-bottom: 0.5rem;
+      }
 
-                 <div class="section">
-                    <h3  class="bold-text1">In Short</h3> <br>
-                        <span class="bold-text1" >We don’t just interact with products—we live with them daily.
-                            Norman reminds us that good design:</span> <br>
-                        <ul>
-                            <li>Makes functions visible.”<br></li>
-                            <li>Provides clear feedback.<br></li>
-                            <li>Matches human expectations.<br></li>
-                            <li>When done right, design reduces confusion, prevents errors, and brings joy to everyday life.<br></li>       
-                        </ul>
-                    <br>
-                </div>
-                
+      blockquote {
+        border-left: 4px solid var(--accent);
+        background: #fff7f1;
+        margin: 1rem 0;
+        padding: 0.75rem 1rem;
+        border-radius: 6px;
+        font-style: italic;
+        color: #444;
+      }
 
-            </div>
+      footer {
+        text-align: center;
+        color: var(--muted);
+      }
+
+      /* Progress Bar */
+      #progress {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 5px;
+        background: #007bff;
+        width: 0%;
+        z-index: 9999;
+        transition: width 0.2s ease;
+        border-radius: 0px 42px 42px 0px;
+      }
+
+      .read-time {
+        font-size: 14px;
+        color: var(--muted);
+        text-align: left;
+        margin-top: -1rem;
+      }
+
+      @media (max-width: 650px) {
+        .container {
+          padding: 4.5rem 1.5rem 1.5rem;
+        }
+        header {
+          padding: 74px 1rem;
+        }
+        footer {
+          padding: 74px 1rem 30px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="progress"></div>
+
+    <header></header>
+
+    <div class="container">
+      <p class="read-time">Estimated read time: 6 min</p>
+
+      <h2>🌱 Why I Read This Book</h2>
+      <p>
+        I picked up this book during my M.Des journey because I kept noticing
+        how small design details like a mislabeled form field, a confusing
+        button, or an unclear icon, could frustrate users. Don Norman’s insights
+        helped me see that good design isn’t decoration. It’s psychology applied
+        to objects. This became a foundation for how I approach UX and product
+        decisions today.
       </p>
-</body>
+
+      <h2>⚡ My Quick Take</h2>
+      <p>
+        Design succeeds when it feels invisible. Norman shows that most “user
+        errors” are design errors, and great design anticipates human behavior
+        instead of fighting it. The book proves that feedback, constraints, and
+        affordances are not theory. They are empathy translated into form.
+      </p>
+
+      <h2>🎨 First Impressions</h2>
+      <p>
+        It’s like someone turned everyday frustrations like wrong doors,
+        confusing remotes into a design textbook. The examples are relatable,
+        which we can relate to and the insights are timeless. Every designer
+        should read it at least once to truly understand the phrase
+        “human-centered.”
+      </p>
+
+      <h2>👥 Who’ll Enjoy This Book</h2>
+      <ul>
+        <li>
+          Designers and UX professionals who want to root their craft in
+          cognitive psychology.
+        </li>
+        <li>Developers and engineers transitioning toward user empathy.</li>
+        <li>
+          Anyone tired of blaming users and ready to rethink how products
+          communicate.
+        </li>
+      </ul>
+
+      <h2>🌿 What I Took Away</h2>
+      <p>
+        After reading this, I started seeing every product from elevators to
+        login forms as a conversation between designer and user. I now ask -
+        “What is this design saying?” rather than “How does this look?” It
+        taught me that clarity is design’s highest aesthetic.
+      </p>
+
+      <h2>💬 Lines That Stuck With Me</h2>
+      <blockquote>
+        “Design is really an act of communication, which means having a deep
+        understanding of the person with whom the designer is communicating.”
+      </blockquote>
+      <blockquote>
+        “When you have trouble with things… it’s not your fault. Don’t blame
+        yourself: blame the designer.”
+      </blockquote>
+      <blockquote>
+        “The design of everyday things is in great danger of becoming the design
+        of complicated things.”
+      </blockquote>
+
+      <h2>📚 My Notes & Key Ideas</h2>
+
+      <h3>🔹 Chapter 1: The Psychopathology of Everyday Things</h3>
+      <p>
+        Bad design isn’t stupidity. It’s misaligned priorities. Designers often
+        design for technology, not people. Affordances and signifiers show users
+        what’s possible, while feedback confirms action.
+      </p>
+
+      <h3>🔹 Chapter 2: The Psychology of Everyday Actions</h3>
+      <p>
+        The “Gulf of Execution” (what users want to do) and the “Gulf of
+        Evaluation” (how they interpret outcomes) define usability. Reduce both
+        through visibility and feedback.
+      </p>
+
+      <h3>🔹 Chapter 3: Knowledge in the Head and in the World</h3>
+      <p>
+        Designs should place key information in the world. Through intuitive
+        layouts, labels, and mappings rather than relying on user memory.
+      </p>
+
+      <h3>🔹 Chapter 4: Constraints and Discoverability</h3>
+      <p>
+        Physical, cultural, logical, and semantic constraints help people do the
+        right thing naturally. A good design gently guides behavior without
+        explanation.
+      </p>
+
+      <h3>🔹 Chapter 5: Human Error? No, Design Error</h3>
+      <p>
+        “Human error” is predictable. Interfaces should be forgiving, allowing
+        recovery and undo. Blame the design, not the user.
+      </p>
+
+      <h3>🔹 Chapter 6: Design Thinking</h3>
+      <p>
+        Design is iterative. <br />
+        Observe → ideate → prototype → test → refine. <br />Every iteration is
+        empathy in motion.
+      </p>
+
+      <h3>🔹 Chapter 7: Business Meets Design</h3>
+      <p>
+        Products fail when companies prioritize looks over clarity. Usability
+        isn’t just ethical, it’s profitable.
+      </p>
+
+      <h2>🧭 Reflection</h2>
+      <p>
+        This book reshaped how I observe the world. I no longer see “dumb users”
+        or “broken tools”. Only systems that failed to communicate clearly. As a
+        UX designer, it’s a reminder that the best interfaces feel effortless
+        because they align perfectly with how people think.
+      </p>
+    </div>
+
+    <footer>
+      <p class="footer">
+        Design Reading Notes | Compiled & Reflected by
+        <strong>Manthan Rase</strong><br />
+        © 2025
+      </p>
+    </footer>
+
+    <script>
+      // Progress bar
+      window.onscroll = function () {
+        const winScroll =
+          document.body.scrollTop || document.documentElement.scrollTop;
+        const height =
+          document.documentElement.scrollHeight -
+          document.documentElement.clientHeight;
+        const scrolled = (winScroll / height) * 100;
+        document.getElementById("progress").style.width = scrolled + "%";
+      };
+    </script>
+  </body>
 </html>

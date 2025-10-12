@@ -1,108 +1,282 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Emotional Design</title>
-    <link rel="stylesheet" href="Moodly-style.css" />
-    <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="book.css" />
-</head>
-<body>
-    <section class="context-section">
-      <div class="context-label">Book Summary</div>
-      <h2 class="context-title" style="padding-bottom: 30px;">
-        Emotional Design
-      </h2>
-      <p >
-            <div class="context-description ">
-                <div class="section">
-                    <h3  class="bold-text1">Three Levels of Emotional Design</h3> <br>
+    <title>Emotional Design – Summary by Manthan Rase</title>
+    <style>
+      :root {
+        --bg: #fafafa;
+        --card: #fff;
+        --accent: #ff6b00;
+        --text: #222;
+        --muted: #666;
+        --radius: 14px;
+        --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        --max: 1024px;
+      }
 
-            Norman explains design through three cognitive and emotional levels:
-            <br>
-            <br>
+      body {
+        font-family: "Inter", "Segoe UI", sans-serif;
+        color: var(--text);
+        margin: 0;
+        line-height: 1.75;
+      }
 
-            <span class="bold-text1" > 1. Visceral Design (Appearance & First Impressions)</span>
+      header {
+        position: relative;
+        background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)),
+          url("images/Emotional-design.png") center/cover;
+        text-align: center;
+        padding: 30rem 0rem 0rem;
+      }
 
-            Immediate, instinctive emotional reaction.
+      header h1 {
+        font-size: 2.4rem;
+        margin-bottom: 0.3rem;
+      }
 
-            Focuses on look, feel, and sensory appeal.
+      header p {
+        font-size: 1.2rem;
+        opacity: 0.9;
+      }
 
-            Example: The sleekness of an iPhone or the sound of a luxury car door closing. <br>
-            <br>
+      .container {
+        max-width: var(--max);
+        padding: 0.5rem 8rem 8rem;
+        z-index: 100;
+        position: relative;
+        margin: -70px 0px;
+      }
 
-            <span class="bold-text1" > 2. Behavioral Design (Usability & Functionality)</span>
+      h2 {
+        font-size: 1.25rem;
+        margin-top: 2.2rem;
+        color: var(--accent);
+        text-transform: uppercase;
+        letter-spacing: 0.4px;
+      }
 
-            
+      p,
+      li {
+        font-size: 1.05rem;
+      }
 
-            Concerned with performance, ease of use, and effectiveness.
+      ul {
+        padding-left: 1.2rem;
+      }
 
-            Good behavioral design makes the product useful, understandable, and satisfying.
+      li {
+        margin-bottom: 0.5rem;
+      }
 
-            Example: Google Search’s simple interface—it just works. <br>
-            <br>
+      blockquote {
+        border-left: 4px solid var(--accent);
+        background: #fff7f1;
+        margin: 1rem 0;
+        padding: 0.75rem 1rem;
+        border-radius: 6px;
+        font-style: italic;
+        color: #444;
+      }
 
-            <span class="bold-text1" >3. Reflective Design (Meaning & Personal Value)</span>
+      footer {
+        text-align: center;
+        color: var(--muted);
+      }
 
+      /* Progress Bar */
+      #progress {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 5px;
+        background: #007bff;
+        width: 0%;
+        z-index: 9999;
+        transition: width 0.2s ease;
+        border-radius: 0px 42px 42px 0px;
+      }
 
-            
+      .read-time {
+        font-size: 14px;
+        color: var(--muted);
+        text-align: left;
+        margin-top: -1rem;
+      }
 
-            Taps into our self-image, personal memories, and cultural meaning.
+      @media (max-width: 650px) {
+        .container {
+          padding: 4.5rem 1.5rem 1.5rem;
+        }
+        header {
+          padding: 74px 1rem;
+        }
+        footer {
+          padding: 74px 1rem 30px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="progress"></div>
 
-            It’s about how owning or using a product makes us feel about ourselves.
+    <header></header>
 
-            Example: Wearing a Rolex watch may symbolize success and identity beyond just telling time.
+    <div class="container">
+      <p class="read-time">Estimated read time: 6 min</p>
 
-
-
-                </div>
-            
-             <h3  class="bold-text1">Key Takeaways</h3> <br>
-
-            
-            <span class="bold-text1" > Attractive things work better:</span>
-
-                 Positive emotions can make us more tolerant of minor usability flaws. <br>
-
-                 <span class="bold-text1" > Design = Function + Emotion:</span>
-                Design = Function + Emotion: Utility alone isn’t enough; products must also connect emotionally.
-                <br>
-                 <span class="bold-text1" >Emotions influence problem-solving:</span>
-
-                 Positive feelings make people more creative and flexible when using products.
-
-                Successful products balance all three levels: The best designs delight us instantly (visceral), work seamlessly (behavioral), and carry meaning (reflective).
-                <br>
-                <br>
-                <br>
-
-             <h3  class="bold-text1">Why It Matters for Designers</h3> <br>
-
-                Design isn’t just problem-solving; it’s experience-shaping. <br>
-
-                Emotional design helps build brand loyalty, desirability, and deeper user engagement. <br>
-
-                Norman emphasizes that good design speaks to both heart and mind.
-                <br>
-                <br>
-                <br>
-
-
-                <h3  class="bold-text1">In short:</h3> <br>
-             <span class="bold-text1" > We don’t just use products we experience them.</span>
-
-                And when design appeals to our emotions, we love them more, forgive their flaws, and form lasting connections.
-                <br>
-                <br>
-                <br>
-
-
-
-                
-
-
-            </div>
+      <h2>🌱 Why I Read This Book</h2>
+      <p>
+        After finishing <em>The Design of Everyday Things</em>, I wanted to
+        explore the emotional side of design — why we fall in love with certain
+        products and feel nothing for others. As someone building digital
+        experiences, I was curious how emotion, aesthetics, and usability
+        connect to create delight beyond functionality.
       </p>
-</body>
+
+      <h2>⚡ My Quick Take</h2>
+      <p>
+        People don’t just use products — they form relationships with them.
+        Norman explains how emotional design triggers joy, trust, and
+        attachment. Beautiful things don’t only look better; they actually work
+        better because they make us feel good.
+      </p>
+
+      <h2>🎨 First Impressions</h2>
+      <p>
+        This book bridges psychology, aesthetics, and engineering. Norman uses
+        toasters, cars, and even teapots to explain how emotion shapes
+        perception. It’s more philosophical than his earlier book, but still
+        grounded in relatable examples and science. It made me realize how
+        deeply design influences mood and behavior.
+      </p>
+
+      <h2>👥 Who’ll Enjoy This Book</h2>
+      <ul>
+        <li>
+          Designers and UX practitioners who want to move beyond functionality
+          toward emotional connection.
+        </li>
+        <li>
+          Product creators curious about why certain designs create loyalty and
+          joy.
+        </li>
+        <li>
+          Anyone exploring how aesthetics, usability, and emotion interact to
+          shape human experience.
+        </li>
+      </ul>
+
+      <h2>🌿 What I Took Away</h2>
+      <p>
+        Good design works on three levels: visceral (appearance), behavioral
+        (usability), and reflective (meaning). I began to see emotion as a
+        design material, not a byproduct. Delight isn’t decoration — it’s
+        cognitive ease. A product that feels pleasant lowers stress and builds
+        trust, making it objectively easier to use.
+      </p>
+
+      <h2>💬 Lines That Stuck With Me</h2>
+      <blockquote>“Attractive things work better.”</blockquote>
+      <blockquote>
+        “Design must balance emotion and reason; it must appeal to both.”
+      </blockquote>
+      <blockquote>
+        “We need to design for emotion because emotions make us smart.”
+      </blockquote>
+
+      <h2>📚 My Notes & Key Ideas</h2>
+
+      <h3>🔹 Chapter 1 — The Power of Joy</h3>
+      <p>
+        Emotion affects cognition. When we’re happy, we’re more creative and
+        tolerant of errors. Beautiful design creates positive emotion that
+        enhances usability.
+      </p>
+
+      <h3>🔹 Chapter 2 — The Three Levels of Design</h3>
+      <p>
+        Norman defines the <strong>visceral</strong>,
+        <strong>behavioral</strong>, and <strong>reflective</strong> levels:
+      </p>
+      <ul>
+        <li>
+          <strong>Visceral:</strong> The instant sensory appeal — color, shape,
+          feel.
+        </li>
+        <li>
+          <strong>Behavioral:</strong> The pleasure of use — performance and
+          feedback.
+        </li>
+        <li>
+          <strong>Reflective:</strong> The long-term meaning or pride of
+          ownership.
+        </li>
+      </ul>
+
+      <h3>🔹 Chapter 3 — Beauty and the Brain</h3>
+      <p>
+        Aesthetics trigger emotional responses that affect performance. A calm,
+        confident user solves problems better. Hence, visual harmony enhances
+        perceived usability.
+      </p>
+
+      <h3>🔹 Chapter 4 — Objects of Desire</h3>
+      <p>
+        People treasure objects that carry stories. Sentiment gives objects a
+        second life. This is where branding and memory intersect.
+      </p>
+
+      <h3>🔹 Chapter 5 — Emotion in Everyday Things</h3>
+      <p>
+        Products that surprise or amuse us create attachment. Even small details
+        — sounds, animations, haptics — can generate micro-joy that leads to
+        emotional loyalty.
+      </p>
+
+      <h3>🔹 Chapter 6 — When Bad Design Feels Good</h3>
+      <p>
+        Sometimes emotion overrides logic — people may love impractical things
+        if they delight them emotionally. Example: the impractical but beautiful
+        Philippe Starck juicer.
+      </p>
+
+      <h3>🔹 Chapter 7 — The Future of Emotional Design</h3>
+      <p>
+        The next frontier is affective computing — technology that senses and
+        responds to our emotions. Designers must craft interactions that are not
+        only smart but emotionally intelligent.
+      </p>
+
+      <h2>🧭 Reflection</h2>
+      <p>
+        Emotional Design taught me that usability alone doesn’t create loyalty;
+        emotion does. I now think about the *feeling* my designs leave behind —
+        calm, curiosity, delight, or confidence. When design resonates
+        emotionally, it moves from being useful to being loved.
+      </p>
+    </div>
+
+    <footer>
+      <p class="footer">
+        Design Reading Notes | Compiled & Reflected by
+        <strong>Manthan Rase</strong><br />
+        © 2025
+      </p>
+    </footer>
+
+    <script>
+      // Progress bar
+      window.onscroll = function () {
+        const winScroll =
+          document.body.scrollTop || document.documentElement.scrollTop;
+        const height =
+          document.documentElement.scrollHeight -
+          document.documentElement.clientHeight;
+        const scrolled = (winScroll / height) * 100;
+        document.getElementById("progress").style.width = scrolled + "%";
+      };
+    </script>
+  </body>
 </html>
