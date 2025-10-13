@@ -1342,4 +1342,25 @@
     height: 20vh;
     border-radius: 12px;
   }
+  .button-33 {
+    margin-top: 12px;
+    width: 100%;
+  }
+
+  .button-33 .arrow {
+    display: none;
+  }
+
+  button .button-33 {
+    margin-top: 12px;
+    width: 100%;
+  }
+
+  .label {
+    padding-left: 0px;
+  }
+
+  .thumbnail:hover .button-33 {
+    padding-right: 7px;
+  }
 }
