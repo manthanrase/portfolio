@@ -468,8 +468,8 @@
 
 @media (max-width: 768px) {
   .bestsellers {
-    grid-template-columns: 1fr;
-    margin: 0 0 0px;
+    grid-template-columns: 1fr 1fr;
+    margin: 8px 0 0;
     padding: 10px;
   }
 }
@@ -1302,6 +1302,7 @@
   }
   .skill-tittle {
     padding: 0px 2px 20px;
+    font-size: 16px;
   }
   .tag-list {
     justify-content: left !important;
@@ -1362,5 +1363,55 @@
 
   .thumbnail:hover .button-33 {
     padding-right: 7px;
+  }
+
+  .book-card img {
+    width: 77px;
+    height: 110px;
+  }
+
+  .bestsellers-list {
+    display: flex;
+    gap: 7px;
+    flex-direction: column;
+    align-items: center;
+    min-width: 100%;
+  }
+
+  .book-content h3 {
+    font-size: 16px !important;
+  }
+
+  .book-content {
+    text-align: center;
+  }
+
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    width: none !important;
+  }
+
+  a.col.thumbnail {
+    width: 92%;
+  }
+
+  .tag-category h3 {
+    margin-bottom: 0px;
+  }
+
+  .grid-container-sketch {
+    width: 107%;
+    columns: 2 200px;
+  }
+  .grid-container-sketch p {
+    display: none;
+  }
+
+  .grid-container-sketch {
+    div {
+      width: 44%;
+    }
   }
 }
