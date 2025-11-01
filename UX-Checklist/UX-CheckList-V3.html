@@ -1,0 +1,2392 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>UX Checklist System Map — v5.0</title>
+    <style>
+      :root {
+        --bg-page: #f5f6fa;
+        --bg-card: #ffffff;
+        --bg-stage: #eef2ff;
+        --text-dark: #1f2937;
+        --text-med: #4b5563;
+        --text-light: #6b7280;
+        --border-card: #e5e7eb;
+        --radius-lg: 16px;
+        --radius-md: 10px;
+        --accent: #4f46e5;
+        --accent-soft: #eef2ff;
+        --chip-bg: #f1f5f9;
+        --chip-text: #475569;
+        --scroll-track: #e5e7eb;
+        --scroll-thumb: #9ca3af;
+        --stage-research: #dcfce7;
+        --stage-plan: #fef9c3;
+        --stage-explore: #ffedd5;
+        --stage-communicate: #fff7ed;
+        --stage-ethics: #ffe4e6;
+        --stage-create: #fee2e2;
+        --stage-feedback: #fef3c7;
+        --stage-finalize: #ede9fe;
+        --stage-delight: #e0e7ff;
+        --stage-analyse: #ccfbf1;
+      }
+      * {
+        box-sizing: border-box;
+        -webkit-font-smoothing: antialiased;
+      }
+      body {
+        margin: 0;
+        font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont,
+          "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+        background: var(--bg-page);
+        color: var(--text-dark);
+        display: flex;
+        height: 100vh;
+        overflow: hidden;
+      }
+      .sidebar {
+        width: 220px;
+        background: #111827;
+        color: #fff;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        overflow-y: auto;
+      }
+      .sidebar h1 {
+        margin: 0 0 4px 0;
+        font-size: 16px;
+        font-weight: 600;
+        color: #fff;
+        line-height: 1.3;
+      }
+      .subtitle {
+        font-size: 12px;
+        color: #9ca3af;
+        line-height: 1.4;
+        margin-bottom: 12px;
+      }
+      .stage-list {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      .stage-btn {
+        background: #1f2937;
+        border: 1px solid #374151;
+        border-radius: var(--radius-md);
+        padding: 10px 12px;
+        text-align: left;
+        font-size: 13px;
+        line-height: 1.3;
+        font-weight: 500;
+        color: #fff;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+      }
+      .stage-btn small {
+        color: #9ca3af;
+        font-size: 11px;
+        font-weight: 400;
+        line-height: 1.2;
+      }
+      .stage-btn.active {
+        background: var(--accent);
+        border-color: var(--accent);
+        box-shadow: 0 12px 24px rgb(79 70 229 / 0.4);
+      }
+      .main {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+      }
+      .main-header {
+        padding: 20px 24px 12px;
+        border-bottom: 1px solid var(--border-card);
+        background: #fff;
+      }
+      .main-header-title {
+        font-size: 18px;
+        font-weight: 600;
+        margin: 0;
+        color: var(--text-dark);
+        line-height: 1.4;
+      }
+      .main-header-desc {
+        font-size: 13px;
+        color: var(--text-med);
+        line-height: 1.4;
+        margin-top: 4px;
+        max-width: 800px;
+      }
+      .cards-area {
+        flex: 1;
+        min-height: 0;
+        overflow-y: auto;
+        padding: 24px;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(min(260px, 100%), 1fr));
+        gap: 16px;
+        align-content: flex-start;
+        background: var(--bg-page);
+      }
+      .card {
+        background: var(--bg-card);
+        border-radius: var(--radius-lg);
+        border: 1px solid var(--border-card);
+        padding: 16px;
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        box-shadow: 0 12px 24px rgb(0 0 0 / 0.03);
+        transition: box-shadow 0.15s, transform 0.15s;
+      }
+      .card:hover {
+        box-shadow: 0 16px 32px rgb(0 0 0 / 0.07);
+        transform: translateY(-2px);
+      }
+      .card-stage-chip {
+        font-size: 11px;
+        font-weight: 500;
+        border-radius: 999px;
+        padding: 2px 8px;
+        line-height: 1.4;
+        display: inline-block;
+        border: 1px solid rgb(0 0 0 / 0.05);
+        color: #111827;
+        background: var(--bg-stage);
+      }
+      .card-name {
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--text-dark);
+        line-height: 1.4;
+        margin-top: 8px;
+      }
+      .card-output {
+        font-size: 12px;
+        color: var(--text-med);
+        line-height: 1.4;
+        margin-top: 8px;
+      }
+      .card-connect {
+        font-size: 11px;
+        color: var(--accent);
+        font-weight: 500;
+        margin-top: auto;
+        line-height: 1.4;
+        background: var(--accent-soft);
+        border-radius: var(--radius-md);
+        padding: 6px 8px;
+        border: 1px solid rgb(79 70 229 / 0.15);
+      }
+      .details-panel {
+        width: 380px;
+        max-width: 380px;
+        min-width: 320px;
+        background: #fff;
+        border-left: 1px solid var(--border-card);
+        display: flex;
+        flex-direction: column;
+      }
+      .details-header {
+        padding: 20px 20px 16px;
+        border-bottom: 1px solid var(--border-card);
+      }
+      .details-title {
+        margin: 0;
+        font-size: 16px;
+        line-height: 1.4;
+        font-weight: 600;
+        color: var(--text-dark);
+      }
+      .details-next {
+        font-size: 12px;
+        color: var(--accent);
+        margin-top: 4px;
+        line-height: 1.4;
+        font-weight: 500;
+        background: var(--accent-soft);
+        border-radius: var(--radius-md);
+        padding: 4px 8px;
+        border: 1px solid rgb(79 70 229 / 0.15);
+        display: inline-block;
+      }
+      .details-scroll {
+        flex: 1;
+        min-height: 0;
+        overflow-y: auto;
+        padding: 16px 20px 64px;
+        font-size: 12px;
+        line-height: 1.5;
+        color: var(--text-dark);
+      }
+      .section-block {
+        margin-bottom: 16px;
+        padding-bottom: 16px;
+        border-bottom: 1px solid var(--border-card);
+      }
+      .section-label {
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        color: var(--text-light);
+        letter-spacing: 0.04em;
+        margin-bottom: 6px;
+      }
+      .chip-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+      .chip {
+        background: var(--chip-bg);
+        color: var(--chip-text);
+        border-radius: var(--radius-md);
+        padding: 4px 6px;
+        font-size: 11px;
+        line-height: 1.3;
+        border: 1px solid rgb(0 0 0 / 0.05);
+        white-space: nowrap;
+      }
+      .dosdont-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+        font-size: 12px;
+        line-height: 1.4;
+      }
+      .good {
+        background: #ecfdf5;
+        border: 1px solid #10b98155;
+        border-radius: var(--radius-md);
+        padding: 8px;
+        font-size: 12px;
+        font-weight: 500;
+        color: #065f46;
+      }
+      .bad {
+        background: #fef2f2;
+        border: 1px solid #ef444455;
+        border-radius: var(--radius-md);
+        padding: 8px;
+        font-size: 12px;
+        font-weight: 500;
+        color: #7f1d1d;
+      }
+      .example-box {
+        background: #f9fafb;
+        border: 1px solid var(--border-card);
+        border-radius: var(--radius-md);
+        padding: 10px;
+        font-size: 12px;
+        line-height: 1.4;
+        color: var(--text-med);
+      }
+      .learnmore-link {
+        font-size: 11px;
+        line-height: 1.4;
+        color: #4f46e5;
+        text-decoration: underline;
+        word-break: break-word;
+      }
+      .footer-note {
+        font-size: 11px;
+        color: #9ca3af;
+        text-align: center;
+        padding: 8px 12px;
+        border-top: 1px solid var(--border-card);
+        background: #fff;
+      }
+      @media (max-width: 900px) {
+        .details-panel {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <aside class="sidebar">
+      <div>
+        <h1>UX System Map</h1>
+        <div class="subtitle">
+          Click a stage → see tasks. Click a task → see how to run it.
+        </div>
+      </div>
+      <div class="stage-list" id="stageList"></div>
+    </aside>
+    <main class="main">
+      <div class="main-header">
+        <h2 class="main-header-title" id="mainStageTitle">Research</h2>
+        <div class="main-header-desc" id="mainStageDesc">
+          Learn the problem and the user before you design anything.
+        </div>
+      </div>
+      <section class="cards-area" id="cardsArea"></section>
+      <!-- <div class="footer-note">
+        <div>
+          Version 4.0 – Expanded UX Checklist Map (includes advanced methods and
+          industry references)
+        </div>
+        <div>
+          Version 5.0 – Expanded UX Checklist Map with Research & Ideation
+          Methods (Focus Group, Benchmarking, AEIOU, SWOT, Mind Mapping,
+          Brainstorming, Yes-And, Gallery, Brainwriting, SCAMPER)
+        </div>
+      </div> -->
+    </main>
+    <aside class="details-panel">
+      <div class="details-header">
+        <h3 class="details-title" id="detailTitle">Select an item</h3>
+        <div class="details-next" id="detailNext">Connects to →</div>
+      </div>
+      <div class="details-scroll" id="detailBody">
+        <div style="color: #6b7280; font-size: 12px; line-height: 1.5">
+          Pick a checklist item from the middle panel to see:
+          <ul style="margin: 8px 0 0 16px; padding: 0">
+            <li>What inputs it needs</li>
+            <li>How to actually do it</li>
+            <li>What output you produce</li>
+            <li>What step comes next</li>
+            <li>When to use / when not to</li>
+            <li>Do & Don’t</li>
+            <li>Example</li>
+            <li>Learn more link</li>
+          </ul>
+        </div>
+      </div>
+      <!-- VISUAL REFERENCES SECTION -->
+      <section
+        id="visualReferences"
+        style="
+          width: 100%;
+          background: #fff;
+          border-top: 1px solid #e5e7eb;
+          padding: 16px 24px;
+        "
+      >
+        <h3
+          style="
+            font-size: 16px;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 12px;
+          "
+        >
+          📸 Visual References
+        </h3>
+        <p style="font-size: 12px; color: #4b5563; margin-bottom: 16px">
+          Upload research artifacts, screenshots, or diagrams. They will be
+          saved locally in your browser for reference.
+        </p>
+
+        <input
+          type="file"
+          id="imgUpload"
+          accept="image/*"
+          multiple
+          style="margin-bottom: 16px; font-size: 12px"
+        />
+        <div
+          id="imgGallery"
+          style="display: flex; flex-direction: column; gap: 16px"
+        ></div>
+      </section>
+
+      <script>
+        const GALLERY_KEY = "uxGalleryImages_v1";
+        const uploadInput = document.getElementById("imgUpload");
+        const gallery = document.getElementById("imgGallery");
+
+        // Load from localStorage
+        function loadGallery() {
+          gallery.innerHTML = "";
+          const stored = JSON.parse(localStorage.getItem(GALLERY_KEY) || "[]");
+          stored.forEach((item, index) => addImageToDOM(item.data, index));
+        }
+
+        // Add image to DOM with delete option
+        function addImageToDOM(src, index) {
+          const wrapper = document.createElement("div");
+          wrapper.style.position = "relative";
+
+          const img = document.createElement("img");
+          img.src = src;
+          img.style.width = "100%";
+          img.style.borderRadius = "10px";
+          img.style.boxShadow = "0 4px 12px rgba(0,0,0,0.1)";
+          img.alt = "Reference Image";
+
+          const del = document.createElement("button");
+          del.textContent = "✖";
+          del.title = "Remove image";
+          del.style.position = "absolute";
+          del.style.top = "8px";
+          del.style.right = "8px";
+          del.style.background = "rgba(0,0,0,0.6)";
+          del.style.color = "#fff";
+          del.style.border = "none";
+          del.style.borderRadius = "50%";
+          del.style.width = "24px";
+          del.style.height = "24px";
+          del.style.cursor = "pointer";
+          del.style.fontSize = "12px";
+          del.onclick = () => removeImage(index);
+
+          wrapper.appendChild(img);
+          wrapper.appendChild(del);
+          gallery.appendChild(wrapper);
+        }
+
+        // Remove from DOM + localStorage
+        function removeImage(index) {
+          const stored = JSON.parse(localStorage.getItem(GALLERY_KEY) || "[]");
+          stored.splice(index, 1);
+          localStorage.setItem(GALLERY_KEY, JSON.stringify(stored));
+          loadGallery();
+        }
+
+        // Handle upload
+        uploadInput.addEventListener("change", (e) => {
+          const stored = JSON.parse(localStorage.getItem(GALLERY_KEY) || "[]");
+          Array.from(e.target.files).forEach((file) => {
+            const reader = new FileReader();
+            reader.onload = (ev) => {
+              stored.push({ data: ev.target.result });
+              localStorage.setItem(GALLERY_KEY, JSON.stringify(stored));
+              loadGallery();
+            };
+            reader.readAsDataURL(file);
+          });
+        });
+
+        // Init
+        loadGallery();
+      </script>
+    </aside>
+    <script>
+      const DATA = [
+        {
+          id: "research",
+          label: "Research",
+          desc: "Understand market, current product performance, and real user pain.",
+          color: "var(--stage-research)",
+          tasks: [
+            {
+              name: "Primary Research",
+              connectsTo: "Empathy Mapping, Affinity Mapping",
+              input: {
+                needs: [
+                  "Research objectives",
+                  "Participants / recruiting list",
+                  "Interview / test script",
+                ],
+                howToCollect: [
+                  "Run user interviews",
+                  "Observe real behavior (contextual inquiry)",
+                  "Run basic usability tests on prototype or current flow",
+                ],
+              },
+              process:
+                "Collect first-hand qualitative data directly from users in their own words and context.",
+              output:
+                "Raw insights: pain points, motivations, workarounds, emotional triggers.",
+              do: "Ask open questions, watch behavior, capture exact quotes.",
+              dont: "Don't lead them to an answer ('Wouldn't this be better if…?').",
+              useWhen:
+                "You're starting a new product or major redesign and you need to understand real problems.",
+              avoidWhen:
+                "You already have strong recent qualitative evidence for the same audience / same flow.",
+              example:
+                "Interview delivery riders about payout tracking → discover they screenshot balances nightly because they don't trust the app.",
+              link: "https://www.nngroup.com/articles/primary-vs-secondary-research/",
+            },
+            {
+              name: "Secondary Research",
+              connectsTo: "Competitive Analysis, Research Planning",
+              input: {
+                needs: [
+                  "Market reports",
+                  "Existing analytics dashboards",
+                  "Public reviews / Reddit / App Store feedback",
+                ],
+                howToCollect: [
+                  "Synthesize patterns from what's already published",
+                  "Find gaps competitors haven't solved",
+                ],
+              },
+              process:
+                "Study what's already known so you don't reinvent obvious insights.",
+              output:
+                "Trends, benchmark data, problem areas to dig into with primary research.",
+              do: "Pull credible, recent sources and note dates.",
+              dont: "Don't assume competitor users = your users.",
+              useWhen:
+                "Early discovery or you need fast context without talking to users yet.",
+              avoidWhen: "You need deep emotional / trust / workflow context.",
+              example:
+                "Reviewing ratings and app store comments to learn recurring complaints about hidden fees.",
+              link: "https://www.interaction-design.org/literature/topics/secondary-research",
+            },
+            {
+              name: "Focus Group Discussion",
+              connectsTo: "Affinity Mapping, SWOT Analysis",
+              input: {
+                needs: [
+                  "Recruit 5–8 target users per session",
+                  "Discussion guide with themes, not yes/no questions",
+                  "Neutral moderator",
+                ],
+                howToCollect: [
+                  "Run group conversation (not pitch deck!)",
+                  "Listen for disagreements, vocabulary, emotional triggers between participants",
+                ],
+              },
+              process:
+                "Use a moderated group session to explore attitudes, language, perceived value, fears, and expectations around a problem or concept.",
+              output:
+                "Shared perceptions, objections, mental models; quotes you can reuse.",
+              do: "Encourage quieter voices to speak so loud extroverts don't dominate.",
+              dont: "Don't treat group enthusiasm as statistically valid proof.",
+              useWhen:
+                "You want to quickly sense how people talk about a domain, pricing, trust, brand perception.",
+              avoidWhen:
+                "You need unbiased individual usability behavior (focus groups are performative).",
+              example:
+                "In a payments app focus group, 4/6 participants said 'I don't trust auto-debit because I’ve been charged twice before' → trust is a blocker.",
+              link: "https://www.nngroup.com/articles/focus-groups/",
+            },
+            {
+              name: "Benchmarking",
+              connectsTo: "Competitive Analysis, KPI Setup",
+              input: {
+                needs: [
+                  "List of comparable products/features",
+                  "Target KPIs or UX standards to compare (signup time, error rate, steps to complete task)",
+                ],
+                howToCollect: [
+                  "Time the task yourself in competitor products",
+                  "Count taps/screens/errors per flow",
+                  "Capture screenshots/video for evidence",
+                ],
+              },
+              process:
+                "Measure how fast, clear, safe, or confident competing solutions are at key tasks. Treat them like performance baselines.",
+              output:
+                "Benchmark table: your flow vs competitor flow on key metrics (time, steps, clarity).",
+              do: "Compare real success outcomes, not just UI prettiness.",
+              dont: "Don't copy their design blindly — copy what users find EFFECTIVE.",
+              useWhen:
+                "You need to justify 'why this redesign matters' with evidence.",
+              avoidWhen: "Problem is brand-new and no benchmark exists yet.",
+              example:
+                "Competitor A: add card in 5 steps; ours: 9 steps. Goal: match or beat 5.",
+              link: "https://www.nngroup.com/articles/competitive-usability-evaluations/",
+            },
+            {
+              name: "AEIOU Framework",
+              connectsTo: "Contextual Inquiry, Journey Mapping",
+              input: {
+                needs: [
+                  "Field observation time in real context",
+                  "Notebook / video / photo permission if allowed",
+                ],
+                howToCollect: [
+                  "Capture Observations in 5 buckets: Activities (what they do), Environments (where they are), Interactions (with people/systems), Objects (tools), Users (roles/attitudes)",
+                ],
+              },
+              process:
+                "A structured way to document what you SEE in the field so you don't miss environmental constraints and workarounds.",
+              output:
+                "Field notes organized by AEIOU that highlight hidden friction and hacks.",
+              do: "Write observable facts ('uses personal WhatsApp to confirm order') not assumptions ('he doesn't trust system').",
+              dont: "Don't skip 'Environment' — physical context often explains behavior.",
+              useWhen:
+                "You're designing for on-site workflows (warehouse, kitchen line, medical, logistics).",
+              avoidWhen: "Purely digital flows with zero physical-world steps.",
+              example:
+                "Delivery partner scans parcel barcode, then ALSO writes it on paper because network dies in basement parking → reliability issue.",
+              link: "https://www.interaction-design.org/literature/article/contextual-design",
+            },
+            {
+              name: "SWOT Analysis",
+              connectsTo: "KPI Setup, Strategy, Positioning",
+              input: {
+                needs: [
+                  "Competitive insights",
+                  "User pain themes",
+                  "Business constraints / strengths",
+                ],
+                howToCollect: [
+                  "Collect Strengths, Weaknesses (internal), Opportunities, Threats (external) about your product/experience",
+                ],
+              },
+              process:
+                "Map how your product stands strategically: where you're strong, where you're weak, where you can win, where you're at risk.",
+              output:
+                "Clear strategic POV on where to invest design effort for max impact.",
+              do: "Be honest about weaknesses (confusing onboarding, slow load).",
+              dont: "Don't just put buzzwords; tie each point to evidence.",
+              useWhen:
+                "You need to prioritize roadmap or pitch why UX investment matters.",
+              avoidWhen:
+                "Ultra-tactical pixel push that won't move any SWOT quadrant.",
+              example:
+                "Weakness: onboarding trust. Opportunity: competitors hide fees — we win with transparency messaging early.",
+              link: "https://www.interaction-design.org/literature/article/swot-analysis-know-your-strengths-weaknesses-opportunities-threats",
+            },
+            {
+              name: "Empathy Mapping",
+              connectsTo: "Persona Creation, Journey Mapping",
+              input: {
+                needs: [
+                  "Interview transcripts",
+                  "Observation notes",
+                  "Diary study logs",
+                ],
+                howToCollect: [
+                  "Sort what user SAYS",
+                  "Sort what user THINKS (but maybe won't say aloud)",
+                  "Sort what user DOES",
+                  "Sort what user FEELS",
+                ],
+              },
+              process:
+                "Visualize the user's mindset and emotional state so the team stops designing for themselves.",
+              output: "Empathy map canvas shared with the team.",
+              do: "Use verbatim quotes tied to real moments.",
+              dont: "Don't invent feelings just to fill boxes.",
+              useWhen: "Right after primary research.",
+              avoidWhen: "You haven't talked to/observed users yet.",
+              example:
+                "User: 'I just want to KNOW my order is actually coming' → FEELS: anxious about reliability.",
+              link: "https://www.nngroup.com/articles/empathy-mapping/",
+            },
+            {
+              name: "Affinity Mapping",
+              connectsTo: "Problem Definition, Ideation",
+              input: {
+                needs: [
+                  "Interview notes",
+                  "Usability findings",
+                  "Support chat logs",
+                ],
+                howToCollect: [
+                  "Write each observation on a sticky / Miro note",
+                  "Group similar notes into clusters",
+                  "Name clusters by need",
+                ],
+              },
+              process:
+                "Group similar insights until themes emerge. Label those themes.",
+              output:
+                "Top recurring pain themes and opportunity areas across users.",
+              do: "Let themes come from data, not from your roadmap.",
+              dont: "Don't throw away edge-case notes — they reveal inclusion issues.",
+              useWhen:
+                "You have lots of qualitative data and it's getting messy.",
+              avoidWhen: "All you have is metrics, no qualitative inputs.",
+              example:
+                "12+ notes around 'hidden fees' cluster under Pricing Anxiety → clearly a trust problem.",
+              link: "https://www.nngroup.com/articles/affinity-diagram/",
+            },
+            {
+              name: "Card Sorting",
+              connectsTo: "Information Architecture, Navigation Design",
+              input: {
+                needs: [
+                  "List of features/content/settings you need to organize",
+                ],
+                howToCollect: [
+                  "Ask users to group cards into buckets that make sense to them",
+                  "Ask them to name those buckets in their own words",
+                ],
+              },
+              process:
+                "Reveal how users mentally organize information so you can design navigation the way THEY think.",
+              output: "User-driven IA / sitemap directions, naming patterns.",
+              do: "Run with multiple users and compare mental models.",
+              dont: "Don't force your internal team org-structure labels.",
+              useWhen: "Designing menus, tabs, dashboard sections, settings.",
+              avoidWhen: "1-screen product with no nav problem.",
+              example:
+                "People group 'Invoices','Payments','Refunds' → call the tab 'Billing', not 'Finance Ops'.",
+              link: "https://www.nngroup.com/articles/card-sorting-definition/",
+            },
+            {
+              name: "Diary Study",
+              connectsTo: "Journey Mapping, Experience Mapping",
+              input: {
+                needs: [
+                  "Participants over multiple days/weeks",
+                  "Prompt schedule (eg. 3x/day or end of day)",
+                  "Capture method (form, WhatsApp, voice note)",
+                ],
+                howToCollect: [
+                  "Ask users to log behavior/emotion/friction over time",
+                  "Encourage screenshots or voice notes to reduce effort",
+                ],
+              },
+              process:
+                "Get longitudinal, in-context data about habits and frustrations you won't see in a 30-minute interview.",
+              output:
+                "Patterns across time: when stress spikes, what triggers drop-off, what hacks users invent.",
+              do: "Make it easy to log or they'll stop doing it.",
+              dont: "Don't demand perfect format; accept rough notes.",
+              useWhen:
+                "You care about repeated behavior, habit loops, or long-term trust.",
+              avoidWhen:
+                "The task is single-shot and short (passport renewal form).",
+              example:
+                "Finance app users admit they screenshot balances daily because they don't trust the in-app number.",
+              link: "https://www.nngroup.com/articles/diary-studies/",
+            },
+            {
+              name: "Contextual Inquiry",
+              connectsTo: "Journey Mapping, Service Blueprinting",
+              input: {
+                needs: [
+                  "Observation checklist",
+                  "Consent/permission",
+                  "Critical task to observe in the real environment",
+                ],
+                howToCollect: [
+                  "Shadow them doing the task",
+                  "Ask 'Why did you do that just now?' at the moment of action",
+                ],
+              },
+              process:
+                "Watch the real task in the real place, not a clean demo. Capture workarounds, constraints, hacks.",
+              output: "Workflow breakdown + environmental pain points.",
+              do: "Capture screenshots/photos of sticky notes / spreadsheets / side tools.",
+              dont: "Don't interrupt during sensitive or high-risk tasks.",
+              useWhen:
+                "Designing for domain work (warehouse, clinic, operations, finance back office).",
+              avoidWhen:
+                "Environment is private/regulated and you cannot watch safely.",
+              example:
+                "Warehouse worker uses WhatsApp to track inventory because official system is too slow → huge opportunity.",
+              link: "https://www.nngroup.com/articles/contextual-inquiry/",
+            },
+            {
+              name: "Journey Mapping",
+              connectsTo: "Service Blueprint, Ideation",
+              input: {
+                needs: [
+                  "Affinity map themes",
+                  "Empathy map feelings over time",
+                  "Task flow from first touch → success",
+                ],
+                howToCollect: [
+                  "Plot each stage the user experiences",
+                  "Capture emotion, blockers, and touchpoints at each stage",
+                ],
+              },
+              process:
+                "Show the full experience across touchpoints and time, not just one screen.",
+              output:
+                "Journey map highlighting pain peaks, trust breaks, delight moments.",
+              do: "Use real quotes and emotions at each step.",
+              dont: "Don't force a fake linear path if users loop, retry, or churn.",
+              useWhen:
+                "You need team alignment on whole experience, not just UI screens.",
+              avoidWhen: "Micro-flow with a single step and no lifecycle.",
+              example:
+                "Map: sees ad → installs → tries KYC → drops because verification feels risky.",
+              link: "https://www.nngroup.com/articles/customer-journey-mapping/",
+            },
+            {
+              name: "Competitive Analysis",
+              connectsTo: "User Stories, Red Routes, KPI Setup",
+              input: {
+                needs: [
+                  "Links/screenshots of competitor products",
+                  "App store reviews / Reddit complaints",
+                  "Pricing pages, onboarding flows",
+                ],
+                howToCollect: [
+                  "Sign up for competitors and screenshot key flows",
+                  "Note what they highlight, what they hide",
+                ],
+              },
+              process:
+                "Score strengths/weaknesses of each competitor vs the core job you're solving (speed? trust? pricing clarity?).",
+              output: "Competitor matrix + list of gaps you can exploit.",
+              do: "Borrow proven patterns and call out places you can do clearly better.",
+              dont: "Don't just copy visuals without understanding why they work.",
+              useWhen:
+                "New product / big redesign / pitch for differentiation.",
+              avoidWhen: "Tiny UI tweak in an internal tool.",
+              example:
+                "Food apps hide delivery fee until late → Opportunity: show total cost earlier as trust differentiator.",
+              link: "https://www.nngroup.com/articles/competitive-usability-evaluations/",
+            },
+            {
+              name: "Data Analysis",
+              connectsTo: "Red Routes, KPI Setup, AB Test Plan",
+              input: {
+                needs: [
+                  "Funnel drop-off data",
+                  "Error logs / rage clicks",
+                  "Support ticket tags",
+                ],
+                howToCollect: [
+                  "Export GA/Mixpanel/Amplitude",
+                  "Pull top 5 failure points in checkout/onboarding",
+                ],
+              },
+              process: "Find where users are leaking most and quantify impact.",
+              output: "Ranked pain points by % impact.",
+              do: "Fix the biggest leaks first.",
+              dont: "Don't chase vanity metrics like 'time on page'.",
+              useWhen: "There is real traffic or beta usage.",
+              avoidWhen: "Pre-MVP with zero users.",
+              example:
+                "30% drop at address form → address autocomplete becomes priority.",
+              link: "https://www.nngroup.com/articles/analytics-user-experience/",
+            },
+            {
+              name: "User Feedback",
+              connectsTo: "User Stories, Language, Ethical / Inclusive",
+              input: {
+                needs: [
+                  "Interview notes",
+                  "Chat/support transcripts",
+                  "App reviews / survey quotes",
+                ],
+                howToCollect: [
+                  "Cluster repeating complaints or fears",
+                  "Highlight exact user wording",
+                ],
+              },
+              process:
+                "Group feedback into themes: trust, money, speed, confusion.",
+              output: "Top 3 pain themes in real user language.",
+              do: "Use quotes to prove urgency.",
+              dont: "Don't assume one loud user = entire user base.",
+              useWhen: "You already have users talking to you.",
+              avoidWhen: "Feedback is only from internal teammates (biased).",
+              example:
+                "'I never know final cost until last step' → requirement: show total cost earlier.",
+              link: "https://www.nngroup.com/articles/qualitative-research/",
+            },
+          ],
+        },
+        {
+          id: "plan",
+          label: "Plan",
+          desc: "Turn research into what we will actually build and in what flow.",
+          color: "var(--stage-plan)",
+          tasks: [
+            {
+              name: "Personas",
+              connectsTo: "Journey Mapping, User Stories",
+              input: {
+                needs: [
+                  "Empathy maps",
+                  "Interview data",
+                  "Behavioral patterns / goals",
+                ],
+                howToCollect: [
+                  "Cluster similar behaviors & motivations",
+                  "Create 2–4 representative archetypes, not demographics only",
+                ],
+              },
+              process:
+                "Summarize core user types so the team designs for real needs, not 'generic user'.",
+              output: "Persona cards with goals, frustrations, motivations.",
+              do: "Keep personas tied to actual patterns from research.",
+              dont: "Don't invent fake stock-photo people with no evidence.",
+              useWhen:
+                "You need to align design, PM, marketing around who you're serving.",
+              avoidWhen:
+                "Audience is extremely narrow and already well known (like an internal ops dashboard for 5 trained users).",
+              example:
+                "'Budget-conscious commuter' cares about reliability over features.",
+              link: "https://www.nngroup.com/articles/persona/",
+            },
+            {
+              name: "User Stories",
+              connectsTo: "User Flows, Red Routes, KPI Setup",
+              input: {
+                needs: ["Persona context", "Prioritized pain themes"],
+                howToCollect: [
+                  "Write: 'As a [user], I want [goal], so that [value]'.",
+                  "Keep it about user value, not UI solution.",
+                ],
+              },
+              process: "Translate pain into buildable tasks.",
+              output: "Backlog of scoped, testable stories.",
+              do: "Capture the 'so that...' (value).",
+              dont: "Don't embed UI in the story ('I want a popup...').",
+              useWhen: "You're deciding next sprint / MVP scope.",
+              avoidWhen:
+                "You're exploring wild ideas with no build commitment yet.",
+              example:
+                "As a renter, I want to filter flats by total monthly cost so I don't waste time visiting unaffordable places.",
+              link: "https://www.atlassian.com/agile/project-management/user-stories",
+            },
+            {
+              name: "User Journey Hypothesis",
+              connectsTo: "User Flows, Red Routes",
+              input: {
+                needs: ["High-level problem statement", "Persona / scenario"],
+                howToCollect: [
+                  "Sketch 'ideal' path user would take to reach success, before building",
+                ],
+              },
+              process:
+                "Draft how we *expect* the user will move through awareness → signup → success.",
+              output: "Hypothesis flow you can test and adjust later.",
+              do: "Call out assumptions that must be validated.",
+              dont: "Don't treat this as final truth.",
+              useWhen: "Before you have product usage data.",
+              avoidWhen: "You already have clear analytics on real user paths.",
+              example:
+                "We believe first-time renters will browse 3 flats then schedule 1 visit within 24h.",
+              link: "https://www.nngroup.com/articles/customer-journey-mapping/",
+            },
+            {
+              name: "User Flows",
+              connectsTo: "Wireframe, Prototype, Red Routes",
+              input: {
+                needs: [
+                  "Approved user stories",
+                  "Basic IA / screens that will exist",
+                ],
+                howToCollect: [
+                  "Map each step from entry → decision → success, plus error branches",
+                ],
+              },
+              process:
+                "Show how a real human moves through the product to finish one job.",
+              output: "Step-by-step flow diagram.",
+              do: "Keep each flow to one main goal (checkout ≠ onboarding).",
+              dont: "Don't mix future 'maybe' features.",
+              useWhen: "Before layout / wireframing.",
+              avoidWhen: "It's literally just one confirmation dialog.",
+              example:
+                "Sign up → verify email → choose interests → land on personalized feed.",
+              link: "https://www.nngroup.com/articles/task-analysis/",
+            },
+            {
+              name: "Scenarios & Storyboards",
+              connectsTo: "Wireframe, Prototype",
+              input: {
+                needs: ["Persona context", "Key task / motivation"],
+                howToCollect: [
+                  "Write 'A user in situation X tries to do Y because Z'",
+                  "Sketch quick storyboard frames to show context",
+                ],
+              },
+              process:
+                "Tell the story of a user trying to solve a problem using (or trying to use) your product.",
+              output: "Scenario/script + storyboard panels used for alignment.",
+              do: "Show environment, distractions, emotion.",
+              dont: "Don't only show perfect 'happy path'.",
+              useWhen:
+                "To align stakeholders on why this flow matters in real life.",
+              avoidWhen: "Minor UI tweak that doesn't change motivation.",
+              example:
+                "Ravi is late for work. He tries to unlock a rental scooter fast but GPS won't lock location → frustration builds.",
+              link: "https://www.interaction-design.org/literature/topics/storyboarding",
+            },
+            {
+              name: "Content Strategy",
+              connectsTo: "Language, IA",
+              input: {
+                needs: [
+                  "User questions at each step",
+                  "Trust blockers (price? privacy? reliability?)",
+                ],
+                howToCollect: [
+                  "List what the user needs to understand *right now* to keep going",
+                  "Map 'what do they fear' vs 'what reassurance do we give'",
+                ],
+              },
+              process:
+                "Plan what information, tone, and hierarchy is needed to support each step in the journey.",
+              output:
+                "Content requirements per screen/step, not just UI boxes.",
+              do: "Answer the user's next question before they have to ask.",
+              dont: "Don't overload with marketing fluff at high-stress steps.",
+              useWhen: "Before writing copy and finalizing layouts.",
+              avoidWhen:
+                "Purely internal admin tool with no UX writing concern.",
+              example:
+                "Upfront pricing explainer shown before 'Add Card', not after card input.",
+              link: "https://www.nngroup.com/articles/ux-writing/",
+            },
+            {
+              name: "Red Routes",
+              connectsTo: "Responsiveness, Accessibility, KPI Setup, Test",
+              input: {
+                needs: [
+                  "User flows list",
+                  "Traffic/impact data: which tasks are critical + frequent",
+                ],
+                howToCollect: [
+                  "Mark 'cannot fail' tasks like pay, book, upload, send money",
+                ],
+              },
+              process:
+                "Decide which flows must be fast, obvious, and reliable.",
+              output: "Shortlist of 'mission critical' journeys.",
+              do: "Give these SLAs (e.g. '3 taps max to reorder').",
+              dont: "Don't polish low-value admin settings first.",
+              useWhen: "Resources are limited and you must prioritize impact.",
+              avoidWhen: "You're only doing a high-level vision deck.",
+              example:
+                "Uber: 'book ride' is red route. 'change profile pic' is not.",
+              link: "https://www.nngroup.com/articles/red-routes/",
+            },
+          ],
+        },
+        {
+          id: "explore",
+          label: "Explore",
+          desc: "Generate and shape solutions before committing to build.",
+          color: "var(--stage-explore)",
+          tasks: [
+            {
+              name: "Crazy 8s / Rapid Sketching",
+              connectsTo: "Wireframe, Inclusive, Ethical",
+              input: {
+                needs: ["Problem statement", "Chosen red route / task"],
+                howToCollect: [
+                  "Fold paper into 8 boxes",
+                  "Sketch 8 variations in ~8 minutes",
+                ],
+              },
+              process:
+                "Force yourself to generate many different solutions fast without judging.",
+              output: "A spread of alternative concepts and layout ideas.",
+              do: "Embrace weird ideas early.",
+              dont: "Don't kill ideas during generation.",
+              useWhen: "You’re not sure of best approach yet.",
+              avoidWhen: "Design is already locked for dev.",
+              example:
+                "8 different checkout experiences: one-page, stepper, chat-like assistant, voice-driven...",
+              link: "https://www.interaction-design.org/literature/topics/ideation",
+            },
+            {
+              name: "Mind Mapping",
+              connectsTo: "Brainstorming, Wireframe",
+              input: {
+                needs: [
+                  "Central problem or goal statement",
+                  "Whiteboard/notes space",
+                ],
+                howToCollect: [
+                  "Write the core problem in the center",
+                  "Branch out related subproblems, causes, emotional blockers, contexts",
+                  "Keep branching into 'why' and 'what if'",
+                ],
+              },
+              process:
+                "Visually explode everything around the problem to expose hidden angles, dependencies, and opportunities.",
+              output:
+                "Mind map of related pain points, motivations, context factors, stakeholder needs.",
+              do: "Let branches get weird and lateral.",
+              dont: "Don't stop at first layer; go 2-3 hops deep.",
+              useWhen:
+                "You want to understand the whole problem space before locking direction.",
+              avoidWhen: "You're past exploration and already in polish/QA.",
+              example:
+                "Center: 'refund is confusing' → branches: 'legal language', 'timing uncertainty', 'trust fear: will I get money back?'",
+              link: "https://www.interaction-design.org/literature/topics/mind-mapping",
+            },
+            {
+              name: "Brainstorming",
+              connectsTo: "Yes-and Method, Gallery Method",
+              input: {
+                needs: [
+                  "Clear problem statement",
+                  "Time box (ex: 15-30 min)",
+                  "Group of diverse roles",
+                ],
+                howToCollect: [
+                  "Everyone speaks ideas out loud; no judgment phase",
+                  "Capture everything on board/post-its",
+                ],
+              },
+              process:
+                "Generate as many raw ideas as possible fast, without filtering.",
+              output:
+                "Big pool of possible directions, hooks, layouts, features, framings.",
+              do: "Encourage volume over perfection early.",
+              dont: "Don't critique during idea Gen phase.",
+              useWhen: "You need divergent options, not one 'safe' answer.",
+              avoidWhen:
+                "Stakeholders will immediately shut ideas down politically (that kills creativity).",
+              example:
+                "'What if onboarding was literally a WhatsApp-style chat instead of a form?'",
+              link: "https://www.interaction-design.org/literature/topics/brainstorming",
+            },
+            {
+              name: "Yes-and Method",
+              connectsTo: "Brainwriting / 6-3-5, SCAMPER Method",
+              input: {
+                needs: [
+                  "Initial brainstorm ideas",
+                  "Team willing to build instead of kill ideas",
+                ],
+                howToCollect: [
+                  "Instead of saying 'no' or 'but', teammates respond with 'yes, and we could also…' to extend the idea",
+                ],
+              },
+              process:
+                "Supportive improv-style collaboration that grows ideas instead of shutting them down.",
+              output:
+                "Richer, more developed concept directions instead of half-born ideas.",
+              do: "Build on each other's ideas, even if they're rough.",
+              dont: "Don't jump to feasibility killshots too early.",
+              useWhen:
+                "Group culture tends to shoot down ideas fast or get cynical.",
+              avoidWhen: "You're already in feasibility/prioritization mode.",
+              example:
+                "'Onboarding as chat' → 'Yes, and we could reuse our support bot tech for this and show trust messages early.'",
+              link: "https://www.ideou.com/blogs/inspiration/yes-and",
+            },
+            {
+              name: "Gallery Method",
+              connectsTo: "Wireframe, Stakeholder Alignment",
+              input: {
+                needs: [
+                  "Sketches or concepts from multiple people",
+                  "Wall / FigJam board / Miro space",
+                ],
+                howToCollect: [
+                  "Everyone posts their solution sketches on a wall/board",
+                  "Team silently walks around, adds sticky notes / comments / highlights",
+                ],
+              },
+              process:
+                "Make ideas visible all at once so people can compare, remix, and vote quietly without loud voices dominating.",
+              output:
+                "Converged shortlist of promising directions informed by group feedback.",
+              do: "Give everyone equal wall space, not just seniors.",
+              dont: "Don't let one person pitch first and bias the room.",
+              useWhen:
+                "You generated multiple alternative flows or layouts and need to narrow.",
+              avoidWhen:
+                "Only one designer is working and there's only one concept.",
+              example:
+                "Six different dashboard layouts pinned up; team marks which surfaces most important info first.",
+              link: "https://www.nngroup.com/articles/design-studio/",
+            },
+            {
+              name: "Brainwriting / 6-3-5 Method",
+              connectsTo: "SCAMPER Method, Wireframe",
+              input: {
+                needs: [
+                  "Small group (usually 6 people)",
+                  "Template sheet or shared doc",
+                ],
+                howToCollect: [
+                  "Each person writes 3 ideas in 5 minutes, passes it to the next person who builds on them. Repeat rounds.",
+                ],
+              },
+              process:
+                "Quiet, structured ideation where ideas evolve as they rotate through different brains. Great for introverts.",
+              output:
+                "Large set of iterated ideas where each has been refined by multiple contributors.",
+              do: "Keep it timed and focused on one challenge.",
+              dont: "Don't allow debate mid-round; it's about generation, not defense.",
+              useWhen:
+                "You want lots of ideas fast but your team has loud/quiet imbalance.",
+              avoidWhen: "Everyone is already aligned on one core direction.",
+              example:
+                "After 3 rounds you end up with 18 refined onboarding concepts in under 20 minutes.",
+              link: "https://www.nngroup.com/articles/brainwriting-635/",
+            },
+            {
+              name: "SCAMPER Method",
+              connectsTo: "Wireframe, Prototype",
+              input: {
+                needs: [
+                  "Existing concept or flow to improve",
+                  "SCAMPER prompts: Substitute, Combine, Adapt, Modify/Magnify/Minify, Put to other use, Eliminate, Reverse/Rearrange",
+                ],
+                howToCollect: [
+                  "Ask each SCAMPER question against the concept and write the variant idea that emerges",
+                ],
+              },
+              process:
+                "Systematically mutate an idea to discover unexpected improvements or pivots.",
+              output: "Structured list of alternative versions of a concept.",
+              do: "Follow each SCAMPER letter to push past obvious tweaks.",
+              dont: "Don't stay at surface visual changes — change behavior too.",
+              useWhen:
+                "You have a direction but want to explore smarter/faster/cheaper variations.",
+              avoidWhen:
+                "You have zero base concept yet (SCAMPER needs something to transform).",
+              example:
+                "Checkout flow: 'Eliminate' → Can we remove address step by using GPS or saved addresses?",
+              link: "https://www.interaction-design.org/literature/article/scamper-a-powerful-creative-thinking-technique-for-idea-generation",
+            },
+            {
+              name: "IA Testing (Tree Testing / Nav Validation)",
+              connectsTo: "IA, Wireframe",
+              input: {
+                needs: [
+                  "Draft site/app structure (text only tree/no UI)",
+                  "Labels from card sorting",
+                ],
+                howToCollect: [
+                  "Give users a task and ask 'Where would you click?' using only the nav tree",
+                ],
+              },
+              process:
+                "Validate if users can find things in your structure without screens distracting them.",
+              output: "Success rate + confusion points in navigation/labels.",
+              do: "Test labels users gave you, not just internal jargon.",
+              dont: "Don't assume your org chart = IA.",
+              useWhen: "Before you lock IA and menus.",
+              avoidWhen: "Single-screen MVP.",
+              example:
+                "'Where would you update your billing info?' → 60% pick 'Account Settings', 40% guess 'Payments' → rename for clarity.",
+              link: "https://www.nngroup.com/articles/tree-testing/",
+            },
+            {
+              name: "Wireframe",
+              connectsTo: "Prototype, IA, UI Elements",
+              input: {
+                needs: ["Chosen concept from sketch", "User flow steps"],
+                howToCollect: [
+                  "Draw low-fi screens (boxes / text only) and connect them in sequence",
+                ],
+              },
+              process:
+                "Define layout, information hierarchy, and CTAs without visual noise.",
+              output: "Clickable grey-box flow / blueprint.",
+              do: "Use real-ish copy ('Pay ₹499 now'), not lorem.",
+              dont: "Don't waste hours on color/icons yet.",
+              useWhen: "You need stakeholder / PM / eng alignment fast.",
+              avoidWhen: "Marketing needs final polished visuals for campaign.",
+              example:
+                "Address form wireframe with auto-detect vs manual entry side by side.",
+              link: "https://www.nngroup.com/articles/wireframe-definition/",
+            },
+            {
+              name: "Wireflow Mapping",
+              connectsTo: "Prototype, Dev Handoff",
+              input: {
+                needs: ["Wireframes", "User flow steps"],
+                howToCollect: [
+                  "Combine flow arrows + wireframe states to show both screen and decision logic",
+                ],
+              },
+              process:
+                "Document how each step in the flow looks AND what happens after each action.",
+              output: "Wireflow diagram: visual flow+UI logic.",
+              do: "Include success and error branches.",
+              dont: "Don't only show happy path.",
+              useWhen: "Communicating behavior to engineers.",
+              avoidWhen: "Very tiny one-step features.",
+              example:
+                "Wireflow for 'Reset password' includes valid email path and invalid email error path.",
+              link: "https://www.smashingmagazine.com/2016/01/wireflows-documenting-user-flows-and-screen-designs/",
+            },
+            {
+              name: "Prototype",
+              connectsTo: "Test, Gestures, Responsiveness, Accessibility",
+              input: {
+                needs: ["Wireframes", "Initial UI components", "Microcopy"],
+                howToCollect: [
+                  "Link screens in Figma/Framer so it behaves like a real app",
+                ],
+              },
+              process:
+                "Simulate the product so users can click/tap through and you can observe success/confusion.",
+              output: "Interactive demo with realistic flows and states.",
+              do: "Include edge cases, not just happy path.",
+              dont: "Don't hide rough areas that you're actually unsure about.",
+              useWhen: "Before usability testing / stakeholder signoff.",
+              avoidWhen: "Concept is too unstable to show.",
+              example:
+                "Checkout prototype recalculates total instantly when address changes.",
+              link: "https://www.nngroup.com/articles/prototypes/",
+            },
+            {
+              name: "Low-Fidelity Prototype Testing",
+              connectsTo: "Test, Red Routes",
+              input: {
+                needs: ["Clickable low-fi prototype", "Task script"],
+                howToCollect: [
+                  "Ask users to attempt real tasks with the low-fi prototype",
+                ],
+              },
+              process:
+                "Catch big usability issues early before investing in visuals.",
+              output: "Task success/struggle notes per step.",
+              do: "Observe silently, record hesitation/confusion.",
+              dont: "Don't coach them through it ('Now tap here').",
+              useWhen: "Before hi-fi design starts.",
+              avoidWhen: "Feature is trivial and low-risk.",
+              example:
+                "3/5 users couldn't find 'Track order' → must elevate it in nav.",
+              link: "https://www.nngroup.com/articles/usability-testing-101/",
+            },
+          ],
+        },
+        {
+          id: "communicate",
+          label: "Communicate",
+          desc: "Make sure structure, language, and access are clear to humans.",
+          color: "var(--stage-communicate)",
+          tasks: [
+            {
+              name: "IA (Information Architecture)",
+              connectsTo: "Language, Wireframe, Responsiveness",
+              input: {
+                needs: [
+                  "Content inventory / features list",
+                  "Mental models from research",
+                ],
+                howToCollect: [
+                  "Card sort, sitemap draft, group by how users think (not org chart)",
+                ],
+              },
+              process: "Define navigation, naming, content hierarchy.",
+              output: "Sitemap / nav structure / menu labels.",
+              do: "Use user language ('Bookings'), not internal jargon.",
+              dont: "Don't bury red-route actions 4 levels deep.",
+              useWhen:
+                "You're shaping menus, dashboard sections, IA for an app.",
+              avoidWhen: "Single lightweight modal with no nav impact.",
+              example:
+                "Tabs: Orders / Invoices / Support instead of 'Engagements / Monetization / Demand'.",
+              link: "https://www.nngroup.com/articles/information-architecture-ia/",
+            },
+            {
+              name: "Language (Tone & Copy)",
+              connectsTo: "Microcopy, Errors, Completed Actions",
+              input: {
+                needs: [
+                  "Brand voice",
+                  "User stress level",
+                  "Legal & ethical constraints",
+                ],
+                howToCollect: [
+                  "Write CTAs, form hints, confirmations in plain language",
+                ],
+              },
+              process: "Make copy clear, respectful, trustworthy.",
+              output: "Approved UX copy blocks.",
+              do: "Be specific ('Your payment failed. Try another card.').",
+              dont: "Don't manipulate ('Only idiots skip this').",
+              useWhen: "Any action with money/risk/emotion.",
+              avoidWhen: "Internal dev-only admin tool.",
+              example:
+                "'Book now' vs 'Request a quote' sets very different expectations.",
+              link: "https://www.nngroup.com/articles/microcopy-ux-writing/",
+            },
+            {
+              name: "Voice & Tone Framework",
+              connectsTo: "Microcopy, Accessibility",
+              input: {
+                needs: [
+                  "Brand principles",
+                  "Typical user emotional states (stressed? excited?)",
+                ],
+                howToCollect: [
+                  "Define tone per context: onboarding (welcoming), error (supportive), payment (clear and serious)",
+                ],
+              },
+              process:
+                "Document how the product should 'sound' in different high-stakes moments.",
+              output: "Voice/tone guidelines teams can reuse.",
+              do: "Adapt tone to the moment and emotional state.",
+              dont: "Don't joke during panic moments (card declined, lost data).",
+              useWhen:
+                "Scaling product copy across multiple surfaces and teams.",
+              avoidWhen: "Super small internal tool.",
+              example:
+                "During failure: 'We couldn’t verify that card. Try another card or contact your bank — you weren’t charged.'",
+              link: "https://www.nngroup.com/articles/tone-of-voice/",
+            },
+            {
+              name: "Accessibility",
+              connectsTo: "Prototype, Responsiveness, Inclusive, Ethical",
+              input: {
+                needs: [
+                  "Contrast checks",
+                  "Keyboard navigation",
+                  "Alt text / aria-labels",
+                  "Motion sensitivity notes",
+                ],
+                howToCollect: [
+                  "Run quick WCAG-style pass: tab order, readable labels, color contrast",
+                ],
+              },
+              process:
+                "Ensure users with different abilities can finish red routes.",
+              output: "Accessibility issues list + fixes backlog.",
+              do: "Support keyboard only, captions, readable labels.",
+              dont: "Don't rely only on color to communicate state.",
+              useWhen: "ANY time you touch a red route.",
+              avoidWhen: "Never avoid. Accessibility is not optional.",
+              example:
+                "'Add to cart' must be tab-focusable and screen-reader announced.",
+              link: "https://www.w3.org/WAI/standards-guidelines/wcag/",
+            },
+            {
+              name: "Design Critique Guidelines",
+              connectsTo: "Finalise Layout, QA Review",
+              input: {
+                needs: [
+                  "Prototype or mockups",
+                  "Clear problem statement ('We're trying to solve X')",
+                ],
+                howToCollect: [
+                  "Run 30-min sessions where others point out clarity/usability issues, not just color opinions",
+                ],
+              },
+              process:
+                "Structured feedback ritual to catch usability issues and misalignment early.",
+              output: "Actionable improvement notes ranked by severity.",
+              do: "Keep critique about goals and clarity, not personal taste.",
+              dont: "Don't let it become 'make it pretty' feedback.",
+              useWhen: "Before handoff or big stakeholder review.",
+              avoidWhen: "One-person emergency hotfix.",
+              example:
+                "'In step 2 I felt lost. I didn't know if I'd be charged yet.' → copy and hierarchy fix.",
+              link: "https://www.smashingmagazine.com/2019/03/design-critiques/",
+            },
+            {
+              name: "Design Tokens & Naming Conventions",
+              connectsTo: "UI Elements / Design System, Dev Handoff Audit",
+              input: {
+                needs: [
+                  "Color scale",
+                  "Spacing scale",
+                  "Typography scale",
+                  "Component states",
+                ],
+                howToCollect: [
+                  "Define naming like `color-bg-surface`, `radius-lg`, `text-secondary` so everyone uses same tokens",
+                ],
+              },
+              process:
+                "Create a shared visual language so that design and code use the same words.",
+              output: "Token sheet handed to engineers.",
+              do: "Use meaningful, reusable names tied to function (e.g. 'danger-bg').",
+              dont: "Don't name by random vibe like 'prettyBlue'.",
+              useWhen: "Scaling design across multiple features/teams.",
+              avoidWhen: "Very early wireframes only.",
+              example:
+                "Primary button uses `bg-action-primary`, not hardcoded #4F46E5.",
+              link: "https://www.smashingmagazine.com/2021/03/design-tokens-practical-guide/",
+            },
+          ],
+        },
+        {
+          id: "ethics",
+          label: "Ethics & Inclusion",
+          desc: "Make sure it's fair, respectful, sustainable, not exploitative.",
+          color: "var(--stage-ethics)",
+          tasks: [
+            {
+              name: "Sustainable",
+              connectsTo: "Transitions, Responsiveness, KPI Setup",
+              input: {
+                needs: [
+                  "Feature scope",
+                  "Bandwidth / battery cost",
+                  "Notification frequency",
+                ],
+                howToCollect: [
+                  "Ask: Are we wasting user’s time, data, attention or money?",
+                ],
+              },
+              process: "Reduce waste (time, power, stress, attention).",
+              output:
+                "Simplified flow / fewer steps / lower cognitive + resource load.",
+              do: "Batch notifications instead of spamming.",
+              dont: "Don't design addiction loops just to boost 'engagement'.",
+              useWhen: "High-frequency daily flows.",
+              avoidWhen: "Never fully ignore, but you can down-scope for MVP.",
+              example:
+                "Ticket QR works offline so user doesn't burn roaming data at the gate.",
+              link: "https://www.nngroup.com/articles/dark-patterns/",
+            },
+            {
+              name: "Ethical",
+              connectsTo: "Language, Inclusive, Microcopy",
+              input: {
+                needs: [
+                  "Known dark patterns in market",
+                  "Legal/risk areas: money, privacy, health",
+                ],
+                howToCollect: [
+                  "Run 'harm check': Who could be misled or exploited here?",
+                ],
+              },
+              process: "Remove manipulation, make consent & data use obvious.",
+              output: "List of risks + mitigations.",
+              do: "Explain data use in plain words.",
+              dont: "Don't auto-opt people into sharing data.",
+              useWhen: "Signup, payments, data-sharing, AI features.",
+              avoidWhen: "Never avoid for anything impactful.",
+              example: "'We will NOT share your location with advertisers.'",
+              link: "https://www.nngroup.com/articles/dark-patterns/",
+            },
+            {
+              name: "Inclusive",
+              connectsTo: "Responsiveness, Microcopy, Accessibility",
+              input: {
+                needs: [
+                  "Audience diversity (region, device, language, ability)",
+                  "Edge cases (slow network, no credit card)",
+                ],
+                howToCollect: [
+                  "Check: Are we assuming privilege? (fast 5G? English? card payment?)",
+                ],
+              },
+              process:
+                "Stress test: can someone outside your 'default' still complete the task?",
+              output: "Edge-case design requirements.",
+              do: "Offer alternate auth/payment modes where possible.",
+              dont: "Don't shame or stereotype in forms.",
+              useWhen: "Public-facing or scaled product.",
+              avoidWhen: "Tiny internal dashboard with 2 trained users.",
+              example: "Gender field allows custom text, not just M/F.",
+              link: "https://www.inclusive-design.org/",
+            },
+            {
+              name: "AI Transparency Check",
+              connectsTo: "Language, Accessibility, Legal/Compliance",
+              input: {
+                needs: [
+                  "Where AI/ML is making decisions or recommendations",
+                  "User impact if it's wrong",
+                ],
+                howToCollect: [
+                  "Document what the model is doing in plain language",
+                  "Identify what is shown to user as 'why this was suggested'",
+                ],
+              },
+              process:
+                "Ensure the interface clearly tells users when an algorithm is deciding or nudging something that affects them.",
+              output:
+                "Disclosure patterns and explanation copy that increase trust.",
+              do: "Show why they saw this result or suggestion.",
+              dont: "Don't secretly rank or withhold critical info.",
+              useWhen: "Recommendations, auto-approvals, scoring, risk flags.",
+              avoidWhen:
+                "Purely static UI with no algorithmic decision-making.",
+              example:
+                "'Suggested drivers are sorted by reliability rating and distance.'",
+              link: "https://www.nngroup.com/articles/explainable-ai/",
+            },
+            {
+              name: "Emotional Impact Review",
+              connectsTo: "Voice & Tone Framework, Microcopy",
+              input: {
+                needs: [
+                  "Screens for failure states, billing, account lockouts",
+                  "Known stress triggers from research",
+                ],
+                howToCollect: [
+                  "Ask: Will this message shame, panic, or guilt the user?",
+                  "Rewrite to reduce anxiety and blame",
+                ],
+              },
+              process:
+                "Audit high-stress moments to remove harmful tone and add support.",
+              output: "Emotion-safe error/success copy guidelines.",
+              do: "Be calm, respectful, solution-oriented.",
+              dont: "Don't humiliate the user ('Invalid AGAIN!').",
+              useWhen: "Payments, ID verification, bans/locks, health data.",
+              avoidWhen: "Low-risk cosmetic settings.",
+              example:
+                "Instead of 'Payment Failed!!!', say 'Your card didn't go through. Try another card or contact your bank — you were not charged.'",
+              link: "https://www.nngroup.com/articles/emotion-ux/",
+            },
+          ],
+        },
+        {
+          id: "create",
+          label: "Create",
+          desc: "Build the actual experience: visuals, interaction models, responsiveness.",
+          color: "var(--stage-create)",
+          tasks: [
+            {
+              name: "UI Elements / Design System",
+              connectsTo: "Responsiveness, Micro Interactions, Transitions",
+              input: {
+                needs: [
+                  "Existing component library",
+                  "Brand tokens (color, spacing, radius)",
+                ],
+                howToCollect: [
+                  "Audit buttons, forms, alerts. Reuse before inventing.",
+                ],
+              },
+              process: "Assemble screens from consistent components.",
+              output: "Hi-fi screens that respect the system.",
+              do: "Document any new component you add.",
+              dont: "Don't create 5 different primary buttons.",
+              useWhen: "Moving wireframes → hi-fi.",
+              avoidWhen: "Super early sketching phase.",
+              example:
+                "Primary / secondary / destructive buttons stay consistent everywhere.",
+              link: "https://www.smashingmagazine.com/2021/03/design-systems-guide/",
+            },
+            {
+              name: "Component Library Consistency Check",
+              connectsTo: "Dev Handoff Audit, QA Design Review",
+              input: {
+                needs: [
+                  "Latest design system components",
+                  "Screens you're shipping",
+                ],
+                howToCollect: [
+                  "Compare each UI piece in your feature vs system spec",
+                  "Flag deviations that aren't intentional",
+                ],
+              },
+              process:
+                "Make sure you're not inventing a new button/field just because you forgot an existing one.",
+              output:
+                "List of deltas that need either alignment or new token definition.",
+              do: "Align with design system maintainers if you NEED a new pattern.",
+              dont: "Don't sneak in 'just a small variant' without documenting it.",
+              useWhen: "Before dev handoff.",
+              avoidWhen: "Exploratory sketches.",
+              example:
+                "You used a blue success toast but system uses green → fix or document reason.",
+              link: "https://www.nngroup.com/articles/design-systems/",
+            },
+            {
+              name: "Gestures",
+              connectsTo: "Prototype, Responsiveness, Micro Interactions",
+              input: {
+                needs: [
+                  "Platform conventions (iOS/Android/web)",
+                  "List of required actions: swipe, drag, pinch",
+                ],
+                howToCollect: [
+                  "Decide fallback for users who can’t perform that gesture",
+                ],
+              },
+              process:
+                "Design natural, discoverable gestures plus visible fallback.",
+              output: "Gesture spec + fallback UI.",
+              do: "Give visual affordances (handles/arrows).",
+              dont: "Don't make critical action ONLY swipe with no button.",
+              useWhen: "Touch/mobile, maps, media scrubbers.",
+              avoidWhen:
+                "High-risk financial actions where accidental swipe = money lost.",
+              example:
+                "Swipe left to delete email + also show 'Delete' button.",
+              link: "https://developer.apple.com/design/human-interface-guidelines/gestures",
+            },
+            {
+              name: "Responsiveness",
+              connectsTo: "Inclusive, Accessibility, Test",
+              input: {
+                needs: ["Breakpoints / devices list", "Network constraints"],
+                howToCollect: [
+                  "Sketch mobile / tablet / desktop / watch variations",
+                ],
+              },
+              process: "Adapt layout, tap targets, density per device.",
+              output: "Responsive spec & breakpoints.",
+              do: "Respect fat-finger tap sizes on mobile.",
+              dont: "Don't just shrink desktop UI 1:1.",
+              useWhen: "Multi-device product.",
+              avoidWhen: "Single fixed kiosk screen only.",
+              example: "Card grid becomes vertical list below 480px.",
+              link: "https://www.smashingmagazine.com/responsive-web-design-guidelines-tutorials/",
+            },
+            {
+              name: "Performance UX Audit",
+              connectsTo: "Loading States, KPI Setup",
+              input: {
+                needs: [
+                  "Largest contentful paint times",
+                  "API latency",
+                  "Image sizes / bundle size",
+                ],
+                howToCollect: [
+                  "Measure slowest screens on low-end device and 3G/slow network",
+                ],
+              },
+              process:
+                "Identify where slowness hurts trust, task success, and conversion.",
+              output:
+                "List of performance blockers with UX impact (not just technical).",
+              do: "Treat speed as part of usability, not 'nice to have'.",
+              dont: "Don't assume everyone has 5G and latest iPhone.",
+              useWhen: "Before launch and for any high-traffic flow.",
+              avoidWhen: "Internal admin tool with 5 users.",
+              example:
+                "Checkout takes 4.2s to render total on 3G → must prefetch or skeleton-load sooner.",
+              link: "https://web.dev/lcp/",
+            },
+            {
+              name: "Micro Interactions",
+              connectsTo: "Transitions, Completed Actions, Test",
+              input: {
+                needs: [
+                  "Key actions that need confirmation (send, save, like)",
+                ],
+                howToCollect: [
+                  "List where user expects instant feedback (<500ms)",
+                ],
+              },
+              process: "Tiny motion/state change to confirm action.",
+              output: "Spec: timing, easing, visual change after action.",
+              do: "Use motion to signal 'saved' or 'sent'.",
+              dont: "Don't add heavy animation that slows red routes.",
+              useWhen: "High-frequency repeat actions.",
+              avoidWhen:
+                "Critical finance/emergency flows where stability > flair.",
+              example: "Heart button gently fills when liked.",
+              link: "https://www.nngroup.com/articles/microinteractions/",
+            },
+            {
+              name: "Transitions",
+              connectsTo: "Responsiveness, Finalise Layout, Test",
+              input: {
+                needs: [
+                  "Screen-to-screen relationships",
+                  "Mental model of navigation",
+                ],
+                howToCollect: ["Storyboard how we go list → detail → checkout"],
+              },
+              process: "Use motion to keep context (not teleport).",
+              output: "Guidelines for navigation/motion between states.",
+              do: "Animate from tapped element toward new view for spatial continuity.",
+              dont: "Don't add random bounce that feels like an ad.",
+              useWhen:
+                "Multi-step flows: bottom sheets, drawers, stacked modals.",
+              avoidWhen: "Super-fast internal tools where instant is king.",
+              example:
+                "Cart drawer slides from bottom so user feels 'we stayed on same page'.",
+              link: "https://material.io/design/motion/understanding-motion.html",
+            },
+          ],
+        },
+        {
+          id: "feedback",
+          label: "Give Feedback",
+          desc: "Handle loading, errors, and success in a way that builds trust.",
+          color: "var(--stage-feedback)",
+          tasks: [
+            {
+              name: "Waiting Times / Loading",
+              connectsTo: "Microcopy, Transitions, Completed Actions",
+              input: {
+                needs: [
+                  "Known slow steps (upload, payment, AI inference)",
+                  "Worst-case wait time",
+                ],
+                howToCollect: ["Measure real delays, not guesses"],
+              },
+              process: "Tell user what's happening and what to expect.",
+              output: "Loading states / skeletons / progress messaging.",
+              do: "Give honest status or safe guidance.",
+              dont: "Don't fake-progress with nonsense ('optimizing brainwaves…').",
+              useWhen: "Anything >500ms perceived wait.",
+              avoidWhen: "Instant actions.",
+              example:
+                "'Uploading receipt (2 of 5)… You can leave this screen.'",
+              link: "https://www.nngroup.com/articles/progress-indicators/",
+            },
+            {
+              name: "Errors",
+              connectsTo: "Language, Accessibility, Test",
+              input: {
+                needs: [
+                  "List of failure points: payment fail, weak password, no network",
+                ],
+                howToCollect: [
+                  "For each step in flow, ask: how can this break?",
+                ],
+              },
+              process: "Write errors that help recover, not blame.",
+              output: "Clear, actionable error messages & UI states.",
+              do: "Tell them how to fix ('Use 8+ chars incl. number').",
+              dont: "Don't shame ('Wrong AGAIN').",
+              useWhen: "Any risky or form-heavy flow.",
+              avoidWhen: "Static marketing pages.",
+              example:
+                "'Your card was declined. Try another card or contact your bank.'",
+              link: "https://www.nngroup.com/articles/error-message-guidelines/",
+            },
+            {
+              name: "Completed Actions / Confirmation",
+              connectsTo: "Microcopy, KPI Setup, AB Test Plan",
+              input: {
+                needs: [
+                  "List of 'success' moments (order placed, money sent)",
+                  "Ideal next step after success",
+                ],
+                howToCollect: [
+                  "Ask: after this success, should they share? track? repeat? download receipt?",
+                ],
+              },
+              process: "Close loop + guide next action.",
+              output: "Success screen, receipt, CTA to next step.",
+              do: "Celebrate but stay useful.",
+              dont: "Don't dead-end at 'Done'.",
+              useWhen: "Any transactional or high-effort flow.",
+              avoidWhen: "Minor cosmetic toggle.",
+              example:
+                "'Payment received. Download receipt / Set up auto-pay.'",
+              link: "https://www.nngroup.com/articles/confirmation-messages/",
+            },
+            {
+              name: "Heuristic Evaluation",
+              connectsTo: "Usability Testing, QA Design Review",
+              input: {
+                needs: [
+                  "Prototype or build",
+                  "Checklist of usability heuristics (clarity, error prevention, match to real-world language)",
+                ],
+                howToCollect: [
+                  "Have 2-3 UX reviewers walk through main tasks and rate severity of issues",
+                ],
+              },
+              process:
+                "Quick expert review to spot obvious usability problems before/without users.",
+              output: "List of usability violations by severity.",
+              do: "Use a known heuristic set (e.g. Nielsen's 10 heuristics).",
+              dont: "Don't treat this as a replacement for talking to users.",
+              useWhen: "Tight timelines / pre-release sanity check.",
+              avoidWhen: "Super early napkin sketch.",
+              example:
+                "'System uses internal jargon instead of common words' → high severity.",
+              link: "https://www.nngroup.com/articles/ten-usability-heuristics/",
+            },
+            {
+              name: "Usability Testing (Moderated & Unmoderated)",
+              connectsTo:
+                "Errors, Waiting Times, Responsiveness, Accessibility, KPI Setup",
+              input: {
+                needs: [
+                  "Interactive prototype or staging build",
+                  "Task script based on real goals",
+                  "Right target user",
+                ],
+                howToCollect: [
+                  "Ask them to DO tasks, not 'do you like it?'",
+                  "Watch where they pause, hesitate, or look lost",
+                ],
+              },
+              process: "Observe misclicks, confusion, hesitation, frustration.",
+              output: "Usability issues ranked by severity.",
+              do: "Stay quiet and watch; let them struggle naturally.",
+              dont: "Don't lead ('Now click Pay').",
+              useWhen: "Before release and whenever red routes change.",
+              avoidWhen: "Tiny visual polish that doesn't affect flow.",
+              example:
+                "3/5 users couldn't find 'Track order' → elevate Track CTA.",
+              link: "https://www.nngroup.com/articles/usability-testing-101/",
+            },
+            {
+              name: "Surveys & SUS Scores",
+              connectsTo: "KPI Setup, AB Test Plan",
+              input: {
+                needs: [
+                  "Prototype or live feature",
+                  "Short post-task or post-session survey",
+                ],
+                howToCollect: [
+                  "Ask outcome-focused questions ('How confident did you feel sending money?')",
+                  "Use SUS or CSAT scoring consistently",
+                ],
+              },
+              process: "Quantify perceived usability and confidence.",
+              output: "Benchmark score you can track over releases.",
+              do: "Keep surveys short and specific to the task they just did.",
+              dont: "Don't ask leading/marketing questions mid-task.",
+              useWhen: "Comparing versions or tracking improvement.",
+              avoidWhen: "Brand-new concept with no working flow yet.",
+              example:
+                "SUS score jumps from 62 → 78 after simplifying payment flow.",
+              link: "https://www.nngroup.com/articles/system-usability-scale/",
+            },
+          ],
+        },
+        {
+          id: "finalize",
+          label: "Finalize",
+          desc: "Lock the experience for build: layout, visuals, tokens, hierarchy.",
+          color: "var(--stage-finalize)",
+          tasks: [
+            {
+              name: "Finalise Layout",
+              connectsTo: "Transitions, Micro Interactions, Dev Handoff",
+              input: {
+                needs: [
+                  "Signed-off wireframes",
+                  "Component library",
+                  "Responsive rules",
+                ],
+                howToCollect: [
+                  "Resolve edge cases (long names, empty states, overflow)",
+                ],
+              },
+              process: "Lock hierarchy, spacing, breakpoints.",
+              output: "Production-ready layout spec.",
+              do: "Document padding / z-index / sticky behavior.",
+              dont: "Don't keep moving buttons after dev handoff.",
+              useWhen: "Right before build starts.",
+              avoidWhen: "Early exploration.",
+              example: "Confirm sticky checkout summary footer on mobile.",
+              link: "https://www.smashingmagazine.com/2018/02/handoff-developers-designers/",
+            },
+            {
+              name: "Use of Images & Icons",
+              connectsTo: "Inclusive, Accessibility, Microcopy",
+              input: {
+                needs: [
+                  "Brand illustration style",
+                  "Licensing rules",
+                  "Color/contrast checks",
+                ],
+                howToCollect: [
+                  "Centralize icons/illustrations in a source of truth",
+                ],
+              },
+              process: "Check clarity, cultural bias, readability.",
+              output: "Approved asset set for dev.",
+              do: "Pair icons with text for critical actions.",
+              dont: "Don't use culturally loaded metaphors that won't translate.",
+              useWhen: "Shipping hi-fi UI.",
+              avoidWhen: "Wireframe stage.",
+              example:
+                "Shield icon + 'Secure payment' text instead of only the shield.",
+              link: "https://www.nngroup.com/articles/icons/",
+            },
+            {
+              name: "Font & Colour Hierarchy",
+              connectsTo: "Accessibility, Microcopy, Responsiveness",
+              input: {
+                needs: [
+                  "Type scale",
+                  "Semantic color tokens (success / warn / error)",
+                  "Contrast rules",
+                ],
+                howToCollect: ["Map which token is allowed for which message"],
+              },
+              process: "Use size/weight/contrast to guide attention.",
+              output: "Typography & color usage rules for dev.",
+              do: "Keep primary CTA strongest but still AA/AAA contrast.",
+              dont: "Don't make everything bold red for 'importance'.",
+              useWhen: "Before visual design freeze.",
+              avoidWhen: "Internal low-visual-priority tools.",
+              example:
+                "Red only for destructive, brand color for primary, neutral outline for secondary.",
+              link: "https://www.w3.org/WAI/standards-guidelines/wcag/",
+            },
+            {
+              name: "Dev Handoff Audit",
+              connectsTo:
+                "QA Design Review, Component Library Consistency Check",
+              input: {
+                needs: [
+                  "Final Figma / spec / tokens",
+                  "Edge cases documented",
+                  "Named components",
+                ],
+                howToCollect: [
+                  "Walk engineers through flows, states, breakpoints, error cases",
+                  "Call out any intentional deviations from design system",
+                ],
+              },
+              process:
+                "Ensure engineers get every state they need so they don't guess.",
+              output:
+                "Handoff bundle (screens, tokens, red route requirements, accessibility notes).",
+              do: "Show error states, empty states, loading states.",
+              dont: "Don't just send happy-path screens and hope.",
+              useWhen: "Right before dev starts building.",
+              avoidWhen: "Tiny internal tweak that designer/dev pair on live.",
+              example:
+                "Provide all validation messages for password form so dev doesn't invent harsh wording.",
+              link: "https://www.smashingmagazine.com/2018/02/handoff-developers-designers/",
+            },
+            {
+              name: "QA Design Review",
+              connectsTo: "Accessibility, Usability Testing",
+              input: {
+                needs: [
+                  "Staging build or dev branch",
+                  "Specs / tokens / red routes list",
+                ],
+                howToCollect: [
+                  "Designer goes through staging build and checks visual spacing, states, text vs spec",
+                ],
+              },
+              process:
+                "Design signs off that the thing implemented is actually what was designed (and is usable).",
+              output: "Launch/no-launch call and final bug list.",
+              do: "Verify red routes behave as promised.",
+              dont: "Don't ship if critical path is broken even if deadline hurts.",
+              useWhen: "Right before release.",
+              avoidWhen: "Internal alpha-only tools.",
+              example:
+                "QA finds mobile keyboard covers the 'Pay now' CTA — must fix before launch.",
+              link: "https://www.nngroup.com/articles/ux-quality-assurance/",
+            },
+          ],
+        },
+        {
+          id: "delight",
+          label: "Delight",
+          desc: "Add clarity, humanity, and polish without slowing the core task.",
+          color: "var(--stage-delight)",
+          tasks: [
+            {
+              name: "Microcopy",
+              connectsTo: "Errors, Completed Actions, Micro Interactions",
+              input: {
+                needs: [
+                  "Brand voice rules",
+                  "User emotion in that moment (stress? celebration?)",
+                ],
+                howToCollect: [
+                  "Write helper text, hints, CTA labels in context",
+                ],
+              },
+              process: "Make the interface talk like a kind expert.",
+              output: "Contextual snippets of guidance / reassurance.",
+              do: "Be clear and human ('We’re saving your changes…').",
+              dont: "Don't joke when user is anxious ('Uh oh it exploded lol').",
+              useWhen: "Forms, money, onboarding, success moments.",
+              avoidWhen: "Engineer-only dashboards needing raw data fast.",
+              example: "'You’re all set 🎉 Your profile is live.'",
+              link: "https://www.nngroup.com/articles/microcopy-ux-writing/",
+            },
+            {
+              name: "Empty States & Loading Design",
+              connectsTo: "Waiting Times / Loading, Onboarding",
+              input: {
+                needs: [
+                  "What happens when there's no data yet?",
+                  "What should the user do next?",
+                ],
+                howToCollect: [
+                  "Design helpful blanks: show sample data, tips, primary action",
+                ],
+              },
+              process:
+                "Use empty states and loading states to teach, reassure, and move them forward — not just show a spinner.",
+              output:
+                "Onboarding-friendly first impression instead of '0 items' sadness.",
+              do: "Use empty states to guide first success.",
+              dont: "Don't say just 'No data yet'.",
+              useWhen:
+                "Dashboards, inboxes, history logs, analytics, saved items.",
+              avoidWhen: "Single-step forms.",
+              example:
+                "'You don’t have any invoices yet. Create your first invoice →' button right there.",
+              link: "https://www.nngroup.com/articles/empty-state/",
+            },
+            {
+              name: "Motion Design Principles",
+              connectsTo: "Transitions, Micro Interactions",
+              input: {
+                needs: [
+                  "Key state changes to animate",
+                  "Brand feel (calm? playful? serious?)",
+                ],
+                howToCollect: [
+                  "Define timing, easing, direction rules for motion",
+                ],
+              },
+              process:
+                "Use motion to explain cause/effect and maintain context, not just to decorate.",
+              output:
+                "Motion spec: durations, easing curves, when to animate and when not to.",
+              do: "Keep motion subtle and purposeful.",
+              dont: "Don't add bouncy circus motion to serious money/legal flows.",
+              useWhen:
+                "Multi-step transitions, drawers, success confirmations.",
+              avoidWhen:
+                "High urgency flows where instant response matters more than delight.",
+              example:
+                "Card slides up from the tapped element so the user understands where it came from.",
+              link: "https://material.io/design/motion/understanding-motion.html",
+            },
+            {
+              name: "Micro-Acknowledgments",
+              connectsTo: "Completed Actions / Confirmation, KPI Setup",
+              input: {
+                needs: ["List of meaningful 'you did it' milestones"],
+                howToCollect: [
+                  "For each, decide: celebrate with animation? confetti? success toast? email follow-up?",
+                ],
+              },
+              process:
+                "Positively reinforce successful actions so user feels progress and control.",
+              output:
+                "Tiny lightweight celebration moments that build trust and satisfaction.",
+              do: "Keep it respectful and proportional to the action.",
+              dont: "Don't throw loud celebration for minor toggle changes.",
+              useWhen:
+                "First success moments (first order placed, first invoice sent).",
+              avoidWhen:
+                "Regret-sensitive flows (deleting an account, paying a fine).",
+              example:
+                "Subtle confetti burst + 'Invoice sent to client' toast after first invoice.",
+              link: "https://www.nngroup.com/articles/positive-reinforcement-ux/",
+            },
+          ],
+        },
+        {
+          id: "analyse",
+          label: "Analyse & Optimise",
+          desc: "Define success, experiment, measure, repeat.",
+          color: "var(--stage-analyse)",
+          tasks: [
+            {
+              name: "KPI Setup",
+              connectsTo: "AB Test Plan, Test, Data Analysis",
+              input: {
+                needs: [
+                  "Business goal",
+                  "Red routes list",
+                  "Current pain metrics",
+                ],
+                howToCollect: [
+                  "Pick 1–3 KPIs per flow: conversion %, time to task, error rate",
+                ],
+              },
+              process: "Define success BEFORE you build.",
+              output: "Tracking plan + KPI scorecard.",
+              do: "Tie KPIs to user value ('onboard in <2 min').",
+              dont: "Don't pick KPIs you can't measure.",
+              useWhen: "Before build + again during optimisation.",
+              avoidWhen: "Blue-sky concept exploration.",
+              example:
+                "Success metric: 80% of new users add 1 product to cart in first session.",
+              link: "https://www.nngroup.com/articles/ux-metrics/",
+            },
+            {
+              name: "AB Test Plan",
+              connectsTo: "Test, Data Analysis, KPI Setup",
+              input: {
+                needs: [
+                  "2+ design/copy variants",
+                  "Defined KPI",
+                  "Traffic estimate",
+                ],
+                howToCollect: [
+                  "Write hypothesis: 'Changing X will improve Y because Z.'",
+                ],
+              },
+              process:
+                "Pick audience split, duration, success criteria, stop rule.",
+              output: "Experiment brief + dashboard requirements.",
+              do: "Only test one major change per variant.",
+              dont: "Don't declare winner after 20 clicks.",
+              useWhen: "Live traffic AND you want optimisation.",
+              avoidWhen: "Pre-launch or <100 daily users.",
+              example:
+                "Show total order cost earlier, expect +5% checkout completion.",
+              link: "https://www.nngroup.com/articles/ab-testing/",
+            },
+            {
+              name: "Heatmap & Clickstream Review",
+              connectsTo: "Usability Testing, Red Routes",
+              input: {
+                needs: [
+                  "Live product or beta",
+                  "Heatmap / session replay / click analytics",
+                ],
+                howToCollect: [
+                  "Watch recordings of real sessions",
+                  "Identify dead clicks / hesitation / rage taps",
+                ],
+              },
+              process: "See what users actually do vs what you expected.",
+              output:
+                "Behavioral evidence of confusion, distraction, or missed CTA visibility.",
+              do: "Correlate visual attention with task drop-offs.",
+              dont: "Don't assume lots of clicks = success; could be confusion.",
+              useWhen: "Post-launch or beta with traffic.",
+              avoidWhen: "No users yet (pre-launch).",
+              example:
+                "50% of taps are on a non-clickable price label → users think it's expandable details.",
+              link: "https://www.hotjar.com/heatmaps/",
+            },
+            {
+              name: "Error Log Analysis",
+              connectsTo: "Errors, Accessibility, QA Design Review",
+              input: {
+                needs: [
+                  "Backend error logs",
+                  "Front-end console errors",
+                  "Support tickets",
+                ],
+                howToCollect: [
+                  "Group recurring technical errors by user-visible symptom",
+                ],
+              },
+              process:
+                "Identify where technical issues are silently killing UX.",
+              output: "Bug heatmap prioritized by user impact.",
+              do: "Prioritize fixes that block red routes / payments / signup.",
+              dont: "Don't ignore 'edge cases' if they affect high-value users.",
+              useWhen: "Post-release monitoring and weekly QA.",
+              avoidWhen: "Pre-prototype (no data yet).",
+              example:
+                "OAuth token refresh failing causes surprise logouts → users think 'app forgot me', huge trust hit.",
+              link: "https://sre.google/sre-book/monitoring-distributed-systems/",
+            },
+            {
+              name: "Retention Funnel Review",
+              connectsTo: "KPI Setup, AB Test Plan",
+              input: {
+                needs: [
+                  "Cohort retention data",
+                  "Activation metric definition",
+                  "Churn reasons",
+                ],
+                howToCollect: [
+                  "Define 'activated user' clearly",
+                  "Measure how many return Day 1, Day 7, Day 30",
+                ],
+              },
+              process: "Check if users come back and why/why not.",
+              output: "List of activation blockers and churn triggers.",
+              do: "Tie retention to solved pain, not vanity DAU.",
+              dont: "Don't ignore first-week drop-off patterns.",
+              useWhen: "Any live product with recurring use goal.",
+              avoidWhen:
+                "One-time transactional tool (no expectation of return).",
+              example:
+                "50% of sellers never create a 2nd listing because fees are unclear → show fee transparency earlier.",
+              link: "https://www.nngroup.com/articles/engagement-metrics/",
+            },
+            {
+              name: "Test (Usability / QA)",
+              connectsTo:
+                "Errors, Waiting Times, Responsiveness, Accessibility, KPI Setup",
+              input: {
+                needs: [
+                  "Interactive prototype or staging build",
+                  "Task script based on real goals",
+                  "Right target user",
+                ],
+                howToCollect: [
+                  "Ask them to DO tasks, don't ask 'do you like it?'",
+                ],
+              },
+              process: "Observe misclicks, confusion, hesitation, frustration.",
+              output: "Usability issues ranked by severity.",
+              do: "Stay quiet and watch; let them struggle naturally.",
+              dont: "Don't lead ('Now click Pay').",
+              useWhen: "Before release and whenever red routes change.",
+              avoidWhen: "Tiny visual polish that doesn't affect flow.",
+              example:
+                "3/5 users couldn’t find 'Track order' → elevate Track CTA in success screen.",
+              link: "https://www.nngroup.com/articles/usability-testing-101/",
+            },
+          ],
+        },
+      ];
+      let currentStageId = DATA[0].id;
+      let currentTask = null;
+      function renderStagesList() {
+        const list = document.getElementById("stageList");
+        list.innerHTML = "";
+        DATA.forEach((stage) => {
+          const btn = document.createElement("button");
+          btn.className =
+            "stage-btn" + (stage.id === currentStageId ? " active" : "");
+          btn.style.background =
+            stage.id === currentStageId ? "var(--accent)" : "#1f2937";
+          btn.style.borderColor =
+            stage.id === currentStageId ? "var(--accent)" : "#374151";
+          btn.innerHTML = `<span>${stage.label}<br/><small>${stage.desc}</small></span><span style="display:inline-block;width:12px;height:12px;border-radius:3px;background:${stage.color};border:1px solid rgb(0 0 0 / .3);margin-left:8px;"></span>`;
+          btn.onclick = () => {
+            currentStageId = stage.id;
+            currentTask = null;
+            renderStagesList();
+            renderMainHeader();
+            renderCards();
+            renderDetailsIntro();
+          };
+          list.appendChild(btn);
+        });
+      }
+      function renderMainHeader() {
+        const stage = DATA.find((s) => s.id === currentStageId);
+        document.getElementById("mainStageTitle").textContent = stage.label;
+        document.getElementById("mainStageDesc").textContent = stage.desc;
+      }
+      function renderCards() {
+        const wrap = document.getElementById("cardsArea");
+        wrap.innerHTML = "";
+        const stage = DATA.find((s) => s.id === currentStageId);
+        stage.tasks.forEach((task) => {
+          const card = document.createElement("div");
+          card.className = "card";
+          card.innerHTML = `<div class="card-stage-chip" style="background:${stage.color}">${stage.label}</div><div class="card-name">${task.name}</div><div class="card-output"><strong>Output:</strong> ${task.output}</div><div class="card-connect">Connects to → ${task.connectsTo}</div>`;
+          card.onclick = () => {
+            currentTask = task;
+            renderDetailsTask();
+          };
+          wrap.appendChild(card);
+        });
+      }
+      function renderDetailsIntro() {
+        document.getElementById("detailTitle").textContent = "Select an item";
+        document.getElementById("detailNext").textContent = "Connects to →";
+        document.getElementById(
+          "detailBody"
+        ).innerHTML = `<div style="color:#6b7280;font-size:12px;line-height:1.5;">Pick a checklist item from the middle panel to see:<br/><br/><ul style="margin:0 0 0 16px;padding:0;"><li>Inputs you must collect</li><li>How to run the step</li><li>What it produces</li><li>Where to go next</li><li>When to use / skip</li><li>Do & Don't</li><li>Example</li><li>Learn more</li></ul></div>`;
+      }
+      function renderDetailsTask() {
+        if (!currentTask) return;
+        const t = currentTask;
+        document.getElementById("detailTitle").textContent = t.name;
+        document.getElementById("detailNext").textContent =
+          "Connects to → " + t.connectsTo;
+        const needChips = t.input.needs
+          .map((n) => `<span class="chip">${n}</span>`)
+          .join("");
+        const collectChips = t.input.howToCollect
+          .map((n) => `<span class="chip">${n}</span>`)
+          .join("");
+        document.getElementById(
+          "detailBody"
+        ).innerHTML = `<div class="section-block"><div class="section-label">Inputs you need</div><div class="chip-row">${needChips}</div></div><div class="section-block"><div class="section-label">How to gather inputs</div><div class="chip-row">${collectChips}</div></div><div class="section-block"><div class="section-label">Process / How to do this step</div><div>${
+          t.process
+        }</div></div><div class="section-block"><div class="section-label">Output you produce</div><div class="example-box">${
+          t.output
+        }</div></div><div class="section-block"><div class="section-label">When to use / When not to</div><div style="font-size:12px;line-height:1.4;"><strong>Use when:</strong> ${
+          t.useWhen
+        }<br/><strong>Avoid when:</strong> ${
+          t.avoidWhen
+        }</div></div><div class="section-block"><div class="section-label">Do / Don't</div><div class="dosdont-grid"><div class="good">✔ ${
+          t.do
+        }</div><div class="bad">✘ ${
+          t.dont
+        }</div></div></div><div class="section-block"><div class="section-label">Example</div><div class="example-box">${
+          t.example
+        }</div></div><div class="section-block"><div class="section-label">Learn more</div><a class="learnmore-link" href="${
+          t.link || "#"
+        }" target="_blank" rel="noopener">${t.link || "—"}</a></div>`;
+      }
+      renderStagesList();
+      renderMainHeader();
+      renderCards();
+      renderDetailsIntro();
+    </script>
+  </body>
+</html>
