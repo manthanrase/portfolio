@@ -201,20 +201,12 @@
 .thumbnail {
   text-align: center;
   background-color: #edebeb;
-  padding: 16px;
+  padding: 10px !important;
   border-radius: 48px;
   cursor: pointer;
   transition: all 450ms;
   margin: 36px 24px;
   /* filter: grayscale(100%); */
-}
-
-@media only screen and (max-width: 768px) {
-  .thumbnail {
-    margin: 36px 15px;
-    border-radius: 24px;
-    box-shadow: rgba(0, 0, 0, 0.3) 0px 5px 8px;
-  }
 }
 
 .thumbnail:hover {
@@ -461,7 +453,7 @@
   grid-template-columns: 1fr 1fr;
   gap: 40px;
   font-family: font-accent;
-  margin: 0 0 50px;
+  margin: 0 0 10px;
   padding: 20px;
   justify-items: left;
 }
@@ -612,13 +604,8 @@
 .experience-card {
   flex: 1 1 300px;
   max-width: 400px;
+  background: linear-gradient(rgb(237 235 235));
 
-  background: linear-gradient(
-    181deg,
-    rgba(237, 235, 235, 1) 0%,
-    rgb(237 231 255) 100%
-  );
-  border: 1px solid #eee;
   border-radius: 24px;
   padding: 10px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
@@ -647,6 +634,9 @@
   height: auto;
   border-radius: 14px;
   transition: transform 0.5s ease;
+  background: linear-gradient(rgb(237 235 235));
+  border-radius: 16px;
+  padding: 8px;
 }
 
 .experience-card:hover .experience-photo {
@@ -790,7 +780,7 @@
 }
 .row-2 ul li em {
   display: block;
-  margin-bottom: 8px;
+  margin-bottom: 0px;
 }
 .row-2 ul li div {
   margin-bottom: 16px;
@@ -986,7 +976,7 @@
 .skill-tittle {
   font-size: 22px;
   font-weight: 300;
-  padding: 0px 22px 20px;
+  padding: 0px 22px 0px;
   text-align: left;
   max-width: 1180px;
   margin: auto;
@@ -1041,6 +1031,7 @@
   gap: 12px;
   max-width: 1180px;
   margin: auto;
+  padding: 0px 0 0 20px;
 }
 
 .tag {
@@ -1134,20 +1125,20 @@
 /* =======================sketch secton ===================== */
 
 .grid-container-sketch {
-  columns: 5 200px;
-  column-gap: 1.5rem;
-  width: 90%;
+  columns: 6 170px;
+  column-gap: 16px;
+  width: 100%;
   margin: 0 auto;
   div {
     width: 150px;
     margin: 0 1.5rem 1.5rem 0;
     display: inline-block;
     width: 100%;
-    border: solid 2px black;
-    padding: 5px;
-    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
-    border-radius: 5px;
+    padding: 12px;
+    /* box-shadow: 0px 5px 8px rgba(0, 0, 0, 0.5); */
+    border-radius: 16px;
     transition: all 0.25s ease-in-out;
+    background-color: #edebeb;
     &:hover img {
       filter: grayscale(0);
     }
@@ -1161,9 +1152,11 @@
     }
     p {
       margin: 5px 0;
-      padding: 0;
+      padding: 7px 0 0;
       text-align: center;
       font-style: italic;
+      color: black;
+      font-size: 12px;
     }
   }
 }
@@ -1183,7 +1176,7 @@
 
 .section-thank-you {
   text-align: center;
-  padding: 130px 20px 50px;
+  padding: 70px 20px 50px;
 }
 
 .thank-you-subheading {
@@ -1271,7 +1264,7 @@
   .thumbnail {
     margin: 36px 15px;
     border-radius: 24px;
-    box-shadow: rgba(0, 0, 0, 0.3) 0px 5px 8px;
+    /* box-shadow: rgba(0, 0, 0, 0.3) 0px 5px 8px; */
   }
   .thumbnail {
     filter: none;
@@ -1286,7 +1279,7 @@
     border-radius: 24px;
   }
   .thumbnail img {
-    border-radius: 10px;
+    border-radius: 16px;
   }
   .context-section {
     padding: 20px 10px 0px;
@@ -1306,6 +1299,7 @@
   }
   .tag-list {
     justify-content: left !important;
+    padding: 0px;
   }
   .section-thank-you {
     margin: 0 -10px;
@@ -1372,7 +1366,7 @@
 
   .bestsellers-list {
     display: flex;
-    gap: 7px;
+    gap: 0px;
     flex-direction: column;
     align-items: center;
     min-width: 100%;
@@ -1395,6 +1389,7 @@
 
   a.col.thumbnail {
     width: 92%;
+    background: linear-gradient(to top, #edebeb, #e3d1f9);
   }
 
   .tag-category h3 {
@@ -1410,8 +1405,22 @@
   }
 
   .grid-container-sketch {
+    columns: 2 120px;
+    column-gap: 16px;
+    width: 100%;
+    margin: 0 auto;
     div {
       width: 44%;
+      margin: 0 1.5rem 1.5rem 0;
+      display: inline-block;
+      width: 100%;
+      padding: 8px;
+      border-radius: 10px;
+      transition: all 0.25s ease-in-out;
+      background-color: #edebeb;
+      &:hover img {
+        filter: grayscale(0);
+      }
     }
   }
 }
