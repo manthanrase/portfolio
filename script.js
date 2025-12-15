@@ -158,3 +158,5 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
+
+document.getElementById("shadow").style.removeProperty("box-shadow");
