@@ -137,7 +137,7 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 100%;
+  width: 112%;
   height: 100%;
   object-fit: contain;
   transform: translate(-50%, -50%);
@@ -1350,7 +1350,21 @@
     padding: 20px 0px;
   }
   .experience-card {
-    padding: 0px;
+    padding: 5px 6px !important;
+    border-radius: 12px;
+    max-width: 270px !important;
+  }
+
+  .experience-card:hover {
+    transform: scale(1);
+  }
+
+  .cert-list {
+    grid-template-columns: none;
+  }
+
+  .experience-photo {
+    border-radius: 8px;
   }
   .row-2 ul {
     padding: 0px 5px;
@@ -1386,8 +1400,8 @@
     border-radius: 16px;
   }
 
-  .experience-card {
-    border-radius: 15px;
+  .row-2 ul li div {
+    height: 7px;
   }
 
   .hero-video video {
