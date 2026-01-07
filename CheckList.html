@@ -297,6 +297,101 @@
         text-decoration: underline;
         word-break: break-word;
       }
+
+      .menu-btn {
+        display: none;
+        width: 38px;
+        height: 38px;
+        border-radius: 12px;
+        border: 1px solid var(--border-card);
+        background: #fff;
+        color: var(--text-dark);
+        cursor: pointer;
+        font-size: 18px;
+        line-height: 1;
+        box-shadow: 0 8px 18px rgb(0 0 0 / 0.05);
+        flex: 0 0 auto;
+      }
+      .detail-close {
+        display: none;
+        width: 36px;
+        height: 36px;
+        border-radius: 12px;
+        border: 1px solid var(--border-card);
+        background: #fff;
+        color: var(--text-dark);
+        cursor: pointer;
+        font-size: 16px;
+        line-height: 1;
+        flex: 0 0 auto;
+      }
+
+      /* Image zoom modal */
+      #imgModal {
+        display: none;
+        position: fixed;
+        inset: 0;
+        z-index: 80;
+        background: rgba(0,0,0,0.75);
+        padding: 12px;
+      }
+      body.img-open #imgModal { display: flex; }
+      #imgModal .modal-shell {
+        margin: auto;
+        width: min(100%, 1100px);
+        height: min(100%, 780px);
+        background: #0b1220;
+        border: 1px solid rgba(255,255,255,0.12);
+        border-radius: 16px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+      }
+      #imgModal .modal-topbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        padding: 10px 12px;
+        background: rgba(255,255,255,0.06);
+        border-bottom: 1px solid rgba(255,255,255,0.10);
+        color: #fff;
+        font-size: 12px;
+      }
+      #imgModal .modal-actions {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+      .modal-btn {
+        border: 1px solid rgba(255,255,255,0.18);
+        background: rgba(255,255,255,0.08);
+        color: #fff;
+        padding: 6px 10px;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 12px;
+      }
+      .modal-btn:active { transform: translateY(1px); }
+      #imgModal .modal-canvas {
+        position: relative;
+        flex: 1;
+        overflow: hidden;
+        touch-action: none; /* enable custom pinch/drag */
+      }
+      #imgModal img {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(1);
+        transform-origin: center center;
+        max-width: none;
+        max-height: none;
+        user-select: none;
+        -webkit-user-drag: none;
+      }
+
       .footer-note {
         font-size: 11px;
         color: #9ca3af;
@@ -306,8 +401,65 @@
         background: #fff;
       }
       @media (max-width: 900px) {
-        .details-panel {
+        body { flex-direction: column; height: 100vh; }
+        .sidebar {
+          position: fixed;
+          top: 0; left: 0; bottom: 0;
+          z-index: 50;
+          width: min(86vw, 320px);
+          transform: translateX(-100%);
+          transition: transform 0.2s ease;
+          padding-bottom: 24px;
+        }
+        body.sidebar-open .sidebar { transform: translateX(0); }
+        #sidebarOverlay {
           display: none;
+          position: fixed;
+          inset: 0;
+          background: rgba(0,0,0,0.35);
+          z-index: 40;
+        }
+        body.sidebar-open #sidebarOverlay { display: block; }
+
+        .menu-btn {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .main { height: 100vh; }
+        .main-header {
+          display: flex;
+          gap: 10px;
+          align-items: flex-start;
+          padding: 14px 14px 10px;
+        }
+        .header-left { flex: 1; min-width: 0; }
+
+        .cards-area {
+          padding: 14px;
+          gap: 12px;
+          grid-template-columns: repeat(auto-fill, minmax(min(220px, 100%), 1fr));
+        }
+
+        /* Details becomes full-screen drawer on mobile */
+        .details-panel {
+          position: fixed;
+          inset: 0;
+          z-index: 60;
+          width: 100%;
+          max-width: none;
+          min-width: 0;
+          border-left: none;
+          display: none;
+        }
+        body.details-open .details-panel { display: flex; }
+        .detail-close { display: inline-flex; }
+        .details-header {
+          display: flex;
+          align-items: flex-start;
+          justify-content: space-between;
+          gap: 10px;
         }
       }
     </style>
@@ -322,11 +474,15 @@
       </div>
       <div class="stage-list" id="stageList"></div>
     </aside>
+    <div id="sidebarOverlay"></div>
     <main class="main">
       <div class="main-header">
-        <h2 class="main-header-title" id="mainStageTitle">Research</h2>
-        <div class="main-header-desc" id="mainStageDesc">
+        <button class="menu-btn" id="menuBtn" aria-label="Open stages">☰</button>
+        <div class="header-left">
+          <h2 class="main-header-title" id="mainStageTitle">Research</h2>
+          <div class="main-header-desc" id="mainStageDesc">
           Learn the problem and the user before you design anything.
+        </div>
         </div>
       </div>
       <section class="cards-area" id="cardsArea"></section>
@@ -344,8 +500,11 @@
     </main>
     <aside class="details-panel">
       <div class="details-header">
-        <h3 class="details-title" id="detailTitle">Select an item</h3>
-        <div class="details-next" id="detailNext">Connects to →</div>
+        <div>
+          <h3 class="details-title" id="detailTitle">Select an item</h3>
+          <div class="details-next" id="detailNext">Connects to →</div>
+        </div>
+        <button class="detail-close" id="detailClose" aria-label="Close details">✕</button>
       </div>
       <div class="details-scroll" id="detailBody">
         <div style="color: #6b7280; font-size: 12px; line-height: 1.5">
@@ -2298,7 +2457,16 @@
             },
           ],
         },
-      ];
+      
+        {
+          id: "references",
+          label: "References",
+          desc: "Store full-width UX reference images locally (and export/import to move across devices).",
+          color: "var(--stage-delight)",
+          isReferences: true,
+          tasks: [],
+        },
+];
       let currentStageId = DATA[0].id;
       let currentTask = null;
       function renderStagesList() {
@@ -2316,10 +2484,14 @@
           btn.onclick = () => {
             currentStageId = stage.id;
             currentTask = null;
+            document.body.classList.remove("details-open");
+            document.body.classList.remove("sidebar-open");
             renderStagesList();
             renderMainHeader();
             renderCards();
             renderDetailsIntro();
+      wireMobileUI();
+      wireImgModal();
           };
           list.appendChild(btn);
         });
@@ -2333,10 +2505,63 @@
         const wrap = document.getElementById("cardsArea");
         wrap.innerHTML = "";
         const stage = DATA.find((s) => s.id === currentStageId);
+
+        // Special full-width references view (mobile-friendly)
+        if (stage && stage.isReferences) {
+          wrap.style.display = "block";
+          wrap.style.gridTemplateColumns = "none";
+          wrap.innerHTML = `
+            <div class="card" style="max-width: 1100px; margin: 0 auto; cursor: default;">
+              <div class="card-stage-chip" style="background:${stage.color}">${stage.label}</div>
+              <div class="card-name" style="margin-top:10px;">UX Reference Gallery</div>
+              <div class="card-output" style="margin-top:6px;">
+                Add images (patterns, layouts, flows) you want to remember. They’re saved <strong>locally on this device</strong>.
+                To use the same gallery on another phone/laptop, use <strong>Export</strong> and <strong>Import</strong>.
+              </div>
+
+              <div style="margin-top:12px; display:flex; flex-wrap:wrap; gap:10px; align-items:center;">
+                <input id="refFile" type="file" accept="image/*" multiple
+                  style="flex:1; min-width: 220px; padding:10px; border:1px solid var(--border-card); border-radius:12px; background:#fff;" />
+                <button id="refExport" class="stage-btn" style="background: var(--accent); border-color: var(--accent); width:auto;">
+                  Export
+                </button>
+                <label class="stage-btn" style="width:auto; background:#1f2937; border-color:#374151; margin:0;">
+                  Import
+                  <input id="refImport" type="file" accept="application/json" style="display:none;" />
+                </label>
+                <button id="refClear" class="stage-btn" style="width:auto; background:#7f1d1d; border-color:#991b1b;">
+                  Clear
+                </button>
+              </div>
+
+              <div style="margin-top:10px; font-size:12px; color: var(--text-med);">
+                Tip: keep <strong>1–3 best</strong> examples per pattern. Local browser storage has limits.
+              </div>
+
+              <div id="refGallery" style="margin-top:14px; display:grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px;"></div>
+            </div>
+          `;
+          wireReferenceGallery();
+          // In references stage, details panel stays on "Select an item"
+          renderDetailsIntro();
+          return;
+        }
+
+        // Normal cards grid view
+        wrap.style.display = "grid";
+        wrap.style.gridTemplateColumns = "repeat(auto-fill, minmax(min(260px, 100%), 1fr))";
+
+        if (!stage || !stage.tasks) return;
+
         stage.tasks.forEach((task) => {
           const card = document.createElement("div");
           card.className = "card";
-          card.innerHTML = `<div class="card-stage-chip" style="background:${stage.color}">${stage.label}</div><div class="card-name">${task.name}</div><div class="card-output"><strong>Output:</strong> ${task.output}</div><div class="card-connect">Connects to → ${task.connectsTo}</div>`;
+          card.innerHTML = `
+            <div class="card-stage-chip" style="background:${stage.color}">${stage.label}</div>
+            <div class="card-name">${task.name}</div>
+            <div class="card-output"><strong>Output:</strong> ${task.output}</div>
+            <div class="card-connect">Connects to → ${task.connectsTo}</div>
+          `;
           card.onclick = () => {
             currentTask = task;
             renderDetailsTask();
@@ -2344,7 +2569,152 @@
           wrap.appendChild(card);
         });
       }
+
+      const REF_KEY = "ux_system_map_reference_images_v1";
+
+      function getRefImages() {
+        try {
+          return JSON.parse(localStorage.getItem(REF_KEY) || "[]");
+        } catch {
+          return [];
+        }
+      }
+
+      function setRefImages(arr) {
+        localStorage.setItem(REF_KEY, JSON.stringify(arr));
+      }
+
+      function renderRefGallery() {
+        const gallery = document.getElementById("refGallery");
+        if (!gallery) return;
+        const imgs = getRefImages();
+        if (!imgs.length) {
+          gallery.innerHTML = `
+            <div style="grid-column: 1 / -1; padding:14px; border:1px dashed var(--border-card); border-radius:14px; color: var(--text-med); background:#fff;">
+              No images yet. Add a few strong references (good onboarding, great forms, pricing clarity, etc.).
+            </div>
+          `;
+          return;
+        }
+
+        gallery.innerHTML = imgs
+          .map(
+            (src, i) => `
+            <div style="background:#fff; border:1px solid var(--border-card); border-radius:16px; overflow:hidden; position:relative;">
+              <img data-open="${i}" src="${src}" alt="UX reference ${i + 1}" style="width:100%; height:auto; display:block; cursor: zoom-in;" />
+              <button data-del="${i}" title="Delete"
+                style="position:absolute; top:10px; right:10px; border:none; cursor:pointer; padding:6px 10px; border-radius:999px; background:rgba(17,24,39,.85); color:#fff; font-size:12px;">
+                Delete
+              </button>
+            </div>
+          `
+          )
+          .join("");
+
+        gallery.querySelectorAll("button[data-del]").forEach((btn) => {
+          btn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            const idx = Number(e.currentTarget.getAttribute("data-del"));
+            const arr = getRefImages();
+            arr.splice(idx, 1);
+            setRefImages(arr);
+            renderRefGallery();
+          });
+        });
+
+        gallery.querySelectorAll("img[data-open]").forEach((img) => {
+          img.addEventListener("click", (e) => {
+            const idx = Number(e.currentTarget.getAttribute("data-open"));
+            const arr = getRefImages();
+            openImgModal(arr[idx], `UX reference ${idx + 1}`);
+          });
+        });
+
+      }
+
+      function wireReferenceGallery() {
+        const file = document.getElementById("refFile");
+        const exp = document.getElementById("refExport");
+        const imp = document.getElementById("refImport");
+        const clr = document.getElementById("refClear");
+
+        renderRefGallery();
+
+        if (file) {
+          file.addEventListener("change", async () => {
+            const files = Array.from(file.files || []);
+            if (!files.length) return;
+
+            const existing = getRefImages();
+            for (const f of files) {
+              // basic size guard (localStorage limits)
+              if (f.size > 2.5 * 1024 * 1024) {
+                alert(`"${f.name}" is >2.5MB. Please compress/crop it before saving.`);
+                continue;
+              }
+              const dataUrl = await fileToDataUrl(f);
+              existing.push(dataUrl);
+            }
+            setRefImages(existing.slice(-60)); // keep last 60 images max
+            file.value = "";
+            renderRefGallery();
+          });
+        }
+
+        if (exp) {
+          exp.addEventListener("click", () => {
+            const payload = { version: 1, savedAt: new Date().toISOString(), images: getRefImages() };
+            const blob = new Blob([JSON.stringify(payload)], { type: "application/json" });
+            const a = document.createElement("a");
+            a.href = URL.createObjectURL(blob);
+            a.download = "ux-reference-gallery.json";
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+            setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+          });
+        }
+
+        if (imp) {
+          imp.addEventListener("change", async () => {
+            const f = (imp.files || [])[0];
+            if (!f) return;
+            try {
+              const text = await f.text();
+              const parsed = JSON.parse(text);
+              const imgs = Array.isArray(parsed.images) ? parsed.images : [];
+              // merge + dedupe
+              const merged = [...new Set([...getRefImages(), ...imgs])].slice(-60);
+              setRefImages(merged);
+              imp.value = "";
+              renderRefGallery();
+            } catch {
+              alert("Invalid JSON file.");
+            }
+          });
+        }
+
+        if (clr) {
+          clr.addEventListener("click", () => {
+            if (confirm("Clear all saved reference images from this device?")) {
+              setRefImages([]);
+              renderRefGallery();
+            }
+          });
+        }
+      }
+
+      function fileToDataUrl(file) {
+        return new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = () => resolve(String(reader.result));
+          reader.onerror = reject;
+          reader.readAsDataURL(file);
+        });
+      }
+
       function renderDetailsIntro() {
+        document.body.classList.remove("details-open");
         document.getElementById("detailTitle").textContent = "Select an item";
         document.getElementById("detailNext").textContent = "Connects to →";
         document.getElementById(
@@ -2383,10 +2753,226 @@
           t.link || "#"
         }" target="_blank" rel="noopener">${t.link || "—"}</a></div>`;
       }
+      
+      /* ===== Mobile UX (sidebar + details drawer) ===== */
+      function wireMobileUI() {
+        const menuBtn = document.getElementById("menuBtn");
+        const overlay = document.getElementById("sidebarOverlay");
+        const detailClose = document.getElementById("detailClose");
+
+        if (menuBtn) {
+          menuBtn.addEventListener("click", () => {
+            document.body.classList.toggle("sidebar-open");
+          });
+        }
+        if (overlay) {
+          overlay.addEventListener("click", () => {
+            document.body.classList.remove("sidebar-open");
+          });
+        }
+        if (detailClose) {
+          detailClose.addEventListener("click", () => {
+            document.body.classList.remove("details-open");
+          });
+        }
+
+        // Escape closes drawers/modals
+        window.addEventListener("keydown", (e) => {
+          if (e.key === "Escape") {
+            document.body.classList.remove("sidebar-open");
+            document.body.classList.remove("details-open");
+            closeImgModal();
+          }
+        });
+
+        // If resized to desktop, ensure drawers reset
+        window.addEventListener("resize", () => {
+          if (!window.matchMedia("(max-width: 900px)").matches) {
+            document.body.classList.remove("sidebar-open");
+            document.body.classList.remove("details-open");
+          }
+        });
+      }
+
+      /* ===== Image zoom modal (drag + pinch) ===== */
+      let _imgState = { scale: 1, tx: 0, ty: 0 };
+      let _pointers = new Map();
+      let _start = null;
+
+      function openImgModal(src, title) {
+        const modal = document.getElementById("imgModal");
+        const img = document.getElementById("imgModalImg");
+        const t = document.getElementById("imgModalTitle");
+        if (!modal || !img) return;
+
+        img.src = src || "";
+        t.textContent = title || "Image";
+
+        document.body.classList.add("img-open");
+        // reset then fit
+        _imgState = { scale: 1, tx: 0, ty: 0 };
+        requestAnimationFrame(() => fitImgToView());
+      }
+
+      function closeImgModal() {
+        document.body.classList.remove("img-open");
+        _pointers.clear();
+        _start = null;
+      }
+
+      function applyImgTransform() {
+        const img = document.getElementById("imgModalImg");
+        if (!img) return;
+        img.style.transform =
+          `translate(calc(-50% + ${_imgState.tx}px), calc(-50% + ${_imgState.ty}px)) scale(${_imgState.scale})`;
+      }
+
+      function clampScale(s) {
+        return Math.max(0.5, Math.min(6, s));
+      }
+
+      function fitImgToView() {
+        const canvas = document.getElementById("imgCanvas");
+        const img = document.getElementById("imgModalImg");
+        if (!canvas || !img || !img.naturalWidth) return;
+
+        const cw = canvas.clientWidth;
+        const ch = canvas.clientHeight;
+
+        const sw = cw / img.naturalWidth;
+        const sh = ch / img.naturalHeight;
+        const s = Math.min(sw, sh) * 0.98;
+
+        _imgState.scale = clampScale(s);
+        _imgState.tx = 0;
+        _imgState.ty = 0;
+        applyImgTransform();
+      }
+
+      function wireImgModal() {
+        const modal = document.getElementById("imgModal");
+        const closeBtn = document.getElementById("imgModalClose");
+        const zin = document.getElementById("zoomInBtn");
+        const zout = document.getElementById("zoomOutBtn");
+        const zreset = document.getElementById("zoomResetBtn");
+        const zfit = document.getElementById("zoomFitBtn");
+        const canvas = document.getElementById("imgCanvas");
+
+        if (closeBtn) closeBtn.addEventListener("click", closeImgModal);
+
+        // click outside shell closes
+        if (modal) {
+          modal.addEventListener("click", (e) => {
+            if (e.target === modal) closeImgModal();
+          });
+        }
+
+        if (zin) zin.addEventListener("click", () => { _imgState.scale = clampScale(_imgState.scale * 1.15); applyImgTransform(); });
+        if (zout) zout.addEventListener("click", () => { _imgState.scale = clampScale(_imgState.scale / 1.15); applyImgTransform(); });
+        if (zreset) zreset.addEventListener("click", () => { _imgState = { scale: 1, tx: 0, ty: 0 }; applyImgTransform(); });
+        if (zfit) zfit.addEventListener("click", fitImgToView);
+
+        if (!canvas) return;
+
+        // wheel zoom (desktop)
+        canvas.addEventListener("wheel", (e) => {
+          e.preventDefault();
+          const dir = Math.sign(e.deltaY);
+          _imgState.scale = clampScale(_imgState.scale * (dir > 0 ? 0.92 : 1.08));
+          applyImgTransform();
+        }, { passive: false });
+
+        // pointer-based drag + pinch
+        canvas.addEventListener("pointerdown", (e) => {
+          canvas.setPointerCapture(e.pointerId);
+          _pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+          _start = snapshotPointers();
+        });
+
+        canvas.addEventListener("pointermove", (e) => {
+          if (!_pointers.has(e.pointerId)) return;
+          _pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+
+          if (_pointers.size === 1) {
+            const s0 = _start;
+            const p0 = Array.from(_pointers.values())[0];
+            const dx = p0.x - s0.p1.x;
+            const dy = p0.y - s0.p1.y;
+            _imgState.tx = s0.tx + dx;
+            _imgState.ty = s0.ty + dy;
+            applyImgTransform();
+            return;
+          }
+
+          if (_pointers.size >= 2) {
+            const now = snapshotPointers();
+            const startDist = dist(_start.p1, _start.p2);
+            const nowDist = dist(now.p1, now.p2);
+            if (startDist > 0) {
+              const factor = nowDist / startDist;
+              _imgState.scale = clampScale(_start.scale * factor);
+            }
+            // pan by midpoint movement
+            const sm = midpoint(_start.p1, _start.p2);
+            const nm = midpoint(now.p1, now.p2);
+            _imgState.tx = _start.tx + (nm.x - sm.x);
+            _imgState.ty = _start.ty + (nm.y - sm.y);
+            applyImgTransform();
+          }
+        });
+
+        canvas.addEventListener("pointerup", (e) => {
+          _pointers.delete(e.pointerId);
+          _start = snapshotPointers();
+        });
+        canvas.addEventListener("pointercancel", (e) => {
+          _pointers.delete(e.pointerId);
+          _start = snapshotPointers();
+        });
+
+        function snapshotPointers() {
+          const pts = Array.from(_pointers.values());
+          return {
+            scale: _imgState.scale,
+            tx: _imgState.tx,
+            ty: _imgState.ty,
+            p1: pts[0] || { x: 0, y: 0 },
+            p2: pts[1] || pts[0] || { x: 0, y: 0 },
+          };
+        }
+        function dist(a, b) {
+          const dx = a.x - b.x, dy = a.y - b.y;
+          return Math.sqrt(dx * dx + dy * dy);
+        }
+        function midpoint(a, b) {
+          return { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 };
+        }
+      }
+
       renderStagesList();
       renderMainHeader();
       renderCards();
       renderDetailsIntro();
     </script>
+  
+    <!-- IMAGE ZOOM MODAL -->
+    <div id="imgModal" aria-hidden="true">
+      <div class="modal-shell" role="dialog" aria-modal="true" aria-label="Image viewer">
+        <div class="modal-topbar">
+          <div id="imgModalTitle">Image</div>
+          <div class="modal-actions">
+            <button class="modal-btn" id="zoomOutBtn">−</button>
+            <button class="modal-btn" id="zoomInBtn">+</button>
+            <button class="modal-btn" id="zoomResetBtn">Reset</button>
+            <button class="modal-btn" id="zoomFitBtn">Fit</button>
+            <button class="modal-btn" id="imgModalClose">Close</button>
+          </div>
+        </div>
+        <div class="modal-canvas" id="imgCanvas">
+          <img id="imgModalImg" alt="Zoomed reference" />
+        </div>
+      </div>
+    </div>
+
   </body>
 </html>
