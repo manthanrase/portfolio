@@ -555,6 +555,42 @@
         </div>
       </div>
       <!-- VISUAL REFERENCES SECTION -->
+      <section
+        id="visualReferences"
+        style="
+          width: 100%;
+          background: #fff;
+          border-top: 1px solid #e5e7eb;
+          padding: 16px 24px;
+        "
+      >
+        <h3
+          style="
+            font-size: 16px;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 12px;
+          "
+        >
+          📸 Visual References
+        </h3>
+        <p style="font-size: 12px; color: #4b5563; margin-bottom: 16px">
+          Upload research artifacts, screenshots, or diagrams. They will be
+          saved locally in your browser for reference.
+        </p>
+
+        <input
+          type="file"
+          id="imgUpload"
+          accept="image/*"
+          multiple
+          style="margin-bottom: 16px; font-size: 12px"
+        />
+        <div
+          id="imgGallery"
+          style="display: flex; flex-direction: column; gap: 16px"
+        ></div>
+      </section>
 
       <script>
         const GALLERY_KEY = "uxGalleryImages_v1";
@@ -579,9 +615,6 @@
           img.style.borderRadius = "10px";
           img.style.boxShadow = "0 4px 12px rgba(0,0,0,0.1)";
           img.alt = "Reference Image";
-          img.addEventListener("click", () => {
-            openImageModal(src);
-          });
 
           const del = document.createElement("button");
           del.textContent = "✖";
@@ -2564,12 +2597,10 @@
           card.onclick = () => {
             currentTask = task;
             renderDetailsTask();
-
-            // Mobile: open details drawer fullscreen
-            if (window.innerWidth <= 900) {
-              document.body.classList.add("details-open");
-              document.body.classList.remove("sidebar-open");
-            }
+            // On mobile, open the details drawer
+            document.body.classList.add("details-open");
+            // If the sidebar is open, close it so details are visible
+            document.body.classList.remove("sidebar-open");
           };
           wrap.appendChild(card);
         });
@@ -2772,6 +2803,8 @@
 
       /* ===== Mobile UX (sidebar + details drawer) ===== */
       function wireMobileUI() {
+        if (window.__ux_mobile_ui_wired) return;
+        window.__ux_mobile_ui_wired = true;
         const menuBtn = document.getElementById("menuBtn");
         const overlay = document.getElementById("sidebarOverlay");
         const detailClose = document.getElementById("detailClose");
@@ -2865,6 +2898,8 @@
       }
 
       function wireImgModal() {
+        if (window.__ux_img_modal_wired) return;
+        window.__ux_img_modal_wired = true;
         const modal = document.getElementById("imgModal");
         const closeBtn = document.getElementById("imgModalClose");
         const zin = document.getElementById("zoomInBtn");
@@ -2987,26 +3022,6 @@
       renderMainHeader();
       renderCards();
       renderDetailsIntro();
-      wireMobileUI();
-      wireImgModal();
-
-      const modal = document.getElementById("imgModal");
-      const modalImg = document.getElementById("modalImg");
-
-      function openImageModal(src) {
-        modalImg.src = src;
-        document.body.classList.add("img-open");
-      }
-
-      document.getElementById("imgClose").addEventListener("click", () => {
-        document.body.classList.remove("img-open");
-      });
-
-      document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape") {
-          document.body.classList.remove("img-open");
-        }
-      });
     </script>
 
     <!-- IMAGE ZOOM MODAL -->
@@ -3032,5 +3047,11 @@
         </div>
       </div>
     </div>
+
+    <script>
+      // Wire mobile sidebar + details drawer + image zoom ONLY ONCE (after modal exists)
+      wireMobileUI();
+      wireImgModal();
+    </script>
   </body>
 </html>
