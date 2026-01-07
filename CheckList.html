@@ -332,16 +332,18 @@
         position: fixed;
         inset: 0;
         z-index: 80;
-        background: rgba(0,0,0,0.75);
+        background: rgba(0, 0, 0, 0.75);
         padding: 12px;
       }
-      body.img-open #imgModal { display: flex; }
+      body.img-open #imgModal {
+        display: flex;
+      }
       #imgModal .modal-shell {
         margin: auto;
         width: min(100%, 1100px);
         height: min(100%, 780px);
         background: #0b1220;
-        border: 1px solid rgba(255,255,255,0.12);
+        border: 1px solid rgba(255, 255, 255, 0.12);
         border-radius: 16px;
         overflow: hidden;
         display: flex;
@@ -353,8 +355,8 @@
         justify-content: space-between;
         gap: 10px;
         padding: 10px 12px;
-        background: rgba(255,255,255,0.06);
-        border-bottom: 1px solid rgba(255,255,255,0.10);
+        background: rgba(255, 255, 255, 0.06);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         color: #fff;
         font-size: 12px;
       }
@@ -365,15 +367,17 @@
         flex-wrap: wrap;
       }
       .modal-btn {
-        border: 1px solid rgba(255,255,255,0.18);
-        background: rgba(255,255,255,0.08);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        background: rgba(255, 255, 255, 0.08);
         color: #fff;
         padding: 6px 10px;
         border-radius: 10px;
         cursor: pointer;
         font-size: 12px;
       }
-      .modal-btn:active { transform: translateY(1px); }
+      .modal-btn:active {
+        transform: translateY(1px);
+      }
       #imgModal .modal-canvas {
         position: relative;
         flex: 1;
@@ -401,25 +405,34 @@
         background: #fff;
       }
       @media (max-width: 900px) {
-        body { flex-direction: column; height: 100vh; }
+        body {
+          flex-direction: column;
+          height: 100vh;
+        }
         .sidebar {
           position: fixed;
-          top: 0; left: 0; bottom: 0;
+          top: 0;
+          left: 0;
+          bottom: 0;
           z-index: 50;
           width: min(86vw, 320px);
           transform: translateX(-100%);
           transition: transform 0.2s ease;
           padding-bottom: 24px;
         }
-        body.sidebar-open .sidebar { transform: translateX(0); }
+        body.sidebar-open .sidebar {
+          transform: translateX(0);
+        }
         #sidebarOverlay {
           display: none;
           position: fixed;
           inset: 0;
-          background: rgba(0,0,0,0.35);
+          background: rgba(0, 0, 0, 0.35);
           z-index: 40;
         }
-        body.sidebar-open #sidebarOverlay { display: block; }
+        body.sidebar-open #sidebarOverlay {
+          display: block;
+        }
 
         .menu-btn {
           display: inline-flex;
@@ -427,19 +440,27 @@
           justify-content: center;
         }
 
-        .main { height: 100vh; }
+        .main {
+          height: 100vh;
+        }
         .main-header {
           display: flex;
           gap: 10px;
           align-items: flex-start;
           padding: 14px 14px 10px;
         }
-        .header-left { flex: 1; min-width: 0; }
+        .header-left {
+          flex: 1;
+          min-width: 0;
+        }
 
         .cards-area {
           padding: 14px;
           gap: 12px;
-          grid-template-columns: repeat(auto-fill, minmax(min(220px, 100%), 1fr));
+          grid-template-columns: repeat(
+            auto-fill,
+            minmax(min(220px, 100%), 1fr)
+          );
         }
 
         /* Details becomes full-screen drawer on mobile */
@@ -453,8 +474,12 @@
           border-left: none;
           display: none;
         }
-        body.details-open .details-panel { display: flex; }
-        .detail-close { display: inline-flex; }
+        body.details-open .details-panel {
+          display: flex;
+        }
+        .detail-close {
+          display: inline-flex;
+        }
         .details-header {
           display: flex;
           align-items: flex-start;
@@ -477,12 +502,14 @@
     <div id="sidebarOverlay"></div>
     <main class="main">
       <div class="main-header">
-        <button class="menu-btn" id="menuBtn" aria-label="Open stages">☰</button>
+        <button class="menu-btn" id="menuBtn" aria-label="Open stages">
+          ☰
+        </button>
         <div class="header-left">
           <h2 class="main-header-title" id="mainStageTitle">Research</h2>
           <div class="main-header-desc" id="mainStageDesc">
-          Learn the problem and the user before you design anything.
-        </div>
+            Learn the problem and the user before you design anything.
+          </div>
         </div>
       </div>
       <section class="cards-area" id="cardsArea"></section>
@@ -504,7 +531,13 @@
           <h3 class="details-title" id="detailTitle">Select an item</h3>
           <div class="details-next" id="detailNext">Connects to →</div>
         </div>
-        <button class="detail-close" id="detailClose" aria-label="Close details">✕</button>
+        <button
+          class="detail-close"
+          id="detailClose"
+          aria-label="Close details"
+        >
+          ✕
+        </button>
       </div>
       <div class="details-scroll" id="detailBody">
         <div style="color: #6b7280; font-size: 12px; line-height: 1.5">
@@ -522,42 +555,6 @@
         </div>
       </div>
       <!-- VISUAL REFERENCES SECTION -->
-      <section
-        id="visualReferences"
-        style="
-          width: 100%;
-          background: #fff;
-          border-top: 1px solid #e5e7eb;
-          padding: 16px 24px;
-        "
-      >
-        <h3
-          style="
-            font-size: 16px;
-            font-weight: 600;
-            color: #1f2937;
-            margin-bottom: 12px;
-          "
-        >
-          📸 Visual References
-        </h3>
-        <p style="font-size: 12px; color: #4b5563; margin-bottom: 16px">
-          Upload research artifacts, screenshots, or diagrams. They will be
-          saved locally in your browser for reference.
-        </p>
-
-        <input
-          type="file"
-          id="imgUpload"
-          accept="image/*"
-          multiple
-          style="margin-bottom: 16px; font-size: 12px"
-        />
-        <div
-          id="imgGallery"
-          style="display: flex; flex-direction: column; gap: 16px"
-        ></div>
-      </section>
 
       <script>
         const GALLERY_KEY = "uxGalleryImages_v1";
@@ -582,6 +579,9 @@
           img.style.borderRadius = "10px";
           img.style.boxShadow = "0 4px 12px rgba(0,0,0,0.1)";
           img.alt = "Reference Image";
+          img.addEventListener("click", () => {
+            openImageModal(src);
+          });
 
           const del = document.createElement("button");
           del.textContent = "✖";
@@ -2457,7 +2457,7 @@
             },
           ],
         },
-      
+
         {
           id: "references",
           label: "References",
@@ -2466,7 +2466,7 @@
           isReferences: true,
           tasks: [],
         },
-];
+      ];
       let currentStageId = DATA[0].id;
       let currentTask = null;
       function renderStagesList() {
@@ -2490,8 +2490,6 @@
             renderMainHeader();
             renderCards();
             renderDetailsIntro();
-      wireMobileUI();
-      wireImgModal();
           };
           list.appendChild(btn);
         });
@@ -2549,7 +2547,8 @@
 
         // Normal cards grid view
         wrap.style.display = "grid";
-        wrap.style.gridTemplateColumns = "repeat(auto-fill, minmax(min(260px, 100%), 1fr))";
+        wrap.style.gridTemplateColumns =
+          "repeat(auto-fill, minmax(min(260px, 100%), 1fr))";
 
         if (!stage || !stage.tasks) return;
 
@@ -2565,6 +2564,12 @@
           card.onclick = () => {
             currentTask = task;
             renderDetailsTask();
+
+            // Mobile: open details drawer fullscreen
+            if (window.innerWidth <= 900) {
+              document.body.classList.add("details-open");
+              document.body.classList.remove("sidebar-open");
+            }
           };
           wrap.appendChild(card);
         });
@@ -2601,7 +2606,9 @@
           .map(
             (src, i) => `
             <div style="background:#fff; border:1px solid var(--border-card); border-radius:16px; overflow:hidden; position:relative;">
-              <img data-open="${i}" src="${src}" alt="UX reference ${i + 1}" style="width:100%; height:auto; display:block; cursor: zoom-in;" />
+              <img data-open="${i}" src="${src}" alt="UX reference ${
+              i + 1
+            }" style="width:100%; height:auto; display:block; cursor: zoom-in;" />
               <button data-del="${i}" title="Delete"
                 style="position:absolute; top:10px; right:10px; border:none; cursor:pointer; padding:6px 10px; border-radius:999px; background:rgba(17,24,39,.85); color:#fff; font-size:12px;">
                 Delete
@@ -2629,7 +2636,6 @@
             openImgModal(arr[idx], `UX reference ${idx + 1}`);
           });
         });
-
       }
 
       function wireReferenceGallery() {
@@ -2649,7 +2655,9 @@
             for (const f of files) {
               // basic size guard (localStorage limits)
               if (f.size > 2.5 * 1024 * 1024) {
-                alert(`"${f.name}" is >2.5MB. Please compress/crop it before saving.`);
+                alert(
+                  `"${f.name}" is >2.5MB. Please compress/crop it before saving.`
+                );
                 continue;
               }
               const dataUrl = await fileToDataUrl(f);
@@ -2663,8 +2671,14 @@
 
         if (exp) {
           exp.addEventListener("click", () => {
-            const payload = { version: 1, savedAt: new Date().toISOString(), images: getRefImages() };
-            const blob = new Blob([JSON.stringify(payload)], { type: "application/json" });
+            const payload = {
+              version: 1,
+              savedAt: new Date().toISOString(),
+              images: getRefImages(),
+            };
+            const blob = new Blob([JSON.stringify(payload)], {
+              type: "application/json",
+            });
             const a = document.createElement("a");
             a.href = URL.createObjectURL(blob);
             a.download = "ux-reference-gallery.json";
@@ -2684,7 +2698,9 @@
               const parsed = JSON.parse(text);
               const imgs = Array.isArray(parsed.images) ? parsed.images : [];
               // merge + dedupe
-              const merged = [...new Set([...getRefImages(), ...imgs])].slice(-60);
+              const merged = [...new Set([...getRefImages(), ...imgs])].slice(
+                -60
+              );
               setRefImages(merged);
               imp.value = "";
               renderRefGallery();
@@ -2753,7 +2769,7 @@
           t.link || "#"
         }" target="_blank" rel="noopener">${t.link || "—"}</a></div>`;
       }
-      
+
       /* ===== Mobile UX (sidebar + details drawer) ===== */
       function wireMobileUI() {
         const menuBtn = document.getElementById("menuBtn");
@@ -2823,8 +2839,7 @@
       function applyImgTransform() {
         const img = document.getElementById("imgModalImg");
         if (!img) return;
-        img.style.transform =
-          `translate(calc(-50% + ${_imgState.tx}px), calc(-50% + ${_imgState.ty}px)) scale(${_imgState.scale})`;
+        img.style.transform = `translate(calc(-50% + ${_imgState.tx}px), calc(-50% + ${_imgState.ty}px)) scale(${_imgState.scale})`;
       }
 
       function clampScale(s) {
@@ -2867,20 +2882,38 @@
           });
         }
 
-        if (zin) zin.addEventListener("click", () => { _imgState.scale = clampScale(_imgState.scale * 1.15); applyImgTransform(); });
-        if (zout) zout.addEventListener("click", () => { _imgState.scale = clampScale(_imgState.scale / 1.15); applyImgTransform(); });
-        if (zreset) zreset.addEventListener("click", () => { _imgState = { scale: 1, tx: 0, ty: 0 }; applyImgTransform(); });
+        if (zin)
+          zin.addEventListener("click", () => {
+            _imgState.scale = clampScale(_imgState.scale * 1.15);
+            applyImgTransform();
+          });
+        if (zout)
+          zout.addEventListener("click", () => {
+            _imgState.scale = clampScale(_imgState.scale / 1.15);
+            applyImgTransform();
+          });
+        if (zreset)
+          zreset.addEventListener("click", () => {
+            _imgState = { scale: 1, tx: 0, ty: 0 };
+            applyImgTransform();
+          });
         if (zfit) zfit.addEventListener("click", fitImgToView);
 
         if (!canvas) return;
 
         // wheel zoom (desktop)
-        canvas.addEventListener("wheel", (e) => {
-          e.preventDefault();
-          const dir = Math.sign(e.deltaY);
-          _imgState.scale = clampScale(_imgState.scale * (dir > 0 ? 0.92 : 1.08));
-          applyImgTransform();
-        }, { passive: false });
+        canvas.addEventListener(
+          "wheel",
+          (e) => {
+            e.preventDefault();
+            const dir = Math.sign(e.deltaY);
+            _imgState.scale = clampScale(
+              _imgState.scale * (dir > 0 ? 0.92 : 1.08)
+            );
+            applyImgTransform();
+          },
+          { passive: false }
+        );
 
         // pointer-based drag + pinch
         canvas.addEventListener("pointerdown", (e) => {
@@ -2941,7 +2974,8 @@
           };
         }
         function dist(a, b) {
-          const dx = a.x - b.x, dy = a.y - b.y;
+          const dx = a.x - b.x,
+            dy = a.y - b.y;
           return Math.sqrt(dx * dx + dy * dy);
         }
         function midpoint(a, b) {
@@ -2953,11 +2987,36 @@
       renderMainHeader();
       renderCards();
       renderDetailsIntro();
+      wireMobileUI();
+      wireImgModal();
+
+      const modal = document.getElementById("imgModal");
+      const modalImg = document.getElementById("modalImg");
+
+      function openImageModal(src) {
+        modalImg.src = src;
+        document.body.classList.add("img-open");
+      }
+
+      document.getElementById("imgClose").addEventListener("click", () => {
+        document.body.classList.remove("img-open");
+      });
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+          document.body.classList.remove("img-open");
+        }
+      });
     </script>
-  
+
     <!-- IMAGE ZOOM MODAL -->
     <div id="imgModal" aria-hidden="true">
-      <div class="modal-shell" role="dialog" aria-modal="true" aria-label="Image viewer">
+      <div
+        class="modal-shell"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Image viewer"
+      >
         <div class="modal-topbar">
           <div id="imgModalTitle">Image</div>
           <div class="modal-actions">
@@ -2973,6 +3032,5 @@
         </div>
       </div>
     </div>
-
   </body>
 </html>
