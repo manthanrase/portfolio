@@ -500,7 +500,7 @@
 }
 
 .book-content h3 {
-  font-family: font-primary !important;
+  font-family: font-accent;
   letter-spacing: -0.5px;
 }
 
@@ -533,6 +533,29 @@
   border: none;
 }
 
+.buy-btn-1 {
+  background: transparent;
+  border: 1px solid #cecece;
+  color: #000000;
+  padding: 8px 26px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  display: flex;
+  margin: auto;
+  text-decoration: none;
+  font-family: font-accent;
+}
+
+.buy-btn-1:hover {
+  background: #a37eff;
+  color: #ffffff;
+  border: 1px solid #a37eff;
+}
+.btn-decor a {
+  text-decoration: none;
+}
 /* -- Context section -------- */
 
 .context-section {
@@ -722,7 +745,7 @@
   font-family: serif;
   font-size: 2.2rem;
   font-style: italic;
-  color: #222;
+  color: #000000;
   margin: 0 auto 20px;
   max-width: 700px;
 }
