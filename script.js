@@ -158,3 +158,97 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
+
+const audio = document.getElementById("bgAudio");
+const btn = document.getElementById("music-3d-btn");
+
+function setVisualState(isPlaying) {
+  if (isPlaying) {
+    btn.classList.add("is-playing"); // Triggers float animation & particles
+  } else {
+    btn.classList.remove("is-playing"); // Stops everything
+  }
+}
+
+// Auto-play attempt
+window.addEventListener("load", () => {
+  const playPromise = audio.play();
+  if (playPromise !== undefined) {
+    playPromise
+      .then(() => {
+        setVisualState(true);
+      })
+      .catch(() => {
+        console.log("Auto-play blocked. Click to play.");
+        setVisualState(false);
+      });
+  }
+});
+
+// Click Handler
+btn.addEventListener("click", () => {
+  if (audio.paused) {
+    audio.play();
+    setVisualState(true);
+  } else {
+    audio.pause();
+    setVisualState(false);
+  }
+});
+
+// music button ------
+
+const audio = document.getElementById("bgAudio");
+const btn = document.getElementById("music-3d-btn");
+
+function setVisualState(isPlaying) {
+  if (isPlaying) {
+    btn.classList.add("is-playing");
+  } else {
+    btn.classList.remove("is-playing");
+  }
+}
+
+// 1. Attempt Auto-Play on Load (Will likely fail, but worth a try)
+window.addEventListener("load", () => {
+  audio.volume = 1.0;
+  audio
+    .play()
+    .then(() => {
+      setVisualState(true);
+    })
+    .catch(() => {
+      console.log("Auto-play blocked. Waiting for user interaction.");
+    });
+});
+
+// 2. THE TRICK: Start music on the FIRST click anywhere on the website
+document.body.addEventListener(
+  "click",
+  function startMusic() {
+    if (audio.paused) {
+      audio
+        .play()
+        .then(() => {
+          setVisualState(true);
+          // Remove this listener so it doesn't interfere later
+          document.body.removeEventListener("click", startMusic);
+        })
+        .catch((e) => console.log(e));
+    }
+  },
+  { once: true }
+); // This ensures it only runs once
+
+// 3. The Button Click (Manual Toggle)
+// We use 'e.stopPropagation()' to prevent the document click from firing instantly
+btn.addEventListener("click", (e) => {
+  e.stopPropagation();
+  if (audio.paused) {
+    audio.play();
+    setVisualState(true);
+  } else {
+    audio.pause();
+    setVisualState(false);
+  }
+});

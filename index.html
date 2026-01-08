@@ -11,6 +11,122 @@
       integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
       crossorigin="anonymous"
     />
+    <style>
+      /* --- 1. The 3D Button Container --- */
+      #music-3d-btn {
+        position: fixed;
+        bottom: 40px;
+        right: 40px;
+        z-index: 9999;
+        width: 60px;
+        height: 60px;
+        border-radius: 44px;
+        border: none;
+        cursor: pointer;
+        outline: none;
+        padding: 0;
+        background-color: #6c5ce7;
+        box-shadow: 0 6px 0px #a29bfe, 0 20px 30px rgba(0, 0, 0, 0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: visible;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      /* --- 2. Animations --- */
+
+      /* Define the floating (bobbing) animation */
+      @keyframes btnFloat {
+        0% {
+          transform: translateY(0px);
+        }
+        50% {
+          transform: translateY(-8px);
+        } /* Moves up */
+        100% {
+          transform: translateY(0px);
+        }
+      }
+
+      /* Apply floating ONLY when music is playing */
+      #music-3d-btn.is-playing {
+        animation: btnFloat 2.5s ease-in-out infinite;
+      }
+
+      /* --- 3. Interaction States --- */
+
+      /* Hover (Mouse Over) */
+      #music-3d-btn:hover {
+        /* STOP the floating animation so it's easy to click */
+        animation: none;
+        /* Lift the button up to hover position */
+        transform: translateY(-2px);
+        box-shadow: 0 11px 0px #a29bfe, 0 10px 40px rgba(0, 0, 0, 0.4);
+      }
+
+      /* Active (Clicking Down) */
+      #music-3d-btn:active {
+        animation: none;
+        transform: translateY(6px); /* Push down */
+        box-shadow: 0 8px 0px #a29bfe, 0 10px 20px rgba(0, 0, 0, 0.3);
+      }
+
+      /* --- 4. The Icon --- */
+      .music-icon-svg {
+        width: 50%;
+        height: 50%;
+        fill: #fd79a8; /* Pink */
+        filter: drop-shadow(0px 4px 0px #e84393); /* 3D depth on icon */
+        transition: transform 0.1s;
+      }
+
+      #music-3d-btn:active .music-icon-svg {
+        transform: scale(0.95);
+      }
+
+      /* --- 5. Particle System --- */
+      .particle {
+        position: absolute;
+        top: 10%;
+        width: 8px;
+        height: 8px;
+        background-color: #fd79a8;
+        border-radius: 50%;
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      @keyframes particleRise {
+        0% {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
+        100% {
+          opacity: 0;
+          transform: translateY(-50px) scale(0.5);
+        }
+      }
+
+      /* Only animate particles if 'is-playing' class is there */
+      #music-3d-btn.is-playing .particle {
+        animation: particleRise 2s infinite ease-out;
+      }
+
+      /* Randomize particle starts */
+      .particle:nth-child(2) {
+        left: 20%;
+        animation-delay: 0s;
+      }
+      .particle:nth-child(3) {
+        left: 50%;
+        animation-delay: 0.7s;
+      }
+      .particle:nth-child(4) {
+        left: 80%;
+        animation-delay: 1.4s;
+      }
+    </style>
   </head>
   <body>
     <!-- navbar content  -->
@@ -678,9 +794,70 @@
    Coded with love 💜
   </p>
   <p class="thank-you-signoff">— Manthan Rase</p>
-</section>
+      </section>
         </section>  
 
+        <!-- music button ---- -->
+        
+        <audio id="bgAudio" src="guiter.mp3" loop></audio>
+
+    <button id="music-3d-btn">
+      <svg class="music-icon-svg" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z" />
+      </svg>
+      <span class="particle"></span>
+      <span class="particle"></span>
+      <span class="particle"></span>
+    </button>
+
+    <script src="script.js"></script>
+    
+    <script>
+      const audio = document.getElementById("bgAudio");
+      const btn = document.getElementById("music-3d-btn");
+
+      function setVisualState(isPlaying) {
+        if (isPlaying) {
+          btn.classList.add("is-playing");
+        } else {
+          btn.classList.remove("is-playing");
+        }
+      }
+
+      // 1. Try to Auto-Play on Load
+      window.addEventListener("load", () => {
+        // We set volume to 100% just in case
+        audio.volume = 1.0; 
+        
+        const playPromise = audio.play();
+        if (playPromise !== undefined) {
+          playPromise
+            .then(() => {
+              // Success!
+              setVisualState(true);
+            })
+            .catch((error) => {
+              // Auto-play blocked. This is normal.
+              // The user must click the button to start.
+              console.log("Auto-play blocked by browser. User must click.");
+              setVisualState(false);
+            });
+        }
+      });
+
+      // 2. Click Handler
+      btn.addEventListener("click", () => {
+        if (audio.paused) {
+          audio.play();
+          setVisualState(true);
+        } else {
+          audio.pause();
+          setVisualState(false);
+        }
+      });
+    </script>
+</body>
+</html>
 
     <!-- WRITE CODE ABOVE ONLY -------->
     </div>
@@ -692,5 +869,43 @@
 
 
     <script src="script.js"></script>
+    <script>
+      const audio = document.getElementById("bgAudio");
+      const btn = document.getElementById("music-3d-btn");
+
+      function setVisualState(isPlaying) {
+        if (isPlaying) {
+          btn.classList.add("is-playing"); // Triggers float animation & particles
+        } else {
+          btn.classList.remove("is-playing"); // Stops everything
+        }
+      }
+
+      // Auto-play attempt
+      window.addEventListener("load", () => {
+        const playPromise = audio.play();
+        if (playPromise !== undefined) {
+          playPromise
+            .then(() => {
+              setVisualState(true);
+            })
+            .catch(() => {
+              console.log("Auto-play blocked. Click to play.");
+              setVisualState(false);
+            });
+        }
+      });
+
+      // Click Handler
+      btn.addEventListener("click", () => {
+        if (audio.paused) {
+          audio.play();
+          setVisualState(true);
+        } else {
+          audio.pause();
+          setVisualState(false);
+        }
+      });
+    </script>
   </body>
 </html>

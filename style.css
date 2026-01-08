@@ -1295,6 +1295,122 @@
   color: #a37eff;
 }
 
+/* music button  */
+/* --- 1. The 3D Button Container --- */
+#music-3d-btn {
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+  z-index: 9999;
+  width: 50px;
+  height: 50px;
+  border-radius: 44px;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  padding: 0;
+  background-color: #6c5ce7;
+  box-shadow: 0 6px 0px #a29bfe, 0 20px 30px rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* --- 2. Animations --- */
+
+/* Define the floating (bobbing) animation */
+@keyframes btnFloat {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  } /* Moves up */
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+/* Apply floating ONLY when music is playing */
+#music-3d-btn.is-playing {
+  animation: btnFloat 2.5s ease-in-out infinite;
+}
+
+/* --- 3. Interaction States --- */
+
+/* Hover (Mouse Over) */
+#music-3d-btn:hover {
+  /* STOP the floating animation so it's easy to click */
+  animation: none;
+  /* Lift the button up to hover position */
+  transform: translateY(-2px);
+  box-shadow: 0 11px 0px #a29bfe, 0 10px 40px rgba(0, 0, 0, 0.4);
+}
+
+/* Active (Clicking Down) */
+#music-3d-btn:active {
+  animation: none;
+  transform: translateY(6px); /* Push down */
+  box-shadow: 0 8px 0px #a29bfe, 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* --- 4. The Icon --- */
+.music-icon-svg {
+  width: 50%;
+  height: 50%;
+  fill: #ffffff;
+  filter: drop-shadow(0px 4px 0px #a29bfe);
+  transition: transform 0.1s;
+}
+
+#music-3d-btn:active .music-icon-svg {
+  transform: scale(0.95);
+}
+
+/* --- 5. Particle System --- */
+.particle {
+  position: absolute;
+  top: 10%;
+  width: 8px;
+  height: 8px;
+  background-color: #b940ff;
+  border-radius: 50%;
+  opacity: 0;
+  pointer-events: none;
+}
+
+@keyframes particleRise {
+  0% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-50px) scale(0.5);
+  }
+}
+
+/* Only animate particles if 'is-playing' class is there */
+#music-3d-btn.is-playing .particle {
+  animation: particleRise 2s infinite ease-out;
+}
+
+/* Randomize particle starts */
+.particle:nth-child(2) {
+  left: 20%;
+  animation-delay: 0s;
+}
+.particle:nth-child(3) {
+  left: 50%;
+  animation-delay: 0.7s;
+}
+.particle:nth-child(4) {
+  left: 80%;
+  animation-delay: 1.4s;
+}
+
 /* Mobile responsive ==============================>>>>>> */
 
 @media only screen and (max-width: 768px) {
