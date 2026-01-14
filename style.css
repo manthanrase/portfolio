@@ -232,6 +232,22 @@
   background: linear-gradient(to top, #edebeb, #f9e8d1);
   filter: grayscale(0);
 }
+.parkIQ {
+  text-align: center;
+  background-color: #edebeb;
+  padding: 16px;
+  border-radius: 34px;
+  cursor: pointer;
+  transition: all 450ms;
+  margin: 36px 24px;
+  /* filter: grayscale(100%); */
+}
+
+.parkIQ:hover {
+  animation: shake 1s;
+  background: linear-gradient(to top, #edebeb, #b7f99e);
+  filter: grayscale(0);
+}
 
 .blue {
   text-align: center;
