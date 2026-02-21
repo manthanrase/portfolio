@@ -18,24 +18,116 @@
   const root = document.createElement("div");
   root.id = "mr-chatbot";
   root.innerHTML = `
-    <div class="panel" role="dialog" aria-label="Portfolio chat">
-      <div class="header">
-        <div class="title">
-          <b>Ask about my work</b>
-          <span>Projects, process, skills</span>
-        </div>
-        <button class="close" aria-label="Close">×</button>
+    <div id="mr-chatbot">
+  <div class="panel" aria-hidden="true">
+    <div class="header">
+      <div class="title">
+        <b>Chat</b>
+        <span>Ask about Manthan</span>
       </div>
-      <div class="messages"></div>
-      <div class="hint">Try: “Tell me about UXLens-AI”</div>
-      <div class="footer">
-        <input type="text" placeholder="Type a question…" />
-        <button class="send">Send</button>
-      </div>
+      <button class="close" type="button" aria-label="Close">×</button>
     </div>
-    <button class="fab" aria-label="Open chat"><img src="AI-chat.svg" alt="" srcset="" ></button>
-  `;
 
+    <div class="messages" id="mr-messages"></div>
+
+    <div class="footer">
+      <input id="mr-input" type="text" placeholder="Type a message…" />
+      <button class="send" id="mr-send" type="button">Send</button>
+    </div>
+
+    <div class="hint">Tip: click the bubble to open/close</div>
+  </div>
+
+  <button class="fab" aria-label="Open chat"><img src="AI-chat.svg" alt="" srcset="" ></button>
+</div>
+    
+  `;
+  // (() => {
+  //   const root = document.getElementById("mr-chatbot");
+  //   const fab = document.getElementById("mr-fab");
+  //   const closeBtn = root?.querySelector(".close");
+  //   const panel = root?.querySelector(".panel");
+
+  //   if (!root || !fab || !panel) return;
+
+  //   const STORAGE_KEY = "mr_chat_messages_v1";
+
+  //   // --- Helpers
+  //   const isOpen = () => root.classList.contains("open");
+
+  //   const setOpen = (open) => {
+  //     root.classList.toggle("open", open);
+  //     panel.setAttribute("aria-hidden", open ? "false" : "true");
+  //     fab.setAttribute("aria-expanded", open ? "true" : "false");
+  //   };
+
+  //   // Toggle on bubble click (open <-> close)
+  //   fab.addEventListener("click", (e) => {
+  //     e.preventDefault();
+  //     setOpen(!isOpen());
+  //   });
+
+  //   // Close button should only close (not destroy)
+  //   closeBtn?.addEventListener("click", (e) => {
+  //     e.preventDefault();
+  //     setOpen(false);
+  //   });
+
+  //   // Optional: close on Escape
+  //   document.addEventListener("keydown", (e) => {
+  //     if (e.key === "Escape" && isOpen()) setOpen(false);
+  //   });
+
+  //   // --- OPTIONAL: persist messages across refresh (remove if not needed)
+  //   const messagesEl = document.getElementById("mr-messages");
+
+  //   const saveMessages = () => {
+  //     if (!messagesEl) return;
+  //     const msgs = [...messagesEl.querySelectorAll(".msg")].map((node) => ({
+  //       role: node.classList.contains("user") ? "user" : "bot",
+  //       text: node.textContent || "",
+  //     }));
+  //     localStorage.setItem(STORAGE_KEY, JSON.stringify(msgs));
+  //   };
+
+  //   const loadMessages = () => {
+  //     if (!messagesEl) return;
+  //     const raw = localStorage.getItem(STORAGE_KEY);
+  //     if (!raw) return;
+  //     try {
+  //       const msgs = JSON.parse(raw);
+  //       msgs.forEach((m) => appendMsg(m.role, m.text, false));
+  //       scrollToBottom();
+  //     } catch {}
+  //   };
+
+  //   const appendMsg = (role, text, shouldSave = true) => {
+  //     if (!messagesEl) return;
+  //     const div = document.createElement("div");
+  //     div.className = `msg ${role}`;
+  //     div.textContent = text;
+  //     messagesEl.appendChild(div);
+  //     scrollToBottom();
+  //     if (shouldSave) saveMessages();
+  //   };
+
+  //   const scrollToBottom = () => {
+  //     if (!messagesEl) return;
+  //     messagesEl.scrollTop = messagesEl.scrollHeight;
+  //   };
+
+  //   // Load persisted chat
+  //   loadMessages();
+
+  //   // Example usage (remove if you already have chat send logic)
+  //   // appendMsg("bot", "Hi! Ask me about Manthan’s work.", true);
+
+  //   // Keep panel closed initially
+  //   setOpen(false);
+
+  //   // Expose helper if you want to append from your existing code:
+  //   window.mrChatAppendMsg = appendMsg;
+  // })();
   document.body.appendChild(root);
 
   const panel = root.querySelector(".panel");
@@ -60,8 +152,25 @@
     if (open) setTimeout(() => input.focus(), 50);
   }
 
-  fab.addEventListener("click", () => setOpen(true));
-  closeBtn.addEventListener("click", () => setOpen(false));
+  function isOpen() {
+    return root.classList.contains("open");
+  }
+
+  function setOpen(open) {
+    root.classList.toggle("open", open);
+    panel.setAttribute("aria-hidden", open ? "false" : "true");
+    if (open) setTimeout(() => input.focus(), 50);
+  }
+
+  // 🔁 Toggle when bubble clicked
+  fab.addEventListener("click", () => {
+    setOpen(!isOpen());
+  });
+
+  // ❌ Close button only closes
+  closeBtn.addEventListener("click", () => {
+    setOpen(false);
+  });
 
   async function send() {
     const text = input.value.trim();
