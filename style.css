@@ -1335,11 +1335,11 @@
 /* --- 1. The 3D Button Container --- */
 #music-3d-btn {
   position: fixed;
-  bottom: 20px;
+  bottom: 40px;
   right: 20px;
   z-index: 9999;
-  width: 50px;
-  height: 50px;
+  width: 56px;
+  height: 56px;
   border-radius: 44px;
   border: none;
   cursor: pointer;
@@ -1383,7 +1383,7 @@
 /* Hover (Mouse Over) */
 #music-3d-btn:hover {
   /* STOP the floating animation so it's easy to click */
-  animation: none;
+  /* animation: none; */
   /* Lift the button up to hover position */
   transform: translateY(-2px);
   box-shadow:
@@ -1419,7 +1419,7 @@
   top: 10%;
   width: 8px;
   height: 8px;
-  background-color: #b940ff;
+  background-color: #fd79a8;
   border-radius: 50%;
   opacity: 0;
   pointer-events: none;
@@ -1462,6 +1462,21 @@
     margin: auto 0;
     justify-content: center !important;
     font-size: 12px;
+  }
+
+  #music-3d-btn {
+    bottom: 92px;
+    right: 12px;
+    z-index: 9999;
+    width: 56px;
+    height: 56px;
+  }
+
+  #music-3d-btn:hover {
+    transform: translateY(-2px);
+    box-shadow:
+      0 5px 0px #a29bfe,
+      0 10px 40px rgba(0, 0, 0, 0.4);
   }
 
   .center-item {
