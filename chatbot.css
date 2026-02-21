@@ -39,7 +39,6 @@
     padding: 12px;
     overflow: auto;
     flex: 1;
-    gap: 10px !important;
   }
 
   #mr-chatbot .panel {
@@ -120,9 +119,6 @@
   padding: 12px;
   overflow: auto;
   flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
 }
 
 #mr-chatbot .msg {
@@ -133,6 +129,7 @@
   line-height: 1.35;
   white-space: pre-wrap;
   word-wrap: break-word;
+  margin: 12px 0px;
 }
 
 #mr-chatbot .msg.user {
