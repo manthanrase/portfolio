@@ -44,7 +44,7 @@
 
   #mr-chatbot .panel {
     width: max-content !important;
-    height: max-content !important;
+    max-height: calc(100vh - 120px) !important;
   }
 }
 
