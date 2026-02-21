@@ -43,6 +43,7 @@
   }
 
   #mr-chatbot .panel {
+    width: max-content !important;
     height: max-content !important;
   }
 }
