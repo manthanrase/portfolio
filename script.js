@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       });
     },
-    { threshold: 0.1 }
+    { threshold: 0.1 },
   );
 
   document
@@ -56,16 +56,16 @@ updateSlidePosition();
 // persona scrolling
 
 const personaTrack = document.querySelector(
-  "#persona-carousel .carousel-track"
+  "#persona-carousel .carousel-track",
 );
 const personaSlides = document.querySelectorAll(
-  "#persona-carousel .carousel-slide"
+  "#persona-carousel .carousel-slide",
 );
 const personaPrev = document.querySelector(
-  "#persona-carousel .carousel-button.prev"
+  "#persona-carousel .carousel-button.prev",
 );
 const personaNext = document.querySelector(
-  "#persona-carousel .carousel-button.next"
+  "#persona-carousel .carousel-button.next",
 );
 
 let personaIndex = 0;
@@ -237,7 +237,7 @@ document.body.addEventListener(
         .catch((e) => console.log(e));
     }
   },
-  { once: true }
+  { once: true },
 ); // This ensures it only runs once
 
 // 3. The Button Click (Manual Toggle)
@@ -252,3 +252,97 @@ btn.addEventListener("click", (e) => {
     setVisualState(false);
   }
 });
+
+// chatbot js -------
+
+(() => {
+  // ✅ CHANGE THIS to your deployed endpoint
+  const CHAT_ENDPOINT = "https://your-vercel-app.vercel.app/api/chat";
+
+  const fab = document.getElementById("ai-fab");
+  const panel = document.getElementById("ai-panel");
+  const closeBtn = document.getElementById("ai-close");
+
+  const messagesEl = document.getElementById("ai-messages");
+  const input = document.getElementById("ai-input");
+  const sendBtn = document.getElementById("ai-send");
+
+  const history = []; // store { role: "user"|"assistant", content: "..." }
+
+  function addMsg(text, who) {
+    const div = document.createElement("div");
+    div.className = `ai-msg ${who === "user" ? "ai-user" : "ai-bot"}`;
+    div.textContent = text;
+    messagesEl.appendChild(div);
+    messagesEl.scrollTop = messagesEl.scrollHeight;
+  }
+
+  function open() {
+    panel.classList.remove("hidden");
+    if (messagesEl.children.length === 0) {
+      addMsg(
+        "Hey! Ask me anything about my projects, process, or tools.",
+        "bot",
+      );
+    }
+    setTimeout(() => input.focus(), 0);
+  }
+
+  function close() {
+    panel.classList.add("hidden");
+  }
+
+  async function send() {
+    const text = (input.value || "").trim();
+    if (!text) return;
+
+    input.value = "";
+    addMsg(text, "user");
+    history.push({ role: "user", content: text });
+
+    // typing placeholder
+    const typingId = `typing-${Date.now()}`;
+    const typingEl = document.createElement("div");
+    typingEl.className = "ai-msg ai-bot";
+    typingEl.id = typingId;
+    typingEl.textContent = "Typing…";
+    messagesEl.appendChild(typingEl);
+    messagesEl.scrollTop = messagesEl.scrollHeight;
+
+    try {
+      const resp = await fetch(CHAT_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          message: text,
+          conversationHistory: history,
+        }),
+      });
+
+      if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+
+      const data = await resp.json();
+      const answer = data?.response || data?.text || "I didn’t get a response.";
+
+      document.getElementById(typingId)?.remove();
+      addMsg(answer, "bot");
+      history.push({ role: "assistant", content: answer });
+    } catch (e) {
+      document.getElementById(typingId)?.remove();
+      addMsg(
+        "Something went wrong talking to the AI backend. Please try again.",
+        "bot",
+      );
+      console.error(e);
+    }
+  }
+
+  fab.addEventListener("click", open);
+  closeBtn.addEventListener("click", close);
+
+  sendBtn.addEventListener("click", send);
+  input.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") send();
+    if (e.key === "Escape") close();
+  });
+})();

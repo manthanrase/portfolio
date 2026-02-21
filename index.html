@@ -128,6 +128,32 @@
       }
     </style>
   </head>
+
+  <!-- AI Chat Widget -->
+<div id="ai-chat">
+  <button id="ai-fab" aria-label="Open AI chat">💬</button>
+
+  <div id="ai-panel" class="hidden" role="dialog" aria-modal="true">
+    <div id="ai-header">
+      <div>
+        <div id="ai-title">Ask about my work & process</div>
+        <div id="ai-subtitle">Fast answers from my portfolio</div>
+      </div>
+      <button id="ai-close" aria-label="Close">✕</button>
+    </div>
+
+    <div id="ai-messages"></div>
+
+    <div id="ai-inputRow">
+      <input id="ai-input" type="text" placeholder="Ask something…" />
+      <button id="ai-send">Send</button>
+    </div>
+
+    <div id="ai-hint">
+      Try: “What is UXLens-AI?” • “Show your UX process” • “What tools do you use?”
+    </div>
+  </div>
+</div>
   <body>
     <!-- navbar content  -->
     <div class="container">
