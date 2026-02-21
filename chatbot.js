@@ -121,5 +121,8 @@
   });
 
   // Welcome message
-  addMessage("Hey! Ask me about my projects, UX process, or skills.", "bot");
+  addMessage(
+    "Hey! I am Manthan. Ask me about my projects, UX process, or skills.",
+    "bot",
+  );
 })();
