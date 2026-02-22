@@ -21,6 +21,8 @@
     <div id="mr-chatbot">
   <div class="panel" aria-hidden="true">
     <div class="header">
+      <img src="AI-chat.svg" alt="" srcset="" style="    width: 20px;
+    margin-right: 4px;" >
       <div class="title">
         <b>Ask about Manthan's work</b>
         <span>Powered by AI</span>
