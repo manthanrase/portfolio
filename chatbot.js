@@ -22,10 +22,10 @@
   <div class="panel" aria-hidden="true">
     <div class="header">
       <div class="title">
-        <b>Chat</b>
-        <span>Ask about Manthan</span>
+        <b>Ask about Manthan's work</b>
+        <span>Powered by AI</span>
       </div>
-      <button class="close" type="button" aria-label="Close">×</button>
+      <button class="close" type="button" aria-label="Close"><img src="cancel.svg" alt="" srcset=""></button>
     </div>
 
     <div class="messages" id="mr-messages"></div>
@@ -35,7 +35,6 @@
       <button class="send" id="mr-send" type="button">Send</button>
     </div>
 
-    <div class="hint">Tip: click the bubble to open/close</div>
   </div>
 
   <button class="fab" aria-label="Open chat"><img src="AI-chat.svg" alt="" srcset="" ></button>
@@ -147,19 +146,29 @@
     messagesEl.scrollTop = messagesEl.scrollHeight;
   }
 
-  function setOpen(open) {
-    root.classList.toggle("open", open);
-    if (open) setTimeout(() => input.focus(), 50);
-  }
-
   function isOpen() {
     return root.classList.contains("open");
   }
 
   function setOpen(open) {
-    root.classList.toggle("open", open);
-    panel.setAttribute("aria-hidden", open ? "false" : "true");
-    if (open) setTimeout(() => input.focus(), 50);
+    if (open) {
+      panel.classList.remove("closing");
+      root.classList.add("open");
+      panel.setAttribute("aria-hidden", "false");
+      setTimeout(() => input.focus(), 50);
+    } else {
+      if (!root.classList.contains("open")) return;
+      panel.classList.add("closing");
+      panel.addEventListener(
+        "animationend",
+        () => {
+          panel.classList.remove("closing");
+          root.classList.remove("open");
+          panel.setAttribute("aria-hidden", "true");
+        },
+        { once: true },
+      );
+    }
   }
 
   // 🔁 Toggle when bubble clicked
@@ -230,5 +239,19 @@
   });
 
   // Welcome message
-  addMessage("Hey! I am Manthan. Ask me about my projects, or skills.", "bot");
+  addMessage(
+    "Hey! I am Manthan's Portfolio Assistant. How are you doing today?.",
+    "bot",
+  );
 })();
+
+const input = document.querySelector("#mr-chatbot input");
+const sendBtn = document.querySelector("#mr-chatbot button.send");
+
+input.addEventListener("input", () => {
+  if (input.value.trim().length > 0) {
+    sendBtn.classList.add("active");
+  } else {
+    sendBtn.classList.remove("active");
+  }
+});
